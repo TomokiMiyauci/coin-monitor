@@ -1,3 +1,0 @@
-{
-  "extends": ["gitmoji", "@commitlint/config-lerna-scopes"]
-}
