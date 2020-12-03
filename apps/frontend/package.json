@@ -1,0 +1,46 @@
+{
+  "name": "frontend",
+  "version": "0.0.0",
+  "author": "TomokiMiyauci",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint:markup": "vti diagnostics",
+    "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore .",
+    "lint:style": "stylelint src/**/*.{css,scss,vue}"
+  },
+  "private": true,
+  "dependencies": {
+    "vue": "^3.0.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "@vue/compiler-sfc": "^3.0.4",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "eslint": "^7.14.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "eslint-plugin-vue": "^7.1.0",
+    "lint-staged": "^10.5.2",
+    "sass": "^1.29.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-standard": "^20.0.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "typescript": "^4.1.2",
+    "vite": "^1.0.0-rc.13",
+    "vti": "^0.0.19"
+  },
+  "lint-staged": {
+    "*.{ts,vue}": "eslint --fix",
+    "*.{css,scss,vue}": "stylelint --fix",
+    "*": "prettier -w -u"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-emoji"
+    }
+  }
+}
