@@ -1,6 +1,6 @@
 <template>
   <default>
-    <CurrentBoard :value="result" />
+    <CurrentBoard v-if="result" :value="result" />
   </default>
 </template>
 
