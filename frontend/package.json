@@ -33,6 +33,7 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^4.1.2",
     "vite": "^1.0.0-rc.13",
+    "vite-plugin-svg": "^0.7.0",
     "vti": "^0.0.19"
   },
   "lint-staged": {
