@@ -2,7 +2,7 @@ import ky from 'ky'
 import { Plugin, inject, InjectionKey } from 'vue'
 
 const instance = ky.create({
-  prefixUrl: import.meta.env.VITE_BASE_URL,
+  prefixUrl: 'https://coin-monitor-api.tomoki-miyauci.vercel.app',
 })
 
 const plugin: Plugin = {
