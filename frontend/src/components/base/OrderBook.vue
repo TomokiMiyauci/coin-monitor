@@ -21,21 +21,21 @@
       </tr>
     </tbody>
 
-    <tbody v-for="({ amount, rate }, i) in asks" :key="i">
+    <tbody v-for="(ask, i) in asks" :key="i">
       <tr>
         <td class="px-5 py-1">
-          <comma-filter class="text-red-600" :value="rate" />
+          <comma-filter class="text-red-600" :value="ask[0]" />
         </td>
-        <td class="px-5">{{ amount }}</td>
+        <td class="px-5">{{ ask[1] }}</td>
       </tr>
     </tbody>
 
-    <tbody v-for="({ amount, rate }, i) in bids" :key="i">
+    <tbody v-for="(bid, i) in bids" :key="i">
       <tr>
         <td class="px-5 py-1">
-          <comma-filter class="text-green-500" :value="rate" />
+          <comma-filter class="text-green-500" :value="bid[0]" />
         </td>
-        <td class="px-5">{{ amount }}</td>
+        <td class="px-5">{{ bid[1] }}</td>
       </tr>
     </tbody>
 
