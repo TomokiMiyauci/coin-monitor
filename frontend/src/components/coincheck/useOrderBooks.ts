@@ -6,11 +6,11 @@ export const useOrderBook = () => {
   const { get } = getOrderBooks()
 
   const asks = computed(() => {
-    return state.value ? state.value.asks : []
+    return state.value ? state.value.asks.slice(0, 10) : []
   })
 
   const bids = computed(() => {
-    return state.value ? state.value.bids : []
+    return state.value ? state.value.bids.slice(0, 10) : []
   })
 
   const setOrderBooks = async () => {
@@ -18,7 +18,7 @@ export const useOrderBook = () => {
   }
 
   onBeforeMount(() => {
-    setInterval(setOrderBooks, 10000)
+    setInterval(setOrderBooks, 3000)
   })
 
   setOrderBooks()
