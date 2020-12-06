@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow rounded-md p-6 hover:bg-gray-100 hover:shadow-md">
+  <div class="shadow rounded-md p-6 bg-white hover:shadow-md">
     <base-title-value
       title-class="text-lg text-gray-400"
       value-class=" text-9xl"

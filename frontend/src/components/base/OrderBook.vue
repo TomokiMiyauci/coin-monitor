@@ -1,5 +1,5 @@
 <template>
-  <table class="mx-auto shadow rounded" style="display: inline-table">
+  <table class="mx-auto shadow rounded bg-white" style="display: inline-table">
     <thead>
       <tr>
         <th
