@@ -18,7 +18,7 @@ export const useOrderBook = () => {
   }
 
   onBeforeMount(() => {
-    setInterval(setOrderBooks, 3000)
+    setInterval(setOrderBooks, 10000)
   })
 
   setOrderBooks()
