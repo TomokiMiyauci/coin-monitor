@@ -14,7 +14,12 @@
         class="flex rounded items-center mt-4 py-2 px-6 hover:bg-gray-700 bg-opacity-25 text-gray-100"
         href="/"
       >
-        <span class="mx-3">Coincheck</span>
+        <span class="mx-3"
+          ><coincheck class="inline-block" width="24" height="24" /><span
+            class="ml-3 text-xl align-middle"
+            >Coincheck</span
+          ></span
+        >
       </a>
     </nav>
   </div>
@@ -22,5 +27,11 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  export default defineComponent({})
+  import { VueComponent as Coincheck } from '/@/assets/svgs/coincheck.svg'
+
+  export default defineComponent({
+    components: {
+      Coincheck,
+    },
+  })
 </script>
