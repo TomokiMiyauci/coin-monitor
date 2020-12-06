@@ -1,9 +1,13 @@
 import ky from 'ky'
 import { Plugin, inject, InjectionKey } from 'vue'
 
+const instance = ky.create({
+  prefixUrl: import.meta.env.VITE_BASE_URL,
+})
+
 const plugin: Plugin = {
   install: (app) => {
-    app.provide(key, ky)
+    app.provide(key, instance)
   },
 }
 
