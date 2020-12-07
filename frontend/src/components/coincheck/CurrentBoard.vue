@@ -1,18 +1,25 @@
 <template>
-  <div class="grid grid-flow-col gap-4">
+  <div class="flex gap-4">
     <latest-price v-if="last" :value="last" />
     <ask-bid v-if="ask" :ask="ask" :bid="bid" />
   </div>
 
-  <div class="grid grid-rows-3 grid-flow-col mt-4 gap-4">
-    <div class="shadow p-5 bg-white mx-auto rounded">
+  <div class="grid grid-rows-3 grid-cols-4 mt-4 gap-4">
+    <div
+      class="shadow col-span-1 w-full row-span-3 p-5 bg-white mx-auto rounded"
+    >
       <h3>Coins</h3>
       <rate :rates="rates" />
     </div>
-    <order-book class="row-span-3" :asks="asks" :bids="bids" />
+
+    <order-book
+      class="row-span-3 w-full col-span-1"
+      :asks="asks"
+      :bids="bids"
+    />
 
     <trade-history
-      class="bg-white rounded shadow row-span-2"
+      class="bg-white rounded shadow row-span-3 col-span-2"
       style="display: table-inline"
       :data="data"
     />
@@ -20,8 +27,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import LatestPrice from '/@/components/base/LatestPrice.vue'
+  import { defineAsyncComponent, defineComponent } from 'vue'
+  // import LatestPrice from '/@/components/base/LatestPrice.vue'
   import AskBid from '/@/components/base/AskBid.vue'
   import OrderBook from '/@/components/base/OrderBook.vue'
   import TradeHistory from '/@/components/trade-history/TradeHistory.vue'
@@ -33,7 +40,9 @@
 
   export default defineComponent({
     components: {
-      LatestPrice,
+      LatestPrice: defineAsyncComponent(
+        () => import('/@/components/base/LatestPrice.vue')
+      ),
       AskBid,
       OrderBook,
       TradeHistory,
