@@ -26,12 +26,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import { VueComponent as Coincheck } from '/@/assets/svgs/coincheck.svg'
+  import { defineAsyncComponent, defineComponent } from 'vue'
 
   export default defineComponent({
     components: {
-      Coincheck,
+      Coincheck: defineAsyncComponent(() =>
+        import('/@/assets/svgs/markets/coincheck.svg').then(
+          ({ VueComponent }) => VueComponent
+        )
+      ),
     },
   })
 </script>
