@@ -1,5 +1,6 @@
-import { ref, computed, onBeforeMount } from 'vue'
+import { ref, computed } from 'vue'
 import { getTrades } from '/@/api/coincheck'
+import { useInterval } from '/@/core/interval'
 
 export const useTrades = () => {
   const state = ref<{
@@ -29,11 +30,8 @@ export const useTrades = () => {
     state.value = await get()
   }
 
-  onBeforeMount(() => {
-    setInterval(setData, 10000)
-  })
-
   setData()
+  useInterval(setData, 10000)
 
   return { setData, data }
 }

@@ -1,5 +1,6 @@
-import { ref, computed, onBeforeMount } from 'vue'
+import { ref, computed } from 'vue'
 import { getRate, Pair } from '/@/api/coincheck'
+import { useInterval } from '/@/core/interval'
 
 export const useRate = (pair: Pair) => {
   const state = ref<{ rate: number }>()
@@ -11,11 +12,8 @@ export const useRate = (pair: Pair) => {
 
   const rate = computed(() => state.value?.rate)
 
-  onBeforeMount(() => {
-    setInterval(setData, 10000)
-  })
-
   setData()
+  useInterval(setData, 10000)
 
   return { setData, rate }
 }

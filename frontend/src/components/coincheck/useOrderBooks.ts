@@ -1,5 +1,6 @@
-import { ref, computed, onBeforeMount } from 'vue'
+import { ref, computed } from 'vue'
 import { getOrderBooks } from '/@/api/coincheck'
+import { useInterval } from '/@/core/interval'
 
 export const useOrderBook = () => {
   const state = ref()
@@ -17,11 +18,8 @@ export const useOrderBook = () => {
     state.value = await get()
   }
 
-  onBeforeMount(() => {
-    setInterval(setOrderBooks, 10000)
-  })
-
   setOrderBooks()
+  useInterval(setOrderBooks, 10000)
 
   return { asks, bids, setOrderBooks }
 }

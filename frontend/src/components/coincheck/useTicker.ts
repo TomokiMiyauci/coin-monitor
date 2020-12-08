@@ -1,5 +1,6 @@
-import { ref, computed, onBeforeMount } from 'vue'
+import { ref, computed } from 'vue'
 import { getTicker } from '/@/api/coincheck'
+import { useInterval } from '/@/core/interval'
 
 export const useTicker = () => {
   const state = ref()
@@ -13,11 +14,8 @@ export const useTicker = () => {
   const ask = computed(() => state.value?.ask)
   const bid = computed(() => state.value?.bid)
 
-  onBeforeMount(() => {
-    setInterval(setData, 10000)
-  })
-
   setData()
+  useInterval(setData, 10000)
 
   return { setData, last, ask, bid }
 }
