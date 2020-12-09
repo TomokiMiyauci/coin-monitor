@@ -1,24 +1,23 @@
 <template>
   <base-span ref="baseSpan">
-    {{ commaFilter }}
+    <slot />
   </base-span>
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, watch, ref } from 'vue'
-
+  import { defineComponent, ref, watchEffect } from 'vue'
   import BaseSpan from '/@/components/base/BaseSpan.vue'
+
   export default defineComponent({
     components: { BaseSpan },
+
     props: {
       value: {
         type: Number,
         default: undefined,
       },
     },
-
-    setup(props) {
-      const commaFilter = computed(() => props.value?.toLocaleString())
+    setup() {
       const baseSpan = ref<InstanceType<typeof BaseSpan>>()
 
       const flush = (): void => {
@@ -26,8 +25,9 @@
         baseSpan.value.$el.animate({ opacity: [1, 0, 1] }, 200)
       }
 
-      watch(commaFilter, flush)
-      return { commaFilter, baseSpan }
+      watchEffect(flush)
+
+      return { baseSpan }
     },
   })
 </script>
