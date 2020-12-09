@@ -1,7 +1,8 @@
-import { ref, computed, UnwrapRef, ComputedRef } from 'vue'
+import { ref, computed, UnwrapRef, ComputedRef, Ref, watch } from 'vue'
 
 type UseReactive<T> = {
   state: ComputedRef<UnwrapRef<T>>
+  stateRef: Ref<UnwrapRef<T>>
   setState: (val: UnwrapRef<T>) => void
   resetState: () => void
 }
@@ -17,5 +18,12 @@ export const useReactive = <T>(init: T): UseReactive<T> => {
     _state.value = init as UnwrapRef<T>
   }
 
-  return { state, setState, resetState }
+  return { state, stateRef: _state, setState, resetState }
+}
+
+export const useReactiveEffect = <T>(
+  source: ComputedRef<T>,
+  cb: (args: any) => any
+) => {
+  watch(source, cb)
 }
