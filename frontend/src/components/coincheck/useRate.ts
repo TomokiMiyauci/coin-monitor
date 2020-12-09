@@ -1,8 +1,16 @@
-import { ref, computed } from 'vue'
+import { ref, computed, ComputedRef, watch } from 'vue'
 import { getRate, Pair } from '/@/api/coincheck'
 import { useInterval } from '/@/core/interval'
+import { useReactive } from '/@/core/reactive'
 
-export const useRate = (pair: Pair) => {
+type UseRate = {
+  setData: () => Promise<void>
+  rate: ComputedRef<number | undefined>
+  ratio: ComputedRef<number | undefined>
+  changeInterval: (newInterval: number) => void
+}
+
+export const useRate = (pair: Pair): UseRate => {
   const state = ref<{ rate: number }>()
   const { get } = getRate()
 
@@ -10,26 +18,56 @@ export const useRate = (pair: Pair) => {
     state.value = await get(pair)
   }
 
+  const { stateRef, setState } = useReactive<number | undefined>(undefined)
+
   const rate = computed(() => state.value?.rate)
+  const hoge = watch(rate, (now) => {
+    setState(now)
+    hoge()
+  })
+
+  const ratio = computed(() => {
+    if (!stateRef.value || !rate.value) return 1
+    return rate.value / stateRef.value - 1
+  })
 
   setData()
-  useInterval(setData, 10000)
+  const { changeInterval } = useInterval(setData, 10000)
 
-  return { setData, rate }
+  return { setData, rate, changeInterval, ratio }
 }
 
 export const useRates = <T extends Pair>(...pairs: T[]) => {
-  const rates = ref<{ T: number }>()
+  const rr = ref<
+    (UseRate & {
+      symbol: T
+    })[]
+  >([])
 
-  rates.value = Object.assign(
-    {},
-    ...pairs.map((pair) => {
-      const { rate } = useRate(pair)
-      return { [pair]: rate }
-    })
+  rr.value = pairs.map((pair) => {
+    return {
+      symbol: pair,
+      ...useRate(pair),
+    }
+  })
+
+  const rates = computed(() =>
+    Object.assign(
+      {},
+      ...rr.value.map(({ rate, symbol, ratio }) => {
+        return { [symbol]: { rate, ratio } }
+      })
+    )
   )
 
+  const change = (interval: number) => {
+    rr.value.forEach((r) => {
+      r.changeInterval(interval)
+    })
+  }
+
   return {
+    change,
     rates,
   }
 }

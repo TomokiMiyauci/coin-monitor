@@ -8,7 +8,11 @@
     <div
       class="shadow col-span-1 w-full row-span-3 p-5 bg-white mx-auto rounded"
     >
-      <h3>Coins</h3>
+      <div class="flex justify-between">
+        <h3>Coins</h3>
+
+        <input v-model="stateRef" max="10" min="1" type="number" />
+      </div>
       <rate :rates="rates" />
     </div>
 
@@ -28,7 +32,6 @@
 
 <script lang="ts">
   import { defineAsyncComponent, defineComponent } from 'vue'
-  // import LatestPrice from '/@/components/base/LatestPrice.vue'
   import AskBid from '/@/components/base/AskBid.vue'
   import OrderBook from '/@/components/base/OrderBook.vue'
   import TradeHistory from '/@/components/trade-history/TradeHistory.vue'
@@ -37,6 +40,7 @@
   import { useTrades } from '/@/components/coincheck/useTrades'
   import { useRates } from '/@/components/coincheck/useRate'
   import Rate from '/@/components/base/Rate.vue'
+  import { useReactive, useReactiveEffect } from '/@/core/reactive'
 
   export default defineComponent({
     components: {
@@ -53,7 +57,7 @@
       const { asks, bids } = useOrderBook()
       const { last, ask, bid } = useTicker()
       const { data } = useTrades()
-      const { rates } = useRates(
+      const { rates, change } = useRates(
         'btc_jpy',
         'etc_jpy',
         'bat_jpy',
@@ -70,7 +74,12 @@
         'ltc_jpy'
       )
 
-      return { last, ask, bid, asks, bids, data, rates }
+      const { stateRef, state } = useReactive(10)
+      useReactiveEffect(state, (interval: number) => {
+        change(interval * 1000)
+      })
+
+      return { last, ask, stateRef, bid, asks, bids, data, rates }
     },
   })
 </script>

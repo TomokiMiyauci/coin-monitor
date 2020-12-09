@@ -5,7 +5,12 @@
         <td class="px-2 py-2">
           <svg-symbol :symbol="format(key)" />
         </td>
-        <td class="px-4 py-2"><comma-filter :value="value" /></td>
+        <td class="px-4 py-2"><comma-filter :value="value.rate" /></td>
+        <td class="px-4 py-2">
+          <flash-box :value="value.ratio">
+            <percentage :value="value.ratio" />
+          </flash-box>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -13,14 +18,17 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
+  import Percentage from '/@/components/base/Percentage.vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
-  // import { VueComponent as Btc } from '/@/assets/svgs/coins/btc.svg'
   import SvgSymbol from '/@/components/base/SvgSymbol.vue'
+  import FlashBox from '/@/components/base/FlashBox.vue'
 
   export default defineComponent({
     components: {
       CommaFilter,
       SvgSymbol,
+      Percentage,
+      FlashBox,
     },
     props: {
       rates: {
