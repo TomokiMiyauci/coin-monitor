@@ -4,99 +4,80 @@
 </template>
 
 <script lang="ts">
-  import {
-    computed,
-    defineAsyncComponent,
-    defineComponent,
-    PropType,
-  } from 'vue'
+  import { computed, defineComponent, PropType } from 'vue'
   import BaseSpan from '/@/components/base/BaseSpan.vue'
   import { CoincheckSymbol } from '/@/components/base/coin'
+  import { VueComponent as Btc } from '/@/assets/svgs/coins/btc.svg'
+  import { VueComponent as Etc } from '/@/assets/svgs/coins/etc.svg'
+  import { VueComponent as Eth } from '/@/assets/svgs/coins/eth.svg'
+  import { VueComponent as Iost } from '/@/assets/svgs/coins/iost.svg'
+  import { VueComponent as Lsk } from '/@/assets/svgs/coins/lsk.svg'
+  import { VueComponent as Qtum } from '/@/assets/svgs/coins/qtum.svg'
+  import { VueComponent as Xem } from '/@/assets/svgs/coins/xem.svg'
+  import { VueComponent as Xlm } from '/@/assets/svgs/coins/xlm.svg'
+  import { VueComponent as Xrp } from '/@/assets/svgs/coins/xrp.svg'
+  import { VueComponent as Mona } from '/@/assets/svgs/coins/mona.svg'
+  import { VueComponent as Bat } from '/@/assets/svgs/coins/bat.svg'
+  import { VueComponent as Bch } from '/@/assets/svgs/coins/bch.svg'
+  import { VueComponent as Fct } from '/@/assets/svgs/coins/fct.svg'
+  import { VueComponent as Ltc } from '/@/assets/svgs/coins/ltc.svg'
 
   const getAsyncComponent = (symbol: CoincheckSymbol) => {
     switch (symbol) {
       case 'BTC': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Btc.vue`)
-        )
+        return Btc
       }
 
       case 'ETC': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Etc.vue`)
-        )
+        return Etc
       }
 
       case 'ETH': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Eth.vue`)
-        )
+        return Eth
       }
 
       case 'IOST': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Iost.vue`)
-        )
+        return Iost
       }
 
       case 'LSK': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Lsk.vue`)
-        )
+        return Lsk
       }
 
       case 'QTUM': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Qtum.vue`)
-        )
+        return Qtum
       }
 
       case 'XEM': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Xem.vue`)
-        )
+        return Xem
       }
 
       case 'XLM': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Xlm.vue`)
-        )
+        return Xlm
       }
 
       case 'XRP': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Xrp.vue`)
-        )
+        return Xrp
       }
 
       case 'MONA': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Mona.vue`)
-        )
+        return Mona
       }
 
       case 'BAT': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Bat.vue`)
-        )
+        return Bat
       }
 
       case 'BCH': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Bch.vue`)
-        )
+        return Bch
       }
 
       case 'FCT': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Fct.vue`)
-        )
+        return Fct
       }
 
       case 'LTC': {
-        return defineAsyncComponent(
-          () => import(`/@/components/base/icons/coins/Ltc.vue`)
-        )
+        return Ltc
       }
     }
   }
