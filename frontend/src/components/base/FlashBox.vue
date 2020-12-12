@@ -19,7 +19,6 @@
     },
     setup() {
       const baseSpan = ref<InstanceType<typeof BaseSpan>>()
-
       const flush = (): void => {
         if (!baseSpan.value) return
         baseSpan.value.$el.animate({ opacity: [1, 0, 1] }, 200)

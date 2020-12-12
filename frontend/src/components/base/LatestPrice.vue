@@ -1,21 +1,23 @@
 <template>
-  <div class="shadow rounded-md p-6 bg-white hover:shadow-md">
+  <base-card>
     <base-title-value
       title-class="text-lg text-gray-400"
       value-class=" text-9xl"
       :title="title"
       :value="value"
     />
-  </div>
+  </base-card>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
   import BaseTitleValue from '/@/components/base/BaseTitleValue.vue'
+  import BaseCard from '/@/components/base/BaseCard.vue'
 
   export default defineComponent({
     components: {
       BaseTitleValue,
+      BaseCard,
     },
 
     props: {

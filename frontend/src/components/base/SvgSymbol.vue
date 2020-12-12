@@ -1,6 +1,6 @@
 <template>
   <component :is="component" width="24" height="24" class="inline-block" />
-  <base-span class="align-middle ml-2">{{ symbol }}</base-span>
+  <base-span class="align-middle ml-3">{{ symbol }}</base-span>
 </template>
 
 <script lang="ts">
@@ -21,6 +21,7 @@
   import { VueComponent as Bch } from '/@/assets/svgs/coins/bch.svg'
   import { VueComponent as Fct } from '/@/assets/svgs/coins/fct.svg'
   import { VueComponent as Ltc } from '/@/assets/svgs/coins/ltc.svg'
+  import { VueComponent as Jpy } from '/@/assets/svgs/coins/jpy.svg'
 
   const getAsyncComponent = (symbol: CoincheckSymbol) => {
     switch (symbol) {
@@ -78,6 +79,10 @@
 
       case 'LTC': {
         return Ltc
+      }
+
+      case 'JPY': {
+        return Jpy
       }
     }
   }

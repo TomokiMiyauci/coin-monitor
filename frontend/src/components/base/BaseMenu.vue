@@ -14,7 +14,7 @@
         @click="hover = true"
       >
         <span class="flex items-center">
-          <svg-symbol :symbol="SYMBOLS[selected]" />
+          <svg-symbol :symbol="value" />
         </span>
         <span
           class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
@@ -74,7 +74,7 @@
             :key="index"
             role="option"
             class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:text-white hover:bg-indigo-600"
-            @click="onClick(index)"
+            @click="onClick(li)"
           >
             <div class="flex items-center">
               <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
@@ -97,22 +97,30 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue'
+  import { defineComponent, PropType, ref } from 'vue'
   import SvgSymbol from './SvgSymbol.vue'
-  import { SYMBOLS } from '/@/components/base/coin'
+  import { SYMBOLS, CoincheckSymbol } from '/@/components/base/coin'
   export default defineComponent({
     components: {
       SvgSymbol,
     },
-    emits: ['change'],
-    setup(_, { emit }) {
+
+    props: {
+      value: {
+        type: String as PropType<CoincheckSymbol>,
+        default: '',
+      },
+    },
+
+    emits: ['input'],
+    setup(props, { emit }) {
       const hover = ref(false)
       const selected = ref(0)
-      const onClick = (index: number) => {
-        selected.value = index
+
+      const onClick = (symbol: CoincheckSymbol) => {
         hover.value = false
-        console.log(selected.value)
-        emit('change', SYMBOLS[selected.value])
+
+        emit('input', symbol)
       }
 
       return { hover, selected, SYMBOLS, onClick }

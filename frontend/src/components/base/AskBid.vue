@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 shadow flex gap-6 justify-center items-center">
+  <base-card class="flex gap-6 justify-center items-center">
     <div>
       <base-title-value title="Ask" value-class="text-3xl" :value="ask" />
     </div>
@@ -11,17 +11,19 @@
         :value="bid"
       />
     </div>
-  </div>
+  </base-card>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
+  import BaseCard from './BaseCard.vue'
   // import CommaFilter from '/@/components/base/CommaFilter.vue'
   import BaseTitleValue from '/@/components/base/BaseTitleValue.vue'
 
   export default defineComponent({
     components: {
       BaseTitleValue,
+      BaseCard,
     },
     props: {
       ask: {
