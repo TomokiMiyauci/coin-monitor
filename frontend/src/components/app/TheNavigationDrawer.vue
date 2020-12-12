@@ -13,7 +13,8 @@
 
       <router-link
         to="/"
-        class="flex rounded items-center mt-4 py-2 px-6 hover:bg-gray-700 bg-opacity-25 text-gray-100"
+        class="flex rounded items-center mt-4 py-2 px-6 hover:bg-gray-600 transition duration-200 text-gray-100"
+        active-class="bg-gray-700"
       >
         <span class="mx-3"
           ><coincheck class="inline-block" width="24" height="24" /><span
@@ -25,7 +26,8 @@
 
       <router-link
         to="/zaif"
-        class="flex rounded items-center mt-2 py-2 px-6 hover:bg-gray-700 bg-opacity-25 text-gray-100"
+        class="flex rounded items-center mt-1 py-2 px-6 hover:bg-gray-600 transition duration-200 text-gray-100"
+        active-class="bg-gray-700"
       >
         <span class="mx-3">
           <zaif class="inline-block" width="24" height="24" /><span
