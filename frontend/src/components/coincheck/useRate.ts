@@ -98,3 +98,29 @@ export const getRateMap = (symbol: 'JPY' | 'BTC') => {
     .filter((candidate) => candidate !== symbol)
     .map((candidate) => `${candidate.toLowerCase()}_${symbol.toLowerCase()}`)
 }
+
+export const getPairs = (
+  symbol: 'JPY' | 'BTC'
+): { baseSymbol: string; symbol: string }[] => {
+  const candidates = [
+    'JPY',
+    'BTC',
+    'ETC',
+    'BAT',
+    'BCH',
+    'QTUM',
+    'IOST',
+    'FCT',
+    'MONA',
+    'ETH',
+    'LSK',
+    'XEM',
+    'XLM',
+    'XRP',
+    'LTC',
+  ]
+
+  return candidates
+    .filter((candidate) => candidate !== symbol)
+    .map((candidate) => ({ symbol: candidate, baseSymbol: symbol }))
+}
