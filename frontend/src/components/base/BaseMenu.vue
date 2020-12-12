@@ -1,15 +1,12 @@
 <template>
   <div>
-    <!-- <label id="list-box-label" class="block text-sm font-medium text-gray-700">
-      Assigned to
-    </label> -->
     <div class="relative">
       <button
         type="button"
         aria-haspopup="list-box"
         :aria-expanded="hover"
         aria-labelledby="list-box-label"
-        class="relative bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        class="relative bg-white border hover:shadow-md border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800 sm:text-sm transition duration-200"
         style="min-width: 136px"
         @click="hover = true"
       >
@@ -42,56 +39,52 @@
         @click="hover = false"
       ></div>
 
-      <!--
-      Select popover, show/hide based on select state.
-
-      Entering: ""
-        From: ""
-        To: ""
-      Leaving: "transition ease-in duration-100"
-        From: "opacity-100"
-        To: "opacity-0"
-    -->
-      <div
-        v-show="hover"
-        class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-20"
-      >
-        <ul
-          tabindex="-1"
-          role="list-box"
-          aria-labelledby="list-box-label"
-          aria-activedescendant="list-box-item-3"
-          class="max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+      <transition name="slide-down">
+        <div
+          v-show="hover"
+          class="absolute mt-1 w-full rounded-md bg-white shadow hover:shadow-xl duration-300 transition-shadow z-20"
         >
-          <!--
+          <ul
+            tabindex="-1"
+            role="list-box"
+            aria-labelledby="list-box-label"
+            aria-activedescendant="list-box-item-3"
+            class="max-h-56 text-gray-900 cursor-pointer rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+          >
+            <!--
           Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
 
           Highlighted: "text-white bg-indigo-600", Not Highlighted: "text-gray-900"
         -->
-          <li
-            v-for="(li, index) in SYMBOLS"
-            id="list-box-item-0"
-            :key="index"
-            role="option"
-            class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:text-white hover:bg-indigo-600"
-            @click="onClick(li)"
-          >
-            <div class="flex items-center">
-              <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
-              <svg-symbol :symbol="li" />
+            <li
+              v-for="(symbol, index) in SYMBOLS"
+              id="list-box-item-0"
+              :key="index"
+              role="option"
+              class="select-none relative py-2 transition duration-200 pl-3 pr-9 hover:text-white hover:bg-gray-800"
+              :class="{
+                'bg-gray-800 text-white font-bold bg-opacity-80':
+                  symbol === value,
+              }"
+              @click="onClick(symbol)"
+            >
+              <div class="flex items-center">
+                <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
+                <svg-symbol :symbol="symbol" />
 
-              <!--
+                <!--
             Checkmark, only display for selected option.
 
             Highlighted: "text-white", Not Highlighted: "text-indigo-600"
 
           -->
-            </div>
-          </li>
+              </div>
+            </li>
 
-          <!-- More options... -->
-        </ul>
-      </div>
+            <!-- More options... -->
+          </ul>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -113,7 +106,7 @@
     },
 
     emits: ['input'],
-    setup(props, { emit }) {
+    setup(_, { emit }) {
       const hover = ref(false)
       const selected = ref(0)
 
@@ -127,3 +120,15 @@
     },
   })
 </script>
+
+<style scoped>
+  .slide-down-enter-active,
+  .slide-down-leave-active {
+    @apply transition duration-200;
+  }
+
+  .slide-down-enter-from,
+  .slide-down-leave-to {
+    @apply opacity-0 transform -translate-y-2;
+  }
+</style>

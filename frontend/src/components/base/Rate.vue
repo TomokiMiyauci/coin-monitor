@@ -3,7 +3,7 @@
     <rate-percentage
       v-for="{ symbol, rate, ratio } of filter"
       :key="`${symbol}`"
-      class="flex justify-between items-center hover:bg-gray-100"
+      class="flex justify-between items-center hover:bg-gray-100 transition duration-100"
       :symbol="symbol"
       :rate="rate"
       :ratio="ratio"

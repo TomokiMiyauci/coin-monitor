@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex p-2 justify-between items-center">
-      <h3 class="ml-2 text-gray-400">Coins</h3>
+      <h3 class="ml-2 text-lg text-gray-400">Coins</h3>
 
       <base-menu :value="base" @input="onChange" />
     </div>
