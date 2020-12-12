@@ -9,10 +9,8 @@
       class="col-span-1 w-full row-span-3 hover:shadow-xl duration-200 transition bg-white mx-auto shadow rounded-md"
     />
 
-    <order-book
-      class="row-span-3 w-full col-span-1"
-      :asks="asks"
-      :bids="bids"
+    <order-books
+      class="row-span-3 w-full col-span-1 bg-white rounded-md hover:shadow-xl duration-200 transition"
     />
 
     <trade-history
@@ -26,7 +24,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import AskBid from '/@/components/base/AskBid.vue'
-  import OrderBook from '/@/components/base/OrderBook.vue'
+  import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
   import TradeHistory from '/@/components/trade-history/TradeHistory.vue'
   import { useOrderBook } from '/@/components/coincheck/useOrderBooks'
   import { useTicker } from '/@/components/coincheck/useTicker'
@@ -37,7 +35,7 @@
     components: {
       LatestPrice,
       AskBid,
-      OrderBook,
+      OrderBooks,
       TradeHistory,
       Rates,
     },
