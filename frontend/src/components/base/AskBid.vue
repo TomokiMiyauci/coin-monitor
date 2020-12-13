@@ -1,29 +1,46 @@
 <template>
-  <base-card class="flex gap-6 justify-center items-center">
-    <div>
-      <base-title-value title="Ask" value-class="text-3xl" :value="ask" />
-    </div>
-    <div>
-      <base-title-value
-        title="Bid"
-        title-class=" text-right"
-        value-class="text-3xl"
-        :value="bid"
-      />
-    </div>
+  <base-card>
+    <base-title-value title="Price">
+      <div class="flex mt-8 items-center justify-between">
+        <div>
+          <base-title-value title="Ask">
+            <text-loader
+              skelton-style="min-height: 2rem;min-width: 8rem;"
+              :value="ask"
+            >
+              <comma-filter class="text-2xl" :value="ask" />
+            </text-loader>
+          </base-title-value>
+        </div>
+
+        <div class="text-right">
+          <base-title-value title="Bid">
+            <text-loader
+              skelton-style="min-height: 2rem;min-width: 8rem;"
+              :value="bid"
+            >
+              <comma-filter class="text-2xl" :value="bid" />
+            </text-loader>
+          </base-title-value>
+        </div>
+      </div>
+    </base-title-value>
   </base-card>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue'
   import BaseCard from './BaseCard.vue'
-  // import CommaFilter from '/@/components/base/CommaFilter.vue'
+  import TextLoader from './loaders/TextLoader.vue'
+  import CommaFilter from '/@/components/base/CommaFilter.vue'
   import BaseTitleValue from '/@/components/base/BaseTitleValue.vue'
 
   export default defineComponent({
     components: {
       BaseTitleValue,
+      CommaFilter,
       BaseCard,
+      TextLoader,
     },
     props: {
       ask: {

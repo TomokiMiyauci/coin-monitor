@@ -5,7 +5,11 @@
       value-class=" text-9xl"
       :title="title"
       :value="value"
-    />
+    >
+      <text-loader skelton-style="height: 8rem;" :value="value">
+        <comma-filter class="text-9xl" :value="value" />
+      </text-loader>
+    </base-title-value>
   </base-card>
 </template>
 
@@ -13,11 +17,18 @@
   import { defineComponent } from 'vue'
   import BaseTitleValue from '/@/components/base/BaseTitleValue.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
+  import CommaFilter from '/@/components/base/CommaFilter.vue'
+
+  import SkeltonLoader from './loaders/SkeltonLoader.vue'
+  import TextLoader from './loaders/TextLoader.vue'
 
   export default defineComponent({
     components: {
       BaseTitleValue,
       BaseCard,
+      CommaFilter,
+      SkeltonLoader,
+      TextLoader,
     },
 
     props: {
