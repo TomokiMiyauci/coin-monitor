@@ -31,7 +31,7 @@ export const useRate = (pair: Ref<Pair>): UseRate => {
   watchEffect(() => setData())
 
   const ratio = computed(() => {
-    if (!stateRef.value || !rate.value) return 1
+    if (!stateRef.value || !rate.value) return undefined
     return rate.value / stateRef.value - 1
   })
 

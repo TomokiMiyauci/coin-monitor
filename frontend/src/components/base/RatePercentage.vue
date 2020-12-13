@@ -5,10 +5,23 @@
     </div>
 
     <div>
-      <comma-filter class="mr-6" :value="rate" />
-      <flash-box :value="ratio">
-        <percentage :value="ratio" />
-      </flash-box>
+      <text-loader
+        class="inline-block align-middle mr-4"
+        skelton-style="min-width: 6rem;"
+        :value="rate"
+      >
+        <comma-filter :value="rate" />
+      </text-loader>
+
+      <text-loader
+        :value="ratio"
+        skelton-style="min-width: 3rem;"
+        class="inline-block align-middle"
+      >
+        <flash-box :value="ratio">
+          <percentage :value="ratio" />
+        </flash-box>
+      </text-loader>
     </div>
   </div>
 </template>
@@ -20,8 +33,17 @@
   import CommaFilter from '/@/components/base/CommaFilter.vue'
   import SvgSymbol from '/@/components/base/SvgSymbol.vue'
   import FlashBox from '/@/components/base/FlashBox.vue'
+  import TextLoader from './loaders/TextLoader.vue'
 
   export default defineComponent({
+    components: {
+      Percentage,
+      CommaFilter,
+      SvgSymbol,
+      FlashBox,
+      TextLoader,
+    },
+
     props: {
       symbol: {
         type: String as PropType<CoincheckSymbol>,
@@ -30,20 +52,13 @@
 
       rate: {
         type: Number,
-        default: 0,
+        default: undefined,
       },
 
       ratio: {
         type: Number,
-        default: 0,
+        default: undefined,
       },
-    },
-
-    components: {
-      Percentage,
-      CommaFilter,
-      SvgSymbol,
-      FlashBox,
     },
   })
 </script>

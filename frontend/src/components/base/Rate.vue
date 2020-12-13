@@ -39,7 +39,7 @@
       }
 
       const filter = computed(() => {
-        return props.rates.filter((rate) => !!rate.rate)
+        return props.rates.filter(({ rate }) => typeof rate !== 'object')
       })
 
       return { format, filter }

@@ -4,11 +4,11 @@
       <tr class="bg-gray-300">
         <th class="p-2">Date</th>
         <th>
-          <base-span class="text-red-500 rounded-full shadow bg-white px-1"
+          <base-span class="text-red-400 rounded-full shadow bg-white px-1"
             >B</base-span
           >
           /
-          <base-span class="text-green-500 rounded-full shadow bg-white px-1"
+          <base-span class="text-green-400 rounded-full shadow bg-white px-1"
             >S</base-span
           >
         </th>
@@ -18,7 +18,11 @@
     </thead>
 
     <tbody>
-      <tr v-for="{ date, type, rate, amount, id } in data" :key="id">
+      <tr
+        v-for="{ date, type, rate, amount, id } in data"
+        :key="id"
+        class="hover:bg-gray-100"
+      >
         <table-td v-bind="{ type, date, rate, amount }" />
       </tr>
     </tbody>
