@@ -1,6 +1,6 @@
 <template>
   <base-chip
-    class="bg-red-500 hover:bg-opacity-80 text-xs text-white px-2 shadow"
+    class="bg-red-400 hover:bg-opacity-80 text-xs text-white px-2 shadow"
   >
     BUY
   </base-chip>
