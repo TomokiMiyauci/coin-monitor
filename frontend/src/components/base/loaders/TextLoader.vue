@@ -1,7 +1,7 @@
 <template>
   <transition tag="div" class="relative" name="fade" mode="out-in">
     <div
-      v-if="typeof value === 'undefined'"
+      v-if="isShow"
       :class="skeltonClass"
       :style="skeltonStyle"
       style="min-height: 1.5rem; background-color: rgba(0, 0, 0, 0.12)"
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, computed } from 'vue'
   import SkeltonLoader from '/@/components/base/loaders/SkeltonLoader.vue'
 
   export default defineComponent({
@@ -24,7 +24,7 @@
 
     props: {
       value: {
-        type: [String],
+        type: [String, Number],
         default: undefined,
       },
 
@@ -38,6 +38,16 @@
         default: '',
       },
     },
+
+    setup(props) {
+      const isShow = computed(
+        () =>
+          typeof props.value === 'undefined' ||
+          (typeof props.value === 'string' && !props.value)
+      )
+
+      return { isShow }
+    },
   })
 </script>
 
@@ -49,6 +59,6 @@
 
   .fade-enter-from,
   .fade-leave-to {
-    @apply opacity-0;
+    @apply translate-x-6 transform opacity-0;
   }
 </style>

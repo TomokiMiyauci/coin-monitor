@@ -45,12 +45,12 @@
     props: {
       ask: {
         type: Number,
-        required: true,
+        default: undefined,
       },
 
       bid: {
         type: Number,
-        required: true,
+        default: undefined,
       },
     },
   })

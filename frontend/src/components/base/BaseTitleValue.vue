@@ -19,11 +19,6 @@
         required: true,
       },
 
-      value: {
-        type: Number,
-        required: true,
-      },
-
       titleClass: {
         type: String,
         default: 'text-lg text-gray-400',
