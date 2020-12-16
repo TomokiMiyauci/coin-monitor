@@ -1,6 +1,6 @@
 <template>
   <default>
-    <h1>Zaif</h1>
+    <current-board />
   </default>
 </template>
 
@@ -8,10 +8,12 @@
   import { defineComponent } from 'vue'
 
   import Default from '/@/layouts/default.vue'
+  import CurrentBoard from '/@/components/zaif/CurrentBoard.vue'
 
   export default defineComponent({
     components: {
       Default,
+      CurrentBoard,
     },
   })
 </script>
