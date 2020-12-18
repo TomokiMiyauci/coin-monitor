@@ -1,6 +1,6 @@
 <template>
   <base-div
-    class="rounded-md bg-white shadow p-6 hover:shadow-md transition-shadow duration-200"
+    class="rounded-md bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
   >
     <slot />
   </base-div>

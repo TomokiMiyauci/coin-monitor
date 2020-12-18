@@ -1,7 +1,7 @@
 <template>
-  <base-card>
+  <base-card class="p-4">
     <base-title-value
-      title-class="text-lg text-gray-400"
+      title-class="text-lg pb-0 text-gray-400"
       value-class=" text-9xl"
       :title="title"
     >

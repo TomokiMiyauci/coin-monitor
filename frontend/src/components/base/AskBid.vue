@@ -1,5 +1,5 @@
 <template>
-  <base-card>
+  <base-card class="p-4">
     <base-title-value title="Price">
       <div class="flex mt-8 items-center justify-between">
         <div>
