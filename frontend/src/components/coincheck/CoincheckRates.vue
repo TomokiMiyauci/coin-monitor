@@ -5,19 +5,29 @@
 
       <base-menu :value="base" @input="onChange" />
     </div>
-    <rate class="mt-4" :rates="symbolMap" />
+    <base-rate class="mt-4" :rates="symbolMap">
+      <template #default="{ symbol }">
+        <base-svg-symbol :symbol="symbol">
+          <coincheck-symbol :symbol="symbol" />
+        </base-svg-symbol>
+      </template>
+    </base-rate>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent, ref } from 'vue'
   import { useRate, getPairs } from '/@/components/coincheck/useRate'
-  import Rate from '/@/components/base/Rate.vue'
+  import BaseRate from '/@/components/base/BaseRate.vue'
   import BaseMenu from '/@/components/base/BaseMenu.vue'
+  import BaseSvgSymbol from '../base/BaseSvgSymbol.vue'
+  import CoincheckSymbol from './CoincheckSymbol.vue'
   export default defineComponent({
     components: {
-      Rate,
+      BaseRate,
       BaseMenu,
+      BaseSvgSymbol,
+      CoincheckSymbol,
     },
 
     setup() {
