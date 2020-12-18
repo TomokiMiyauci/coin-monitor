@@ -1,30 +1,39 @@
 <template>
-  <div>
+  <base-card>
     <h3 class="py-3 px-3 text-lg text-gray-400">Trade History</h3>
 
     <transition name="fade">
-      <trade-historys v-if="data" class="w-full mt-2" :data="data" />
+      <trade-historys v-if="data.length" class="w-full mt-2" :data="data" />
       <spin-loader v-else class="h-full" />
     </transition>
-  </div>
+  </base-card>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, PropType } from 'vue'
   import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
-  import { useTrades } from '/@/components/coincheck/useTrades'
   import TradeHistorys from '/@/components/trade-history/TradeHistory.vue'
+  import BaseCard from '/@/components/base/BaseCard.vue'
+  type Data = {
+    id: number
+    date: Date
+    type: 'SELL' | 'BUY'
+    rate: number
+    amount: number
+  }
 
   export default defineComponent({
     components: {
       TradeHistorys,
       SpinLoader,
+      BaseCard,
     },
 
-    setup() {
-      const { data } = useTrades()
-
-      return { data }
+    props: {
+      data: {
+        type: Array as PropType<Data[]>,
+        default: () => [],
+      },
     },
   })
 </script>

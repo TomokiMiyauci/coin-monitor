@@ -30,9 +30,17 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import BaseSpan from '../base/BaseSpan.vue'
+  import { defineComponent, PropType } from 'vue'
+  import BaseSpan from '/@/components/base/BaseSpan.vue'
   import TableTd from '/@/components/trade-history/TableTd.vue'
+
+  type Data = {
+    id: number
+    date: Date
+    type: 'SELL' | 'BUY'
+    rate: number
+    amount: number
+  }
 
   export default defineComponent({
     components: {
@@ -41,7 +49,7 @@
     },
     props: {
       data: {
-        type: Array,
+        type: Array as PropType<Data[]>,
         default: () => [],
       },
     },

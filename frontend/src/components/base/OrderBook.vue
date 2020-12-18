@@ -1,70 +1,87 @@
 <template>
-  <table class="mx-auto shadow rounded bg-white" style="display: inline-table">
-    <thead>
-      <tr>
-        <th
-          class="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+  <base-card>
+    <h3 class="ml-2 p-2 mt-1 text-lg text-gray-400">Order Book</h3>
+
+    <template v-if="asks.length">
+      <div class="flex mt-4 justify-around uppercase">
+        <span>rate</span><span>amount</span>
+      </div>
+      <div class="bg-gradient-to-b to-red-400 from-white">
+        <div class="uppercase text-center text-red-400">buy</div>
+        <div
+          v-for="ask in asks"
+          :key="ask"
+          class="flex px-10 pt-1 justify-between"
         >
-          Rate
-        </th>
-        <th
-          class="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+          <comma-filter :value="ask[0]" />
+          <comma-filter :value="ask[1]" />
+        </div>
+      </div>
+
+      <div class="p-2 text-center bg-gradient-to-b from-red-400 to-green-400">
+        <comma-filter :value="tick" />
+      </div>
+
+      <div class="bg-gradient-to-t to-green-400 from-white">
+        <div
+          v-for="bid in bids"
+          :key="bid"
+          class="flex px-10 pt-1 justify-between"
         >
-          Amount
-        </th>
-      </tr>
-    </thead>
+          <comma-filter :value="bid[0]" />
 
-    <tbody>
-      <tr>
-        <td colspan="2" class="text-center bg-red-500 uppercase p-2">Buy</td>
-      </tr>
-    </tbody>
-
-    <tbody v-for="(ask, i) in asks" :key="i">
-      <tr>
-        <td class="px-5 py-1">
-          <comma-filter class="text-red-600" :value="ask[0]" />
-        </td>
-        <td class="px-5">{{ ask[1] }}</td>
-      </tr>
-    </tbody>
-
-    <tbody v-for="(bid, i) in bids" :key="i">
-      <tr>
-        <td class="px-5 py-1">
-          <comma-filter class="text-green-500" :value="bid[0]" />
-        </td>
-        <td class="px-5">{{ bid[1] }}</td>
-      </tr>
-    </tbody>
-
-    <tbody>
-      <tr>
-        <td colspan="2" class="text-center bg-green-500 p-2">Sell</td>
-      </tr>
-    </tbody>
-  </table>
+          <comma-filter :value="bid[1]" />
+        </div>
+        <div class="uppercase text-center text-green-400">sell</div>
+      </div>
+    </template>
+    <template v-else>
+      <spin-loader class="h-full" />
+    </template>
+  </base-card>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { computed, defineComponent, PropType } from 'vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
+  import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
+  import BaseCard from '/@/components/base/BaseCard.vue'
+
+  type PriceAmount = [number, number][]
 
   export default defineComponent({
     components: {
       CommaFilter,
+      SpinLoader,
+      BaseCard,
     },
+
     props: {
       asks: {
-        type: Array,
+        type: Array as PropType<PriceAmount>,
         default: () => [],
       },
 
       bids: {
-        type: Array,
+        type: Array as PropType<PriceAmount>,
         default: () => [],
       },
+    },
+
+    setup(props) {
+      const tick = computed(() => {
+        if (
+          !!props.asks.length &&
+          !!props.asks[9] &&
+          !!props.bids.length &&
+          !!props.bids[0]
+        ) {
+          return props.asks[9][0] - props.bids[0][0]
+        }
+        return
+      })
+
+      return { tick }
     },
   })
 </script>
