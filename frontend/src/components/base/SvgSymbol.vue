@@ -5,7 +5,7 @@
 
 <script lang="ts">
   import { computed, defineComponent, PropType } from 'vue'
-  import { getAsyncComponent } from '/@/components/base/hoge'
+  import { getComponent } from '/@/components/coincheck/symbol'
   import BaseSpan from '/@/components/base/BaseSpan.vue'
   import { CoincheckSymbol } from '/@/components/base/coin'
 
@@ -19,7 +19,7 @@
     },
 
     setup(props) {
-      const component = computed(() => getAsyncComponent(props.symbol))
+      const component = computed(() => getComponent(props.symbol))
 
       return { component }
     },
