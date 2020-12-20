@@ -33,16 +33,11 @@ export const _setInterval = (
   return { setSetInterval, resetInterval, changeInterval }
 }
 
-export const useInterval = (
-  fn: Params[0],
-  interval: Params[1]
-): {
-  changeInterval: (newInterval: Params[1]) => void
-} => {
+export const useInterval = (fn: Params[0], interval: Params[1]) => {
   const { setSetInterval, resetInterval, ...rest } = _setInterval(fn, interval)
 
   onBeforeMount(setSetInterval)
   onBeforeUnmount(resetInterval)
 
-  return { ...rest }
+  return { resetInterval, ...rest }
 }
