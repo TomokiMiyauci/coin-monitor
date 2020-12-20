@@ -1,5 +1,5 @@
 <template>
-  <base-card class="p-4">
+  <base-card :overflow-hidden="false" class="p-4">
     <base-title-value title="Price">
       <template #title>
         <div class="flex justify-between">

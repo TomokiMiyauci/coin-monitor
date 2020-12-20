@@ -3,7 +3,6 @@
     <template #menu>
       <base-menu
         min-width="188"
-        max-height="max-h-32"
         :value="pair"
         :symbols="zaifOrderBookPairs"
         @input="onInput"

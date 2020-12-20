@@ -1,6 +1,7 @@
 <template>
   <base-div
-    class="rounded-md bg-white shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-200"
+    class="rounded-md bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+    :class="{ 'overflow-hidden': overflowHidden }"
   >
     <slot />
   </base-div>
@@ -12,6 +13,13 @@
   export default defineComponent({
     components: {
       BaseDiv,
+    },
+
+    props: {
+      overflowHidden: {
+        type: Boolean,
+        default: true,
+      },
     },
   })
 </script>
