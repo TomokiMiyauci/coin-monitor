@@ -7,7 +7,7 @@
         :aria-expanded="hover"
         aria-labelledby="list-box-label"
         class="relative bg-white border hover:shadow-md border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800 sm:text-sm transition duration-200"
-        style="min-width: 136px"
+        :style="style"
         @click="hover = true"
       >
         <span class="flex items-center">
@@ -90,10 +90,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, ref } from 'vue'
+  import { defineComponent, PropType, ref, computed } from 'vue'
   export default defineComponent({
     props: {
       value: {
+        type: String,
+        default: '',
+      },
+
+      minWidth: {
         type: String,
         default: '',
       },
@@ -105,7 +110,7 @@
     },
 
     emits: ['input'],
-    setup(_, { emit }) {
+    setup(props, { emit }) {
       const hover = ref(false)
 
       const onClick = (symbol: string): void => {
@@ -114,7 +119,11 @@
         emit('input', symbol)
       }
 
-      return { hover, onClick }
+      const style = computed(() => {
+        return `min-width: ${props.minWidth}px`
+      })
+
+      return { hover, onClick, style }
     },
   })
 </script>
