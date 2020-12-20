@@ -28,7 +28,7 @@
       </base-rate>
     </base-card>
 
-    <order-book class="col-span-1" :asks="asks" :bids="bids" />
+    <zaif-order-book class="col-span-1" />
 
     <trade-history class="col-span-2" :data="data" />
   </div>
@@ -38,10 +38,8 @@
   import { defineComponent, ref } from 'vue'
   import LatestPrice from '/@/components/base/LatestPrice.vue'
   import AskBid from '/@/components/base/AskBid.vue'
-  import OrderBook from '/@/components/base/OrderBook.vue'
   import { useLastPrice } from '/@/components/zaif/useLastPrice'
   import { useTicker } from '/@/components/zaif/useTicker'
-  import { useDepth } from '/@/components/zaif/useDepth'
   import { useTrades } from '/@/components/zaif/useTrades'
   import BaseMenu from '/@/components/base/BaseMenu.vue'
 
@@ -52,7 +50,7 @@
 
   import BaseSvgSymbol from '/@/components/base/BaseSvgSymbol.vue'
   import ZaifSymbol from './ZaifSymbol.vue'
-  import { getLastPrice as g } from 'zaif-client'
+  import ZaifOrderBook from '/@/components/zaif/ZaifOrderBook.vue'
   import { zaifBaseSymbols, ZaifBaseSymbol } from '/@/components/base/coin'
 
   export default defineComponent({
@@ -60,7 +58,7 @@
       BaseMenu,
       LatestPrice,
       AskBid,
-      OrderBook,
+      ZaifOrderBook,
       TradeHistory,
       ZaifSymbol,
       BaseSvgSymbol,
@@ -69,7 +67,6 @@
     },
     setup() {
       const { ask, bid } = useTicker()
-      const { asks, bids } = useDepth()
       const { data } = useTrades()
       const { lastPrice } = useLastPrice()
 
@@ -91,8 +88,6 @@
         zaifBaseSymbols,
         ask,
         bid,
-        asks,
-        bids,
         data,
         lastPrice,
       }

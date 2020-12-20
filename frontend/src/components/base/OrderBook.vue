@@ -1,6 +1,10 @@
 <template>
   <base-card>
-    <h3 class="ml-2 p-2 mt-1 text-lg text-gray-400">Order Book</h3>
+    <div class="flex p-2 justify-between items-center">
+      <h3 class="ml-2 p-2 mt-1 text-lg text-gray-400">Order Book</h3>
+
+      <slot name="menu" />
+    </div>
 
     <template v-if="asks.length">
       <div class="flex mt-4 justify-around uppercase">
