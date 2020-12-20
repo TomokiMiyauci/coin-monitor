@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue'
+  import { defineComponent, Ref, inject } from 'vue'
   import { useDepth } from '/@/components/zaif/useDepth'
   import OrderBook from '/@/components/base/OrderBook.vue'
   import BaseMenu from '/@/components/base/BaseMenu.vue'
@@ -33,7 +33,7 @@
     },
 
     setup() {
-      const pair = ref<ZaifOrderBookPairs>('btc_jpy')
+      const pair = inject('orderBookPair') as Ref<ZaifOrderBookPairs>
       const { asks, bids } = useDepth(pair)
 
       const format = (payload: ZaifOrderBookPairs) => {

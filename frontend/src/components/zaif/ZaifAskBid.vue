@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue'
+  import { defineComponent, Ref, inject } from 'vue'
   import { useTicker } from '/@/components/zaif/useTicker'
   import AskBid from '/@/components/base/AskBid.vue'
   import {
@@ -33,7 +33,7 @@
       BaseSvgPair,
     },
     setup() {
-      const pair = ref<ZaifOrderBookPairs>('btc_jpy')
+      const pair = inject('askBidPair') as Ref<ZaifOrderBookPairs>
       const { ask, bid } = useTicker(pair)
 
       const onInput = (payload: ZaifOrderBookPairs) => {

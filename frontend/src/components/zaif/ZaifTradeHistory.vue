@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref } from 'vue'
+  import { defineComponent, inject, Ref } from 'vue'
   import { useTrades } from '/@/components/zaif/useTrades'
   import TradeHistory from '/@/components/base/TradeHistory.vue'
   import BaseMenu from '/@/components/base/BaseMenu.vue'
@@ -33,7 +33,7 @@
       BaseSvgPair,
     },
     setup() {
-      const pair = ref<ZaifOrderBookPairs>('btc_jpy')
+      const pair = inject('historyPair') as Ref<ZaifOrderBookPairs>
 
       const { data } = useTrades(pair)
       const format = (payload: ZaifOrderBookPairs) => {
