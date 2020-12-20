@@ -1,3 +1,4 @@
+import { Ref, watch } from 'vue'
 import { getTicker } from '/@/api/zaif'
 import { useReactive } from '/@/core/reactive'
 import { useInterval } from '/@/core/interval'
@@ -5,13 +6,14 @@ import type { getTicker as data } from 'zaif-client'
 import { computed } from 'vue'
 
 type Data = ReturnType<typeof data> extends Promise<infer data> ? data : never
+type Pair = Parameters<typeof data>[number]
 
-export const useTicker = () => {
+export const useTicker = (pair: Ref<Pair>) => {
   const { get } = getTicker()
   const { state, setState } = useReactive<Data | undefined>(undefined)
 
   const setData = async () => {
-    setState(await get())
+    setState(await get(pair.value))
   }
 
   const ask = computed(() => state.value?.ask)
@@ -23,6 +25,8 @@ export const useTicker = () => {
   const vwap = computed(() => state.value?.vwap)
 
   setData()
+
+  watch(pair, setData)
   useInterval(setData, 10000)
 
   return {

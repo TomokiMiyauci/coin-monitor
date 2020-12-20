@@ -49,7 +49,8 @@
             role="list-box"
             aria-labelledby="list-box-label"
             aria-activedescendant="list-box-item-3"
-            class="max-h-56 text-gray-900 cursor-pointer rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+            class="text-gray-900 cursor-pointer rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+            :class="maxHeight"
           >
             <!--
           Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
@@ -101,6 +102,11 @@
       minWidth: {
         type: String,
         default: '',
+      },
+
+      maxHeight: {
+        type: String,
+        default: 'max-h-56',
       },
 
       symbols: {

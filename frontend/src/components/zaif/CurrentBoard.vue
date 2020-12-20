@@ -1,9 +1,10 @@
 <template>
-  <div class="grid grid-cols-4 gap-6">
-    <latest-price class="col-span-2" :value="lastPrice" />
-    <ask-bid class="col-span-2" :ask="ask" :bid="bid" />
+  <div class="grid grid-cols-6 gap-6">
+    <latest-price class="col-span-3" :value="lastPrice" />
 
-    <base-card class="col-span-1" style="min-height: 300px">
+    <zaif-ask-bid class="col-span-3" />
+
+    <base-card class="col-span-2">
       <div class="flex p-2 justify-between items-center">
         <h3 class="ml-2 text-lg text-gray-400">Coins</h3>
         <base-menu
@@ -28,7 +29,7 @@
       </base-rate>
     </base-card>
 
-    <zaif-order-book class="col-span-1" />
+    <zaif-order-book class="col-span-2" />
 
     <zaif-trade-history class="col-span-2" />
   </div>
@@ -37,9 +38,7 @@
 <script lang="ts">
   import { defineComponent, ref } from 'vue'
   import LatestPrice from '/@/components/base/LatestPrice.vue'
-  import AskBid from '/@/components/base/AskBid.vue'
   import { useLastPrice } from '/@/components/zaif/useLastPrice'
-  import { useTicker } from '/@/components/zaif/useTicker'
   import BaseMenu from '/@/components/base/BaseMenu.vue'
 
   import { useRates, usePair } from '/@/components/zaif/useRate'
@@ -50,14 +49,15 @@
   import ZaifSymbol from './ZaifSymbol.vue'
   import ZaifOrderBook from '/@/components/zaif/ZaifOrderBook.vue'
   import ZaifTradeHistory from '/@/components/zaif/ZaifTradeHistory.vue'
+  import ZaifAskBid from '/@/components/zaif/ZaifAskBid.vue'
   import { zaifBaseSymbols, ZaifBaseSymbol } from '/@/components/base/coin'
 
   export default defineComponent({
     components: {
       BaseMenu,
       LatestPrice,
-      AskBid,
       ZaifOrderBook,
+      ZaifAskBid,
       ZaifTradeHistory,
       ZaifSymbol,
       BaseSvgSymbol,
@@ -65,7 +65,6 @@
       BaseCard,
     },
     setup() {
-      const { ask, bid } = useTicker()
       const { lastPrice } = useLastPrice()
 
       const baseSymbol = ref<ZaifBaseSymbol>('JPY')
@@ -84,8 +83,6 @@
         pairs,
         baseSymbol,
         zaifBaseSymbols,
-        ask,
-        bid,
         lastPrice,
       }
     },

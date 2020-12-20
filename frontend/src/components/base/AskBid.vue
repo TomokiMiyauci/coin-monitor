@@ -1,6 +1,12 @@
 <template>
   <base-card class="p-4">
     <base-title-value title="Price">
+      <template #title>
+        <div class="flex justify-between">
+          <base-h-3 class="text-lg text-gray-400">Price</base-h-3>
+          <slot name="menu" />
+        </div>
+      </template>
       <div class="flex mt-8 items-center justify-between">
         <div>
           <base-title-value title="Ask">
@@ -34,6 +40,7 @@
   import TextLoader from './loaders/TextLoader.vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
   import BaseTitleValue from '/@/components/base/BaseTitleValue.vue'
+  import BaseH3 from './BaseH3.vue'
 
   export default defineComponent({
     components: {
@@ -41,6 +48,7 @@
       CommaFilter,
       BaseCard,
       TextLoader,
+      BaseH3,
     },
     props: {
       ask: {
