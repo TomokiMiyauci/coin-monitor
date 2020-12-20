@@ -15,7 +15,7 @@ export type CoincheckSymbol =
   | 'LTC'
   | 'JPY'
 
-export const SYMBOLS: CoincheckSymbol[] = [
+export const coincheckSymbols: CoincheckSymbol[] = [
   'BAT',
   'BCH',
   'ETC',
@@ -31,3 +31,28 @@ export const SYMBOLS: CoincheckSymbol[] = [
   'LTC',
   'JPY',
 ]
+
+export const ZaifSymbols = [
+  'BCH',
+  'ETH',
+  'XEM',
+  'ZAIF',
+  'MONA',
+  'BTC',
+  'XCP',
+  'CICC',
+  'NCXC',
+  'ERC20.CMS',
+  'MOSAIC.CMS',
+  'CSETH',
+  'CSBTC',
+  'CSXEM',
+  'CSZAIF',
+  'FSCC',
+  'JPYZ',
+  'JPY',
+] as const
+
+export const zaifBaseSymbols = ['ETH', 'XEM', 'ZAIF', 'BTC', 'JPY'] as const
+export type ZaifSymbol = typeof ZaifSymbols[number]
+export type ZaifBaseSymbol = typeof zaifBaseSymbols[number]

@@ -9,7 +9,7 @@ export const useLastPrice = () => {
   )
 
   const setData = async () => {
-    const { last_price } = await get()
+    const { last_price } = await get('btc_jpy')
 
     setState(last_price)
   }

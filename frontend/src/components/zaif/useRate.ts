@@ -1,7 +1,12 @@
-import { ref, computed, ComputedRef, watch, Ref, watchEffect } from 'vue'
+import { ref, computed, ComputedRef, watch, Ref, watchEffect, isRef } from 'vue'
 import { getLastPrice } from '/@/api/zaif'
 import { useInterval } from '/@/core/interval'
 import { useReactive } from '/@/core/reactive'
+import { getLastPrice as g } from 'zaif-client'
+import { toLowerCase } from '/@/utils/format'
+import { ZaifSymbol } from '/@/components/base/coin'
+
+type Pair = Parameters<typeof g>[number]
 
 type UseRate = {
   setData: () => Promise<void>
@@ -10,117 +15,169 @@ type UseRate = {
   changeInterval: (newInterval: number) => void
 }
 
-export const useRate = (): UseRate => {
+export const useRate = (pair: Ref<'bch_jpy'>) => {
   const { get } = getLastPrice()
   const { state, setState: setRate } = useReactive<number | undefined>(
     undefined
   )
 
   const setData = async () => {
-    const { last_price } = await get()
+    const { last_price } = await get(isRef(pair) ? pair.value : pair)
     setRate(last_price)
   }
 
   const { stateRef, setState } = useReactive<number | undefined>(undefined)
 
-  const stop = watch(state, (now) => {
+  const s = watch(state, (now) => {
     setState(now)
     stop()
   })
 
-  watchEffect(() => setData())
+  watchEffect(() => {
+    console.log(111)
+    setData()
+  })
 
   const ratio = computed(() => {
     if (!state.value || !stateRef.value) return undefined
     return state.value / stateRef.value - 1
   })
 
-  const { changeInterval } = useInterval(setData, 10000)
+  const { changeInterval, resetInterval } = useInterval(setData, 10000)
 
-  return { setData, rate: state, changeInterval, ratio }
+  return { setData, rate: state, changeInterval, ratio, stop: resetInterval }
+}
+
+export const useR = (pair: Pair) => {
+  const { get } = getLastPrice()
+  const { state, setState: setRate } = useReactive<number | undefined>(
+    undefined
+  )
+
+  const setData = async () => {
+    const { last_price } = await get(pair)
+    setRate(last_price)
+  }
+
+  const { stateRef, setState } = useReactive<number | undefined>(undefined)
+
+  const s = watch(state, (now) => {
+    setState(now)
+    s()
+  })
+
+  watchEffect(() => {
+    setData()
+  })
+
+  const ratio = computed(() => {
+    if (!state.value || !stateRef.value) return undefined
+    return state.value / stateRef.value - 1
+  })
+
+  return { setData, rate: state, ratio }
 }
 
 export const useRates = <T extends Pair>(pairs: Ref<T[]>) => {
-  const rr = ref<
-    (UseRate & {
-      symbol: T
-    })[]
+  const { state, setState: setRate } = useReactive<
+    {
+      setData: () => Promise<void>
+      rate: ComputedRef<number | undefined>
+      ratio: ComputedRef<number | undefined>
+      symbol: Pair
+      baseSymbol: Pair
+    }[]
   >([])
 
-  rr.value = pairs.value.map((pair) => {
-    return {
-      symbol: pair,
-      ...useRate(ref(pair)),
-    }
-  })
-
-  const rates = computed(() =>
-    Object.assign(
-      {},
-      ...rr.value.map(({ rate, symbol, ratio }) => {
-        return { [symbol]: { rate, ratio } }
-      })
-    )
-  )
-
-  const change = (interval: number) => {
-    rr.value.forEach((r) => {
-      r.changeInterval(interval)
+  const getUsePair = (pairs: Pair[]) => {
+    return pairs.map((pair) => {
+      const [symbol, baseSymbol] = pair.split('_')
+      return {
+        symbol: symbol.toUpperCase() as Pair,
+        baseSymbol: baseSymbol as Pair,
+        ...useR(pair),
+      }
     })
   }
 
+  setRate(getUsePair(pairs.value))
+
+  watch(pairs, (now) => {
+    setRate(getUsePair(now))
+  })
+
+  const dataSetter = () => {
+    state.value.forEach(({ setData }) => {
+      setData()
+    })
+  }
+
+  const rates = computed(() => {
+    return state.value.map(({ rate, symbol, ratio, baseSymbol }) => ({
+      rate,
+      symbol,
+      ratio,
+      baseSymbol,
+    }))
+  })
+
+  useInterval(dataSetter, 10000)
+
   return {
-    change,
     rates,
+    state,
   }
 }
 
-export const getRateMap = (symbol: 'JPY' | 'BTC') => {
-  const candidates = [
-    'JPY',
-    'BTC',
-    'ETC',
-    'BAT',
-    'BCH',
-    'QTUM',
-    'IOST',
-    'FCT',
-    'MONA',
-    'ETH',
-    'LSK',
-    'XEM',
-    'XLM',
-    'XRP',
-    'LTC',
-  ]
+export const usePair = (baseSymgbol: Ref<ZaifSymbol>) => {
+  const { state: pairs, setState: setPairs } = useReactive(
+    getPair(baseSymgbol.value)
+  )
 
-  return candidates
-    .filter((candidate) => candidate !== symbol)
-    .map((candidate) => `${candidate.toLowerCase()}_${symbol.toLowerCase()}`)
+  const setData = (baseSymgbol: ZaifSymbol) => {
+    setPairs(getPair(baseSymgbol))
+  }
+
+  watch(baseSymgbol, (now) => {
+    setData(now)
+  })
+  return {
+    pairs,
+  }
 }
 
-export const getPairs = (
-  symbol: 'JPY' | 'BTC'
-): { baseSymbol: string; symbol: string }[] => {
-  const candidates = [
-    'JPY',
-    'BTC',
-    'ETC',
-    'BAT',
-    'BCH',
-    'QTUM',
-    'IOST',
-    'FCT',
-    'MONA',
-    'ETH',
-    'LSK',
-    'XEM',
-    'XLM',
-    'XRP',
-    'LTC',
-  ]
+export const zaifPairs = [
+  'cszaif_zaif',
+  'csbtc_btc',
+  'btc_jpy',
+  'zaif_btc',
+  'bch_jpy',
+  'cscmseth_erc20.cms',
+  'erc20.cms_jpy',
+  'cicc_btc',
+  'ncxc_jpy',
+  'cscmsxem_mosaic.cms',
+  'fscc_btc',
+  'cseth_eth',
+  'xcp_jpy',
+  'mona_btc',
+  'ncxc_btc',
+  'mosaic.cms_btc',
+  'xem_btc',
+  'cicc_jpy',
+  'csxem_xem',
+  'eth_jpy',
+  'mona_jpy',
+  'bch_btc',
+  'xcp_btc',
+  'fscc_jpy',
+  'eth_btc',
+  'mosaic.cms_jpy',
+  'jpyz_jpy',
+  'zaif_jpy',
+  'xem_jpy',
+  'erc20.cms_btc',
+] as const
 
-  return candidates
-    .filter((candidate) => candidate !== symbol)
-    .map((candidate) => ({ symbol: candidate, baseSymbol: symbol }))
-}
+const getPair = (baseSymbol: ZaifSymbol) =>
+  zaifPairs.filter((pair) => pair.endsWith(`_${toLowerCase(baseSymbol)}`))
