@@ -30,7 +30,7 @@
 
     <zaif-order-book class="col-span-1" />
 
-    <trade-history class="col-span-2" :data="data" />
+    <zaif-trade-history class="col-span-2" />
   </div>
 </template>
 
@@ -40,17 +40,16 @@
   import AskBid from '/@/components/base/AskBid.vue'
   import { useLastPrice } from '/@/components/zaif/useLastPrice'
   import { useTicker } from '/@/components/zaif/useTicker'
-  import { useTrades } from '/@/components/zaif/useTrades'
   import BaseMenu from '/@/components/base/BaseMenu.vue'
 
   import { useRates, usePair } from '/@/components/zaif/useRate'
-  import TradeHistory from '/@/components/base/TradeHistory.vue'
   import BaseRate from '/@/components/base/BaseRate.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
 
   import BaseSvgSymbol from '/@/components/base/BaseSvgSymbol.vue'
   import ZaifSymbol from './ZaifSymbol.vue'
   import ZaifOrderBook from '/@/components/zaif/ZaifOrderBook.vue'
+  import ZaifTradeHistory from '/@/components/zaif/ZaifTradeHistory.vue'
   import { zaifBaseSymbols, ZaifBaseSymbol } from '/@/components/base/coin'
 
   export default defineComponent({
@@ -59,7 +58,7 @@
       LatestPrice,
       AskBid,
       ZaifOrderBook,
-      TradeHistory,
+      ZaifTradeHistory,
       ZaifSymbol,
       BaseSvgSymbol,
       BaseRate,
@@ -67,7 +66,6 @@
     },
     setup() {
       const { ask, bid } = useTicker()
-      const { data } = useTrades()
       const { lastPrice } = useLastPrice()
 
       const baseSymbol = ref<ZaifBaseSymbol>('JPY')
@@ -88,7 +86,6 @@
         zaifBaseSymbols,
         ask,
         bid,
-        data,
         lastPrice,
       }
     },

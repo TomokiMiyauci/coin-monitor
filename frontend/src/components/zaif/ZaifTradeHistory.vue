@@ -1,5 +1,5 @@
 <template>
-  <order-book :asks="asks" :bids="bids">
+  <trade-history :data="data">
     <template #menu>
       <base-menu
         min-width="188"
@@ -11,15 +11,16 @@
           <base-svg-pair v-bind="format(symbol)" /> </template
       ></base-menu>
     </template>
-  </order-book>
+  </trade-history>
 </template>
 
 <script lang="ts">
   import { defineComponent, ref } from 'vue'
-  import { useDepth } from '/@/components/zaif/useDepth'
-  import OrderBook from '/@/components/base/OrderBook.vue'
+  import { useTrades } from '/@/components/zaif/useTrades'
+  import TradeHistory from '/@/components/base/TradeHistory.vue'
   import BaseMenu from '/@/components/base/BaseMenu.vue'
   import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
+
   import {
     zaifOrderBookPairs,
     ZaifOrderBookPairs,
@@ -27,15 +28,14 @@
 
   export default defineComponent({
     components: {
-      OrderBook,
+      TradeHistory,
       BaseMenu,
       BaseSvgPair,
     },
-
     setup() {
       const pair = ref<ZaifOrderBookPairs>('btc_jpy')
-      const { asks, bids } = useDepth(pair)
 
+      const { data } = useTrades(pair)
       const format = (payload: ZaifOrderBookPairs) => {
         const [symbol, baseSymbol] = payload.split('_')
         return {
@@ -48,14 +48,7 @@
         pair.value = payload
       }
 
-      return {
-        onInput,
-        pair,
-        format,
-        bids,
-        asks,
-        zaifOrderBookPairs,
-      }
+      return { data, format, onInput, pair, zaifOrderBookPairs }
     },
   })
 </script>

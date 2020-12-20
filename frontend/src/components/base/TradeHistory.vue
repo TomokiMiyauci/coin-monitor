@@ -1,7 +1,10 @@
 <template>
   <base-card>
-    <h3 class="py-3 px-3 text-lg text-gray-400">Trade History</h3>
+    <div class="flex p-2 justify-between items-center">
+      <h3 class="py-3 px-3 text-lg text-gray-400">Trade History</h3>
 
+      <slot name="menu" />
+    </div>
     <transition name="fade">
       <trade-historys v-if="data.length" class="w-full mt-2" :data="data" />
       <spin-loader v-else class="h-full" />
