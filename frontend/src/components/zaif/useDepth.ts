@@ -1,12 +1,12 @@
-import { computed } from 'vue'
+import { computed, Ref, watch } from 'vue'
 import { getDepth } from '/@/api/zaif'
 import { useInterval } from '/@/core/interval'
 import { useReactive } from '/@/core/reactive'
 import type { getDepth as data } from 'zaif-client'
 
 type Data = ReturnType<typeof data> extends Promise<infer data> ? data : never
-
-export const useDepth = () => {
+type Pair = Parameters<typeof data>[number]
+export const useDepth = (pair: Ref<Pair>) => {
   const { state, setState } = useReactive<Data | undefined>(undefined)
 
   const { get } = getDepth()
@@ -20,8 +20,10 @@ export const useDepth = () => {
   })
 
   const setDepth = async () => {
-    setState(await get())
+    setState(await get(pair.value))
   }
+
+  watch(pair, setDepth)
 
   setDepth()
   useInterval(setDepth, 10000)

@@ -1,10 +1,11 @@
-import { ref, computed, ComputedRef, watch, Ref, watchEffect, isRef } from 'vue'
+import { computed, ComputedRef, watch, Ref, watchEffect, isRef } from 'vue'
 import { getLastPrice } from '/@/api/zaif'
 import { useInterval } from '/@/core/interval'
 import { useReactive } from '/@/core/reactive'
 import { getLastPrice as g } from 'zaif-client'
 import { toLowerCase } from '/@/utils/format'
 import { ZaifSymbol } from '/@/components/base/coin'
+import { zaifPairs } from '/@/components/zaif/pair'
 
 type Pair = Parameters<typeof g>[number]
 
@@ -145,39 +146,6 @@ export const usePair = (baseSymgbol: Ref<ZaifSymbol>) => {
     pairs,
   }
 }
-
-export const zaifPairs = [
-  'cszaif_zaif',
-  'csbtc_btc',
-  'btc_jpy',
-  'zaif_btc',
-  'bch_jpy',
-  'cscmseth_erc20.cms',
-  'erc20.cms_jpy',
-  'cicc_btc',
-  'ncxc_jpy',
-  'cscmsxem_mosaic.cms',
-  'fscc_btc',
-  'cseth_eth',
-  'xcp_jpy',
-  'mona_btc',
-  'ncxc_btc',
-  'mosaic.cms_btc',
-  'xem_btc',
-  'cicc_jpy',
-  'csxem_xem',
-  'eth_jpy',
-  'mona_jpy',
-  'bch_btc',
-  'xcp_btc',
-  'fscc_jpy',
-  'eth_btc',
-  'mosaic.cms_jpy',
-  'jpyz_jpy',
-  'zaif_jpy',
-  'xem_jpy',
-  'erc20.cms_btc',
-] as const
 
 const getPair = (baseSymbol: ZaifSymbol) =>
   zaifPairs.filter((pair) => pair.endsWith(`_${toLowerCase(baseSymbol)}`))
