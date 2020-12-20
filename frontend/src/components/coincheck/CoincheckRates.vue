@@ -1,9 +1,15 @@
 <template>
-  <div>
+  <base-card>
     <div class="flex p-2 justify-between items-center">
       <h3 class="ml-2 text-lg text-gray-400">Coins</h3>
 
-      <base-menu :value="base" @input="onChange" />
+      <base-menu :value="base" :symbols="coincheckSymbols" @input="onChange">
+        <template #default="{ symbol }">
+          <base-svg-symbol :symbol="symbol">
+            <coincheck-symbol :symbol="symbol" />
+          </base-svg-symbol>
+        </template>
+      </base-menu>
     </div>
     <base-rate class="mt-4" :rates="symbolMap">
       <template #default="{ symbol }">
@@ -12,7 +18,7 @@
         </base-svg-symbol>
       </template>
     </base-rate>
-  </div>
+  </base-card>
 </template>
 
 <script lang="ts">
@@ -21,13 +27,17 @@
   import BaseRate from '/@/components/base/BaseRate.vue'
   import BaseMenu from '/@/components/base/BaseMenu.vue'
   import BaseSvgSymbol from '../base/BaseSvgSymbol.vue'
+  import BaseCard from '/@/components/base/BaseCard.vue'
+
   import CoincheckSymbol from './CoincheckSymbol.vue'
+  import { coincheckSymbols } from '/@/components/base/coin'
   export default defineComponent({
     components: {
       BaseRate,
       BaseMenu,
       BaseSvgSymbol,
       CoincheckSymbol,
+      BaseCard,
     },
 
     setup() {
@@ -98,6 +108,7 @@
         onChange,
         symbolMap,
         base,
+        coincheckSymbols,
       }
     },
   })
