@@ -11,7 +11,7 @@
         @click="hover = true"
       >
         <span class="flex items-center">
-          <svg-symbol :symbol="value" />
+          <slot :symbol="value" />
         </span>
         <span
           class="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
@@ -57,7 +57,7 @@
           Highlighted: "text-white bg-indigo-600", Not Highlighted: "text-gray-900"
         -->
             <li
-              v-for="(symbol, index) in SYMBOLS"
+              v-for="(symbol, index) in symbols"
               id="list-box-item-0"
               :key="index"
               role="option"
@@ -70,7 +70,7 @@
             >
               <div class="flex items-center">
                 <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
-                <svg-symbol :symbol="symbol" />
+                <slot :symbol="symbol" />
 
                 <!--
             Checkmark, only display for selected option.
@@ -91,32 +91,30 @@
 
 <script lang="ts">
   import { defineComponent, PropType, ref } from 'vue'
-  import SvgSymbol from './SvgSymbol.vue'
-  import { SYMBOLS, CoincheckSymbol } from '/@/components/base/coin'
   export default defineComponent({
-    components: {
-      SvgSymbol,
-    },
-
     props: {
       value: {
-        type: String as PropType<CoincheckSymbol>,
+        type: String,
         default: '',
+      },
+
+      symbols: {
+        type: Array as PropType<string[]>,
+        default: () => [],
       },
     },
 
     emits: ['input'],
     setup(_, { emit }) {
       const hover = ref(false)
-      const selected = ref(0)
 
-      const onClick = (symbol: CoincheckSymbol) => {
+      const onClick = (symbol: string): void => {
         hover.value = false
 
         emit('input', symbol)
       }
 
-      return { hover, selected, SYMBOLS, onClick }
+      return { hover, onClick }
     },
   })
 </script>
