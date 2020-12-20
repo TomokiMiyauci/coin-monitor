@@ -1,20 +1,20 @@
 <template>
   <div class="grid grid-cols-4 gap-4">
-    <latest-price class="col-span-2" :value="last" />
-    <ask-bid :ask="ask" :bid="bid" />
+    <latest-price class="col-span-full 2xl:col-span-2" :value="last" />
+    <ask-bid class="col-span-full 2xl:col-span-2" :ask="ask" :bid="bid" />
   </div>
 
-  <div class="grid grid-rows-3 grid-cols-4 mt-4 gap-4">
+  <div class="grid grid-rows-3 grid-cols-6 mt-4 gap-4">
     <coincheck-rates
-      class="col-span-1 w-full row-span-3 hover:shadow-xl duration-200 transition bg-white mx-auto shadow rounded-md"
+      class="col-span-full sm:col-span-3 xl:col-span-2 w-full row-span-3 hover:shadow-xl duration-200 transition bg-white mx-auto shadow rounded-md"
     />
 
     <order-books
-      class="row-span-3 w-full col-span-1 bg-white rounded-md hover:shadow-xl duration-200 transition"
+      class="row-span-3 sm:col-span-3 xl:col-span-2 w-full col-span-full bg-white rounded-md hover:shadow-xl duration-200 transition"
     />
 
     <trade-history
-      class="bg-white rounded-md shad;ow row-span-3 col-span-2 hover:shadow-xl duration-200 transition"
+      class="bg-white rounded-md shadow row-span-3 xl:col-span-4 2xl:col-span-2 col-span-full hover:shadow-xl duration-200 transition"
     />
   </div>
 </template>

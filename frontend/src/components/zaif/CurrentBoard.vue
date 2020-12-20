@@ -1,14 +1,21 @@
 <template>
   <div class="grid grid-cols-6 gap-6">
-    <latest-price class="col-span-3" :value="lastPrice" />
+    <latest-price
+      class="col-span-6 md:col-span-5 2xl:col-span-3"
+      :value="lastPrice"
+    />
 
-    <zaif-ask-bid class="col-span-3" />
+    <zaif-ask-bid class="col-span-6 md:col-span-4 2xl:col-span-2" />
 
-    <zaif-rates class="col-span-2" />
+    <zaif-rates
+      class="col-span-full sm:col-span-3 md:col-span-3 2xl:col-span-2"
+    />
 
-    <zaif-order-book class="col-span-2" />
+    <zaif-order-book class="col-span-full sm:col-span-3 2xl:col-span-2" />
 
-    <zaif-trade-history class="col-span-2" />
+    <zaif-trade-history
+      class="col-span-full md:col-span-4 xl:col-span-3 2xl:col-span-2"
+    />
   </div>
 </template>
 
