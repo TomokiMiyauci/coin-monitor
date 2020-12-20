@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Index from '/@/pages/index.vue'
-import Zaif from '/@/pages/zaif.vue'
-
+const Index = () => import('/@/pages/index.vue')
+const Zaif = () => import('/@/pages/zaif.vue')
 const routes = [
   { path: '/', component: Index },
   { path: '/zaif', component: Zaif },
