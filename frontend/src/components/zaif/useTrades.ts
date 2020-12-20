@@ -36,7 +36,10 @@ export const useTrades = (pair: Ref<ZaifPairs>) => {
     setState(await get(pair.value))
   }
 
-  watch(pair, setData)
+  watch(pair, () => {
+    setState([])
+    setData()
+  })
 
   setData()
   useInterval(setData, 10000)

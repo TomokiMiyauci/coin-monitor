@@ -23,7 +23,10 @@ export const useDepth = (pair: Ref<Pair>) => {
     setState(await get(pair.value))
   }
 
-  watch(pair, setDepth)
+  watch(pair, () => {
+    setState(undefined)
+    setDepth()
+  })
 
   setDepth()
   useInterval(setDepth, 10000)
