@@ -1,8 +1,9 @@
-import { computed } from 'vue'
+import { computed, Ref, watch } from 'vue'
 import { getTrades } from '/@/api/zaif'
 import { useInterval } from '/@/core/interval'
 import { useReactive } from '/@/core/reactive'
 import type { getTrades as data } from 'zaif-client'
+import { ZaifPairs } from '/@/components/zaif/pair'
 type Data = ReturnType<typeof data> extends Promise<infer data> ? data : never
 
 type TradeData = {
@@ -13,7 +14,7 @@ type TradeData = {
   amount: number
 }
 
-export const useTrades = () => {
+export const useTrades = (pair: Ref<ZaifPairs>) => {
   const { state, setState } = useReactive<Data>([])
 
   const { get } = getTrades()
@@ -32,8 +33,10 @@ export const useTrades = () => {
   })
 
   const setData = async () => {
-    setState(await get())
+    setState(await get(pair.value))
   }
+
+  watch(pair, setData)
 
   setData()
   useInterval(setData, 10000)
