@@ -1,5 +1,5 @@
 <template>
-  <default>
+  <default title="zaif">
     <current-board />
   </default>
 </template>

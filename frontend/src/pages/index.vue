@@ -1,5 +1,5 @@
 <template>
-  <default>
+  <default title="coincheck">
     <CurrentBoard />
   </default>
 </template>
