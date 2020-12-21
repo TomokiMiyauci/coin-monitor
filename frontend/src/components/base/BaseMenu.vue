@@ -41,7 +41,7 @@
 
       <transition name="slide-down">
         <div
-          v-show="hover"
+          v-if="hover"
           class="absolute mt-1 w-full rounded-md bg-white shadow hover:shadow-xl duration-300 transition-shadow z-20"
         >
           <ul
