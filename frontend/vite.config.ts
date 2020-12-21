@@ -8,6 +8,8 @@ const config: UserConfig = {
   },
 
   plugins: [svgPlugin()],
+
+  shouldPreload: () => true,
 }
 
 export default config
