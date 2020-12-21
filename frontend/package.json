@@ -13,7 +13,9 @@
   },
   "private": true,
   "dependencies": {
+    "@mdi/js": "^5.8.55",
     "ky": "^0.25.0",
+    "vite-plugin-pwa": "^0.1.7",
     "vue": "^3.0.4",
     "vue-router": "^4.0.1"
   },
