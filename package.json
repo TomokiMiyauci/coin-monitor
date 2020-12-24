@@ -20,7 +20,8 @@
   },
   "workspaces": [
     "api",
-    "frontend"
+    "frontend",
+    "backend/**"
   ],
   "config": {
     "commitizen": {
