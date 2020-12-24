@@ -110,7 +110,7 @@
       },
 
       symbols: {
-        type: Array as PropType<string[]>,
+        type: Array as PropType<readonly string[]>,
         default: () => [],
       },
     },

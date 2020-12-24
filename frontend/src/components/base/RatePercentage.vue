@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue'
+  import { defineComponent } from 'vue'
   import { CoincheckSymbol } from '/@/components/base/coin'
   import Percentage from '/@/components/base/Percentage.vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
@@ -46,7 +46,7 @@
 
     props: {
       symbol: {
-        type: String as PropType<CoincheckSymbol>,
+        type: String as () => CoincheckSymbol,
         default: '',
       },
 

@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue'
+  import { computed, defineComponent } from 'vue'
   import RatePercentage from './RatePercentage.vue'
 
   type Rate = {
@@ -28,7 +28,7 @@
     },
     props: {
       rates: {
-        type: Array as PropType<Rate[]>,
+        type: Array as () => Rate[],
         default: () => [],
       },
     },

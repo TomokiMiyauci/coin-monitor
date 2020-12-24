@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue'
+  import { computed, defineComponent } from 'vue'
   import { getComponent } from '/@/components/coincheck/symbol'
   import BaseSpan from '/@/components/base/BaseSpan.vue'
   import { CoincheckSymbol } from '/@/components/base/coin'
@@ -13,7 +13,7 @@
     components: { BaseSpan },
     props: {
       symbol: {
-        type: String as PropType<CoincheckSymbol>,
+        type: String as () => CoincheckSymbol,
         required: true,
       },
     },

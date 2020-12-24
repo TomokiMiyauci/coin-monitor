@@ -5,6 +5,7 @@ import { useInterval } from '/@/core/interval'
 export const useTrades = () => {
   const state = ref<{
     data: {
+      id: number
       rate: number
       created_at: string
       amount: number
@@ -16,14 +17,17 @@ export const useTrades = () => {
   const data = computed(() => {
     if (!state.value) return
 
-    return state.value.data.map(({ rate, created_at, order_type, amount }) => {
-      return {
-        date: new Date(Date.parse(created_at)),
-        type: order_type === 'sell' ? 'SELL' : 'BUY',
-        rate,
-        amount,
+    return state.value.data.map(
+      ({ id, rate, created_at, order_type, amount }) => {
+        return {
+          id,
+          date: new Date(Date.parse(created_at)),
+          type: order_type === 'sell' ? ('SELL' as const) : ('BUY' as const),
+          rate,
+          amount,
+        }
       }
-    })
+    )
   })
 
   const setData = async () => {

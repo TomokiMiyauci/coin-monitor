@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue'
+  import { defineComponent } from 'vue'
   import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
   import TradeHistorys from '/@/components/trade-history/TradeHistory.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
@@ -34,7 +34,7 @@
 
     props: {
       data: {
-        type: Array as PropType<Data[]>,
+        type: Array as () => Data[],
         default: () => [],
       },
     },

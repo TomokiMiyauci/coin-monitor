@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue'
+  import { computed, defineComponent } from 'vue'
   import { getComponent } from '/@/components/zaif/symbol'
   import BaseSpan from '/@/components/base/BaseSpan.vue'
   import { ZaifBaseSymbol } from '/@/components/base/coin'
@@ -28,12 +28,12 @@
     components: { BaseSpan },
     props: {
       symbol: {
-        type: String as PropType<ZaifBaseSymbol>,
+        type: String as () => ZaifBaseSymbol,
         required: true,
       },
 
       baseSymbol: {
-        type: String as PropType<ZaifBaseSymbol>,
+        type: String as () => ZaifBaseSymbol,
         required: true,
       },
     },

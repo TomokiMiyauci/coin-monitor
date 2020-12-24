@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType } from 'vue'
+  import { computed, defineComponent } from 'vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
   import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
@@ -62,12 +62,12 @@
 
     props: {
       asks: {
-        type: Array as PropType<PriceAmount>,
+        type: Array as () => PriceAmount,
         default: () => [],
       },
 
       bids: {
-        type: Array as PropType<PriceAmount>,
+        type: Array as () => PriceAmount,
         default: () => [],
       },
     },
