@@ -42,8 +42,26 @@ jobs:
           path: '**/node_modules'
           key: ${{ matrix.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
-      - name: lint by VTI
+      - name: Lint by VTI
         run: yarn lerna run --scope frontend lint:markup
+
+  lint-script:
+    needs: setup
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ matrix.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+
+      - name: Lint by ESLint
+        run: yarn lerna run --scope frontend lint:script
 
   build:
     needs: setup
@@ -69,7 +87,7 @@ jobs:
           path: frontend/dist
 
   deploy:
-    needs: [lint-markup, build]
+    needs: [lint-markup, lint-script, build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
