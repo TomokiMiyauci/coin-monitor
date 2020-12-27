@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "coincheck-client": "^0.1.0-alpha.4",
+    "firebase-admin": "^9.4.2",
     "zaif-client": "^0.0.1-alpha.0"
   }
 }
