@@ -1,8 +1,7 @@
 import ky from 'ky'
 import { Plugin, inject, InjectionKey } from 'vue'
-
 const instance = ky.create({
-  prefixUrl: 'https://coin-monitor-api.tomoki-miyauci.vercel.app',
+  prefixUrl: import.meta.env.VITE_BASE_URL,
 })
 
 const plugin: Plugin = {
@@ -13,7 +12,8 @@ const plugin: Plugin = {
 
 const key: InjectionKey<typeof ky> = Symbol('$http')
 const useKy = (): { $http: typeof ky } => {
-  return { $http: inject(key) }
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return { $http: inject(key)! }
 }
 
 export default plugin
