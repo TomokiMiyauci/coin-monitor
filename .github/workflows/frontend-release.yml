@@ -78,7 +78,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ matrix.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
-      - name: Lint by ESLint
+      - name: Lint by Stylelint
         run: yarn lerna run --scope frontend lint:style
 
   build:
