@@ -11,11 +11,9 @@
       class="col-span-full sm:col-span-3 md:col-span-3 2xl:col-span-2"
     />
 
-    <zaif-order-book class="col-span-full sm:col-span-3 2xl:col-span-2" />
+    <zaif-order-book class="col-span-full sm:col-span-6 2xl:col-span-4" />
 
-    <zaif-trade-history
-      class="col-span-full md:col-span-4 xl:col-span-3 2xl:col-span-2"
-    />
+    <zaif-trade-history class="col-span-full md:col-span-4 xl:col-span-3" />
   </div>
 </template>
 

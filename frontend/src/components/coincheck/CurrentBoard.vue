@@ -10,7 +10,7 @@
     />
 
     <order-books
-      class="row-span-3 sm:col-span-3 xl:col-span-2 w-full col-span-full bg-white rounded-md hover:shadow-xl duration-200 transition"
+      class="row-span-3 sm:col-span-3 xl:col-span-4 w-full col-span-full bg-white rounded-md hover:shadow-xl duration-200 transition"
     />
 
     <trade-history
