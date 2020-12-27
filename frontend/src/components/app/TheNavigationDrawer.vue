@@ -7,12 +7,19 @@
     </div>
 
     <nav class="mt-10">
+      <router-link
+        class="flex rounded items-center mt-4 py-2 px-6 hover:bg-gray-600 transition duration-200 text-gray-100"
+        to="/"
+        ><mdi-dashboard class="mx-3" /><span class="text-xl align-middle"
+          >Dashboard</span
+        ></router-link
+      >
       <h5 class="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase">
         markets
       </h5>
 
       <router-link
-        to="/"
+        to="/coincheck"
         class="flex rounded items-center mt-4 py-2 px-6 hover:bg-gray-600 transition duration-200 text-gray-100"
         active-class="bg-gray-700"
       >
@@ -45,11 +52,13 @@
   import { defineComponent } from 'vue'
   import { VueComponent as Zaif } from '/@/assets/svgs/markets/zaif.svg'
   import { VueComponent as Coincheck } from '/@/assets/svgs/markets/coincheck.svg'
+  import MdiDashboard from '/@/components/base/icons/mdi/MdiDashboard.vue'
 
   export default defineComponent({
     components: {
       Zaif,
       Coincheck,
+      MdiDashboard,
     },
   })
 </script>
