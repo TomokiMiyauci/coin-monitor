@@ -97,15 +97,14 @@
 
   export default defineComponent({
     props: {
-      width: { type: Number, default: 1140 },
-      height: { type: Number, default: 640 },
+      width: { type: [Number, String], default: 1140 },
+      height: { type: [Number, String], default: 640 },
       svgWidth: { type: Number, default: 1140 },
       svgHeight: { type: Number, default: 640 },
       labelYOffset: {
         type: Object,
         default: () => ({ x: -16, y: 8 }),
       },
-      labelXOffset: {},
       paddingTop: { type: Number, default: 14 },
       paddingBottom: { type: Number, default: 24 },
       paddingLeft: { type: Number, default: 130 },
