@@ -31,13 +31,11 @@
   import { useTicker } from '/@/components/coincheck/useTicker'
   import LatestPrice from '/@/components/base/LatestPrice.vue'
   import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
-  import ChartLine from '/@/components/chart/ChartLine.vue'
   import { useHistory } from '/@/composites/rate'
 
   export default defineComponent({
     components: {
       LatestPrice,
-      ChartLine,
       AskBid,
       OrderBooks,
       TradeHistory,
