@@ -6,6 +6,7 @@
 
 <script lang="ts">
   import { computed, defineComponent, watch, ref } from 'vue'
+  import { toComma } from '/@/utils/format'
 
   import BaseSpan from '/@/components/base/BaseSpan.vue'
   export default defineComponent({
@@ -13,12 +14,11 @@
     props: {
       value: {
         type: Number,
-        default: undefined,
       },
     },
 
     setup(props) {
-      const commaFilter = computed(() => props.value?.toLocaleString())
+      const commaFilter = computed(() => toComma(props.value))
       const baseSpan = ref<InstanceType<typeof BaseSpan>>()
 
       const flush = (): void => {

@@ -12,3 +12,6 @@ export const getLowercasePair = <T extends string, U extends string>(
   symbol: T,
   baseSymbol: U
 ): Lowercase<`${T}_${U}`> => toLowerCase(joinSeparator(symbol, baseSymbol))
+
+export const toComma = (num: number | undefined): string =>
+  num?.toLocaleString() ?? ''
