@@ -3,6 +3,7 @@
     <latest-price
       class="col-span-6 md:col-span-5 2xl:col-span-3"
       :value="lastPrice"
+      :data="historycalLast"
     />
 
     <zaif-ask-bid class="col-span-6 md:col-span-4 2xl:col-span-2" />
@@ -26,6 +27,7 @@
   import ZaifOrderBook from '/@/components/zaif/ZaifOrderBook.vue'
   import ZaifTradeHistory from '/@/components/zaif/ZaifTradeHistory.vue'
   import ZaifAskBid from '/@/components/zaif/ZaifAskBid.vue'
+  import { useHistory } from '/@/composites/rate'
 
   export default defineComponent({
     components: {
@@ -40,6 +42,7 @@
 
       return {
         lastPrice,
+        historycalLast: useHistory(lastPrice, 10),
       }
     },
   })

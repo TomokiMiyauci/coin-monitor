@@ -1,6 +1,10 @@
 <template>
   <div class="grid grid-cols-4 gap-4">
-    <latest-price class="col-span-full 2xl:col-span-2" :value="last" />
+    <latest-price
+      class="col-span-full 2xl:col-span-2"
+      :data="historycalLast"
+      :value="last"
+    />
     <ask-bid class="col-span-full 2xl:col-span-2" :ask="ask" :bid="bid" />
   </div>
 
@@ -27,9 +31,13 @@
   import { useTicker } from '/@/components/coincheck/useTicker'
   import LatestPrice from '/@/components/base/LatestPrice.vue'
   import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
+  import ChartLine from '/@/components/chart/ChartLine.vue'
+  import { useHistory } from '/@/composites/rate'
+
   export default defineComponent({
     components: {
       LatestPrice,
+      ChartLine,
       AskBid,
       OrderBooks,
       TradeHistory,
@@ -38,11 +46,13 @@
 
     setup() {
       const { last, ask, bid } = useTicker()
+      const historycalLast = useHistory(last, 10)
 
       return {
         last,
         ask,
         bid,
+        historycalLast,
       }
     },
   })

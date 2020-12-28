@@ -5,9 +5,13 @@
       value-class=" text-9xl"
       :title="title"
     >
-      <text-loader skelton-style="height: 8rem;" :value="value">
-        <comma-filter class="text-9xl" :value="value" />
-      </text-loader>
+      <div class="flex flex-col gap-8">
+        <text-loader skelton-style="height: 8rem;" :value="value">
+          <comma-filter class="text-9xl" :value="value" />
+        </text-loader>
+
+        <chart-line width="100%" height="100%" :series="[data]" />
+      </div>
     </base-title-value>
   </base-card>
 </template>
@@ -19,6 +23,7 @@
   import CommaFilter from '/@/components/base/CommaFilter.vue'
 
   import TextLoader from './loaders/TextLoader.vue'
+  import ChartLine from '../chart/ChartLine.vue'
 
   export default defineComponent({
     components: {
@@ -26,12 +31,18 @@
       BaseCard,
       CommaFilter,
       TextLoader,
+      ChartLine,
     },
 
     props: {
       title: {
         type: String,
         default: 'Last',
+      },
+
+      data: {
+        type: Array,
+        default: () => [],
       },
 
       value: {
