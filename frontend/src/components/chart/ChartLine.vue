@@ -1,5 +1,13 @@
 <template>
-  <base-svg version="1.1" v-bind="$props">
+  <base-svg
+    :version="version"
+    :width="width"
+    :height="height"
+    :viewBox="viewBox"
+    :xmlns="xmlns"
+    :xmlns:xlink="xmlnsXlink"
+    :className="className"
+  >
     <!-- <g>
       <text text-anchor="end" font-size="24" :x="padding.left" :y="padding.top">
         {{ toComma(maxValue) }}
@@ -11,14 +19,10 @@
       v-bind="chartViewBox"
       :grids="5"
     />
-    <frame :strokeDasharray="0" v-bind="chartViewBox" />
+    <frame class="text-gray-400" :strokeDasharray="0" v-bind="chartViewBox" />
 
     <g fill="none" class="text-blue-500">
-      <polyline
-        stroke-width="5"
-        stroke="currentColor"
-        :points="points"
-      ></polyline>
+      <polyline stroke="currentColor" :points="points"></polyline>
     </g>
 
     <g fill="currentColor">
@@ -27,7 +31,6 @@
         :key="index"
         stroke="rgba(59, 130, 246)"
         class="text-white"
-        stroke-width="4"
         :cx="x"
         :cy="y"
         r="9"
@@ -72,7 +75,7 @@
       className: { type: String, default: '' },
       version: { type: [String, Number], default: '1.1' },
       xmlns: { type: String, default: 'http://www.w3.org/2000/svg' },
-      'xmlns:xlink': { type: String, default: 'http://www.w3.org/1999/xlink' },
+      xmlnsXlink: { type: String, default: 'http://www.w3.org/1999/xlink' },
 
       padding: {
         type: Object as () => Padding,
