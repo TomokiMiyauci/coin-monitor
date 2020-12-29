@@ -6,11 +6,19 @@
       :title="title"
     >
       <div class="flex flex-col gap-8">
-        <text-loader skelton-style="height: 8rem;" :value="value">
-          <comma-filter class="text-9xl" :value="value" />
+        <text-loader skeltonClass="h-14 sm:h-24 md:h-32" :value="value">
+          <comma-filter
+            class="text-6xl sm:text-8xl md:text-9xl"
+            :value="value"
+          />
         </text-loader>
 
-        <chart-line width="100%" height="100%" :data="data" />
+        <chart-line
+          class="md:w-4/5 mx-auto stroke-8 md:stroke-5"
+          width="100%"
+          height="100%"
+          :data="data"
+        />
       </div>
     </base-title-value>
   </base-card>
