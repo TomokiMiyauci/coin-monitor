@@ -1,5 +1,5 @@
 <template>
-  <svg v-bind="{ ...$props, ...$attrs }" :viewBox="viewBox" :class="className">
+  <svg v-bind="{ ...$props, ...$attrs }" :viewBox="_viewBox" :class="className">
     <slot />
   </svg>
 </template>
@@ -46,7 +46,7 @@
       )
 
       return {
-        viewBox,
+        _viewBox: viewBox,
       }
     },
   })

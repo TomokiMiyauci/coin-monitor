@@ -45,7 +45,6 @@
   } from '/@/core/chart/chart'
   import { toComma } from '/@/utils/format'
   import Frame from './Frame.vue'
-  import GridX from './GridX.vue'
   import GridY from './GridY.vue'
   import BaseSvg from '/@/components/chart/BaseSvg.vue'
   import {
@@ -60,7 +59,6 @@
   export default defineComponent({
     components: {
       BaseSvg,
-      GridX,
       Frame,
       GridY,
     },
