@@ -10,7 +10,7 @@
           <comma-filter class="text-9xl" :value="value" />
         </text-loader>
 
-        <chart-line width="100%" height="100%" :series="[data]" />
+        <chart-line width="100%" height="100%" :data="data" />
       </div>
     </base-title-value>
   </base-card>
