@@ -5,7 +5,7 @@
       :data="historycalLast"
       :value="last"
     />
-    <ask-bid class="col-span-full 2xl:col-span-2" :ask="ask" :bid="bid" />
+    <ask-bid class="col-span-full 2xl:col-span-2" v-bind="askBidAttrs" />
   </div>
 
   <div class="grid grid-rows-3 grid-cols-6 mt-4 gap-4">
@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, computed } from 'vue'
   import AskBid from '/@/components/base/AskBid.vue'
   import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
   import TradeHistory from '/@/components/coincheck/TradeHistory.vue'
@@ -43,14 +43,21 @@
     },
 
     setup() {
-      const { last, ask, bid } = useTicker()
+      const { last, ask, bid, high, low, volume } = useTicker()
       const historycalLast = useHistory(last, 10)
+
+      const askBidAttrs = computed(() => ({
+        ask: ask.value,
+        bid: bid.value,
+        high: high.value,
+        low: low.value,
+        volume: volume.value,
+      }))
 
       return {
         last,
-        ask,
-        bid,
         historycalLast,
+        askBidAttrs,
       }
     },
   })

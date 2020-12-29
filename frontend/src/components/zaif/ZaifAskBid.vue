@@ -1,5 +1,5 @@
 <template>
-  <ask-bid class="col-span-2" :ask="ask" :bid="bid">
+  <ask-bid class="col-span-2" v-bind="askBidAttrs">
     <template #menu>
       <base-menu
         min-width="188"
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, Ref, inject } from 'vue'
+  import { defineComponent, Ref, inject, computed } from 'vue'
   import { useTicker } from '/@/components/zaif/useTicker'
   import AskBid from '/@/components/base/AskBid.vue'
   import {
@@ -33,7 +33,15 @@
     },
     setup() {
       const pair = inject('askBidPair') as Ref<ZaifOrderBookPairs>
-      const { ask, bid } = useTicker(pair)
+      const { ask, bid, low, high, volume } = useTicker(pair)
+
+      const askBidAttrs = computed(() => ({
+        ask: ask.value,
+        bid: bid.value,
+        high: high.value,
+        low: low.value,
+        volume: volume.value,
+      }))
 
       const onInput = (payload: ZaifOrderBookPairs) => {
         pair.value = payload
@@ -51,9 +59,8 @@
         zaifOrderBookPairs,
         format,
         onInput,
-        ask,
-        bid,
         pair,
+        askBidAttrs,
       }
     },
   })

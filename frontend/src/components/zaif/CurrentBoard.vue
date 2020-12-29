@@ -6,7 +6,7 @@
       :data="historycalLast"
     />
 
-    <zaif-ask-bid class="col-span-6 md:col-span-4 2xl:col-span-2" />
+    <zaif-ask-bid class="col-span-6 md:col-span-4 2xl:col-span-3" />
 
     <zaif-rates
       class="col-span-full sm:col-span-3 md:col-span-3 2xl:col-span-2"
