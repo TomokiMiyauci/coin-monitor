@@ -1,68 +1,58 @@
 <template>
-  <base-card :overflow-hidden="false" class="p-4">
-    <base-title-value title="Price">
-      <template #title>
-        <div class="flex justify-between">
-          <base-h-3 class="text-lg text-gray-440">Price</base-h-3>
-          <slot name="menu" />
-        </div>
-      </template>
-      <div class="flex flex-col h-full">
-        <div class="flex mt-8 items-center justify-between">
-          <div>
-            <base-title-value title="Ask">
-              <text-loader
-                skelton-style="min-height: 2rem;min-width: 8rem;"
-                :value="ask"
+  <base-card>
+    <div class="flex flex-col h-full">
+      <the-title-toolbar> last </the-title-toolbar>
+
+      <div class="p-4 flex-grow bg-gradient-to-b from-white to-gray-200">
+        <div class="flex flex-col h-full">
+          <div class="flex justify-between">
+            <base-title class="text-gray-700"> ask </base-title>
+            <base-title class="text-gray-700"> bid </base-title>
+          </div>
+
+          <div class="flex justify-between">
+            <text-loader skeltonClass="h-8 sm:h-12 w-1/3" :value="ask">
+              <comma-filter class="text-3xl sm:text-5xl" :value="ask" />
+            </text-loader>
+
+            <text-loader skeltonClass="h-8 sm:h-12 w-1/3" :value="bid">
+              <comma-filter class="text-3xl sm:text-5xl" :value="bid" />
+            </text-loader>
+          </div>
+
+          <div
+            class="flex-grow text-2xl flex-wrap p-5 gap-12 mt-10 flex justify-center items-center"
+          >
+            <div>
+              <div
+                class="w-44 text-white hover:opacity-80 shadow hover:shadow-lg hover:scale-105 transform transition duration-200 h-44 bg-gradient-to-br from-purple-400 to-red-500 rounded-full flex justify-center items-center"
               >
-                <comma-filter class="text-2xl" :value="ask" />
-              </text-loader>
-            </base-title-value>
-          </div>
+                {{ _high }}
+              </div>
+              <div class="text-center p-2">High</div>
+            </div>
 
-          <div class="text-right">
-            <base-title-value title="Bid">
-              <text-loader
-                skelton-style="min-height: 2rem;min-width: 8rem;"
-                :value="bid"
+            <div>
+              <div
+                class="w-44 text-white hover:opacity-80 shadow hover:shadow-lg hover:scale-105 transform transition duration-200 h-44 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex justify-center items-center"
               >
-                <comma-filter class="text-2xl" :value="bid" />
-              </text-loader>
-            </base-title-value>
-          </div>
-        </div>
+                {{ _low }}
+              </div>
+              <div class="text-center p-2">Low</div>
+            </div>
 
-        <div
-          class="flex-grow text-lg flex-wrap p-5 gap-12 mt-10 flex justify-center items-center"
-        >
-          <div>
-            <div
-              class="w-44 text-white hover:opacity-80 shadow hover:shadow-lg hover:scale-105 transform transition duration-200 h-44 bg-gradient-to-br from-purple-400 to-red-500 rounded-full flex justify-center items-center"
-            >
-              {{ _high }}
+            <div>
+              <div
+                class="w-44 text-white hover:opacity-80 shadow hover:shadow-lg hover:scale-105 transform transition duration-200 h-44 bg-gradient-to-br from-green-400 to-yellow-500 rounded-full flex justify-center items-center"
+              >
+                {{ _volume }}
+              </div>
+              <div class="text-center p-2">volume</div>
             </div>
-            <div class="text-center p-2">High</div>
-          </div>
-
-          <div>
-            <div
-              class="w-44 text-white hover:opacity-80 shadow hover:shadow-lg hover:scale-105 transform transition duration-200 h-44 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex justify-center items-center"
-            >
-              {{ _low }}
-            </div>
-            <div class="text-center p-2">Low</div>
-          </div>
-          <div>
-            <div
-              class="w-44 text-white hover:opacity-80 shadow hover:shadow-lg hover:scale-105 transform transition duration-200 h-44 bg-gradient-to-br from-yellow-500 to-green-500 rounded-full flex justify-center items-center"
-            >
-              {{ _volume }}
-            </div>
-            <div class="text-center p-2">Volume</div>
           </div>
         </div>
       </div>
-    </base-title-value>
+    </div>
   </base-card>
 </template>
 
@@ -71,17 +61,19 @@
   import BaseCard from './BaseCard.vue'
   import TextLoader from './loaders/TextLoader.vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
-  import BaseTitleValue from '/@/components/base/BaseTitleValue.vue'
   import BaseH3 from './BaseH3.vue'
   import { toComma } from '/@/utils/format'
+  import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
+  import BaseTitle from './BaseTitle.vue'
 
   export default defineComponent({
     components: {
-      BaseTitleValue,
       CommaFilter,
       BaseCard,
       TextLoader,
       BaseH3,
+      TheTitleToolbar,
+      BaseTitle,
     },
     props: {
       ask: {

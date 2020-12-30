@@ -1,6 +1,6 @@
 <template>
   <base-div
-    class="rounded-md bg-white shadow-md hover:shadow-xl transition-shadow duration-200"
+    class="rounded-md from-gray-100 via-white to-gray-100 bg-gradient-to-b shadow-md hover:shadow-xl transition-shadow duration-200"
     :class="{ 'overflow-hidden': overflowHidden }"
   >
     <slot />

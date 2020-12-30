@@ -9,7 +9,7 @@
   </div>
 
   <base-card class="my-4">
-    <h2 class="p-4 text-lg text-gray-400">History</h2>
+    <base-title class="p-4">history</base-title>
     <chart-line
       class="stroke-8 md:stroke-4"
       width="100%"
@@ -45,6 +45,7 @@
   import { useHistorycal } from '/@/utils/firestore'
   import ChartLine from '/@/components/chart/ChartLine.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
+  import BaseTitle from '/@/components/base/BaseTitle.vue'
 
   export default defineComponent({
     components: {
@@ -55,6 +56,7 @@
       OrderBooks,
       TradeHistory,
       CoincheckRates,
+      BaseTitle,
     },
 
     setup() {
