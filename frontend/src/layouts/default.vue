@@ -6,7 +6,7 @@
 
     <div class="flex-1 flex flex-col overflow-hidden">
       <main class="flex-1 overflow-x-hidden overflow-y-auto">
-        <div class="container mx-auto px-6 py-8">
+        <div class="container mx-auto px-4 sm:px-6 py-8">
           <div class="flex justify-between">
             <slot name="header">
               <h3 class="text-gray-700 text-3xl mb-8 font-medium capitalize">
