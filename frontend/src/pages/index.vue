@@ -36,17 +36,13 @@
   import { useTicker as useTickerBitbank } from '/@/composites/bitbank/useTicker'
 
   import BaseCard from '../components/base/BaseCard.vue'
-  import FlashBox from '/@/components/base/FlashBox.vue'
   import { toComma } from '/@/utils/format'
   import { getComponent } from '/@/components/market/symbol'
   import SvgText from '/@/components/base/SvgText.vue'
-  import { useKy } from '/@/plugins/ky'
   import ky from 'ky'
-  import Abc from '/@/components/base/img/Abc.vue'
 
   type NumberOrUndefined = number | undefined
-  type AskBidTupple = [NumberOrUndefined, NumberOrUndefined]
-  type Market = 'coincheck' | 'zaif' | 'bitbank'
+
   type AskBidTickTupple = [
     NumberOrUndefined,
     NumberOrUndefined,
@@ -61,9 +57,7 @@
     components: {
       Default,
       BaseCard,
-      FlashBox,
       SvgText,
-      Abc,
     },
 
     setup() {
