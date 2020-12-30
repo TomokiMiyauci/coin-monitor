@@ -28,6 +28,7 @@
     "@vue/compiler-sfc": "^3.0.4",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
+    "bitbank-client": "^0.0.1-alpha.3",
     "coincheck-client": "^0.1.0-alpha.4",
     "eslint": "^7.14.0",
     "eslint-plugin-prettier": "^3.2.0",
