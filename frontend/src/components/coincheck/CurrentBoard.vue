@@ -8,6 +8,16 @@
     <ask-bid class="col-span-full 2xl:col-span-2" v-bind="askBidAttrs" />
   </div>
 
+  <base-card class="my-4">
+    <h2 class="p-4 text-lg text-gray-400">History</h2>
+    <chart-line
+      class="stroke-8 md:stroke-4"
+      width="100%"
+      height="100%"
+      :data="data"
+    />
+  </base-card>
+
   <div class="grid grid-rows-3 grid-cols-6 mt-4 gap-4">
     <coincheck-rates
       class="col-span-full sm:col-span-3 xl:col-span-2 w-full row-span-3 hover:shadow-xl duration-200 transition bg-white mx-auto shadow rounded-md"
@@ -24,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import { defineComponent, computed, ref } from 'vue'
   import AskBid from '/@/components/base/AskBid.vue'
   import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
   import TradeHistory from '/@/components/coincheck/TradeHistory.vue'
@@ -32,9 +42,14 @@
   import LatestPrice from '/@/components/base/LatestPrice.vue'
   import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
   import { useHistory } from '/@/composites/rate'
+  import { useHistorycal } from '/@/utils/firestore'
+  import ChartLine from '/@/components/chart/ChartLine.vue'
+  import BaseCard from '/@/components/base/BaseCard.vue'
 
   export default defineComponent({
     components: {
+      BaseCard,
+      ChartLine,
       LatestPrice,
       AskBid,
       OrderBooks,
@@ -46,6 +61,12 @@
       const { last, ask, bid, high, low, volume } = useTicker()
       const historycalLast = useHistory(last, 10)
 
+      const data = ref<number[]>([])
+      const get = useHistorycal()
+      get().then((e) => {
+        data.value = e.map(({ value }) => value)
+      })
+
       const askBidAttrs = computed(() => ({
         ask: ask.value,
         bid: bid.value,
@@ -55,6 +76,7 @@
       }))
 
       return {
+        data,
         last,
         historycalLast,
         askBidAttrs,
