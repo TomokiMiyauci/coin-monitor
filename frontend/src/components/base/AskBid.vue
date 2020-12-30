@@ -61,7 +61,6 @@
   import BaseCard from './BaseCard.vue'
   import TextLoader from './loaders/TextLoader.vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
-  import BaseH3 from './BaseH3.vue'
   import { toComma } from '/@/utils/format'
   import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
   import BaseTitle from './BaseTitle.vue'
@@ -71,7 +70,6 @@
       CommaFilter,
       BaseCard,
       TextLoader,
-      BaseH3,
       TheTitleToolbar,
       BaseTitle,
     },
