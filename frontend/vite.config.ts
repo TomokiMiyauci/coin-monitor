@@ -14,6 +14,14 @@ const config: UserConfig = {
     '/@/': join(__dirname, 'src'),
   },
 
+  terserOptions: {
+    compress: true,
+    mangle: true,
+    output: {
+      comments: false,
+    },
+  },
+
   plugins: [
     svgPlugin(),
     VitePWA({
