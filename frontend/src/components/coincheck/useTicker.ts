@@ -13,7 +13,7 @@ export const useTicker = () => {
   const { get } = getTicker()
 
   const setData = async () => {
-    state.value = await get()
+    state.value = await get('')
   }
 
   const last = computed<NumberOrUndefined>(() => state.value?.last)
