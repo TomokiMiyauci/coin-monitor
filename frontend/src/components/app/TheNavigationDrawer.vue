@@ -10,6 +10,7 @@
       <router-link
         class="flex rounded items-center mt-4 py-2 px-6 hover:bg-gray-600 transition duration-200 text-gray-100"
         to="/"
+        active-class="bg-gray-700"
         ><mdi-dashboard class="mx-3" /><span class="text-xl align-middle"
           >Dashboard</span
         ></router-link
@@ -19,30 +20,13 @@
       </h5>
 
       <router-link
-        to="/coincheck"
-        class="flex rounded items-center mt-4 py-2 px-6 hover:bg-gray-600 transition duration-200 text-gray-100"
-        active-class="bg-gray-700"
-      >
-        <span class="mx-3"
-          ><coincheck class="inline-block" width="24" height="24" /><span
-            class="ml-3 text-xl align-middle"
-            >Coincheck</span
-          ></span
-        >
-      </router-link>
-
-      <router-link
-        to="/zaif"
+        v-for="{ to, icon } in navs"
+        :key="to"
+        :to="to"
         class="flex rounded items-center mt-1 py-2 px-6 hover:bg-gray-600 transition duration-200 text-gray-100"
         active-class="bg-gray-700"
       >
-        <span class="mx-3">
-          <zaif class="inline-block" width="24" height="24" /><span
-            class="ml-3 text-xl align-middle"
-          >
-            Zaif</span
-          >
-        </span>
+        <market-icon-text class="ml-3 capitalize text-xl" :value="icon" />
       </router-link>
     </nav>
   </div>
@@ -50,15 +34,34 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import { VueComponent as Zaif } from '/@/assets/svgs/markets/zaif.svg'
-  import { VueComponent as Coincheck } from '/@/assets/svgs/markets/coincheck.svg'
   import MdiDashboard from '/@/components/base/icons/mdi/MdiDashboard.vue'
+  import MarketIconText from '/@/components/base/icons/markets/MarketIconText.vue'
+
+  const navs = [
+    {
+      to: '/coincheck',
+      icon: 'coincheck',
+    },
+    {
+      to: '/zaif',
+      icon: 'zaif',
+    },
+    {
+      to: '/bitpoint',
+      icon: 'bitpoint',
+    },
+  ]
 
   export default defineComponent({
     components: {
-      Zaif,
-      Coincheck,
       MdiDashboard,
+      MarketIconText,
+    },
+
+    setup() {
+      return {
+        navs,
+      }
     },
   })
 </script>
