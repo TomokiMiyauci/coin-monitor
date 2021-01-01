@@ -11,6 +11,32 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      minHeight: {
+        4: '1rem',
+        5: '1.25rem',
+        6: '1.5rem',
+        7: '1.75rem',
+        8: '2rem',
+        9: '2.25rem',
+        10: '2.5rem',
+        11: '2.75rem',
+        12: '3rem',
+        14: '3.5rem',
+        16: '5rem',
+        20: '6rem',
+        24: '7rem',
+        32: '8rem',
+        36: '9rem',
+        40: '10rem',
+        44: '12rem',
+        52: '13rem',
+        56: '14rem',
+        60: '15rem',
+        64: '16rem',
+        72: '18rem',
+        80: '20rem',
+        96: '24rem',
+      },
       strokeWidth: {
         3: '3',
         4: '4',
