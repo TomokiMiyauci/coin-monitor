@@ -7,7 +7,7 @@ export type ResponseBody = ReturnType<typeof getAPITicker> extends Promise<
 import { useKy } from '/@/plugins/ky'
 import { coincheck } from '/@/api/ticker'
 import { coincheck as _coincheck } from '/@/types/market'
-import { Pairs } from '/@/api/base'
+import { Pairs } from '/@/types/pair'
 
 export default () => {
   const { $http } = useKy()

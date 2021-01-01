@@ -4,11 +4,11 @@ import { useReactive } from '/@/core/reactive'
 import { useInterval } from '/@/core/interval'
 import type { getTicker as data } from 'zaif-client'
 import { computed } from 'vue'
+import { ZaifPair } from '/@/types/pair'
 
 type Data = ReturnType<typeof data> extends Promise<infer data> ? data : never
-type Pair = Parameters<typeof data>[number]
 
-export const useTicker = (pair: Ref<Pair>) => {
+export const useTicker = (pair: Ref<ZaifPair>) => {
   const { get } = getTicker()
   const { state, setState } = useReactive<Data | undefined>(undefined)
 

@@ -1,5 +1,7 @@
 import ky, { Options } from 'ky'
-import { Markets, zaif, coincheck } from '/@/types/market'
+import { Markets } from '/@/types/market'
+import { Pairs } from '/@/types/pair'
+
 export type kyInstance = typeof ky
 
 export const baseGetApi = (
@@ -9,15 +11,6 @@ export const baseGetApi = (
 ) => {
   return kyInstance.get(path, options).json()
 }
-
-type ZaifPair = 'hugahuga' | 'nhuga'
-type CoincheckPair = ''
-
-export type Pairs<T> = T extends typeof coincheck
-  ? CoincheckPair
-  : T extends typeof zaif
-  ? ZaifPair
-  : undefined
 
 export const makePair = (pair: string) => ({ pair })
 export const makeMarket = (market: Markets) => ({ market })
