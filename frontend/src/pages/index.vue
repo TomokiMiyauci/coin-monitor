@@ -14,7 +14,7 @@
           :key="key"
         >
           <td class="p-3">
-            <svg-text :callback="getComponent" :value="key" />
+            <market-icon-text :value="key" />
           </td>
           <td class="p-3">
             {{ toComma(ask) }}
@@ -37,9 +37,8 @@
 
   import BaseCard from '../components/base/BaseCard.vue'
   import { toComma } from '/@/utils/format'
-  import { getComponent } from '/@/components/market/symbol'
-  import SvgText from '/@/components/base/SvgText.vue'
-  import ky from 'ky'
+  import { useTicker as _t } from '/@/reactives/bitpoint/useTicker'
+  import MarketIconText from '/@/components/base/icons/markets/MarketIconText.vue'
 
   type NumberOrUndefined = number | undefined
 
@@ -57,45 +56,14 @@
     components: {
       Default,
       BaseCard,
-      SvgText,
+      MarketIconText,
     },
 
     setup() {
       const { ask, bid } = useTicker()
 
-      type Bitpoint = {
-        asks: { price: number; qty: number }[]
-        bids: { price: number; qty: number }[]
-      }
-      const bitpoint = ref<Bitpoint>()
-      ky(
-        'https://smartapi.bitpoint.co.jp/bpj-smart-api/api/depth?symbol=BTCJPY'
-      )
-        .then(async (e) => {
-          const result = await e.text()
+      const { ask: askBitpoint, bid: bidBitpoint } = _t()
 
-          const json: Bitpoint = JSON.parse(result, (key, value) => {
-            if (['asks', 'bids'].includes(key)) {
-              const _value = value as {
-                price: string
-                qty: string
-                ignore: false
-              }[]
-              return _value.map(({ price, qty }) => ({
-                price: Number(price),
-                qty: Number(qty),
-              }))
-            }
-
-            return value
-          })
-          console.log(json)
-          return json
-        })
-        .then((e) => (bitpoint.value = e))
-
-      const askBitpoint = computed(() => bitpoint.value?.asks[0])
-      const bidBitpoint = computed(() => bitpoint.value?.bids[9])
       const pair = ref<'btc_jpy'>('btc_jpy')
       const zaif = useTickerZaif(pair)
       const bitbank = useTickerBitbank(pair)
@@ -134,7 +102,6 @@
       // })
 
       return {
-        getComponent,
         tickers,
         toComma,
       }
