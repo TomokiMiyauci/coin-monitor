@@ -9,7 +9,7 @@
       <comma-filter :value="amount" />
     </div>
 
-    <span :class="[$style.span, spanClass]">{{ text }}</span>
+    <span class="span" :class="spanClass">{{ text }}</span>
   </div>
 </template>
 
@@ -43,7 +43,7 @@
   })
 </script>
 
-<style module>
+<style scoped>
   .span {
     @apply text-7xl capitalize top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute bg-clip-text text-transparent;
 
