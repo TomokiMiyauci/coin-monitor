@@ -1,14 +1,14 @@
 <template>
   <table>
     <thead>
-      <tr class="bg-gray-300">
+      <tr class="bg-gradient-to-r from-white via-gray-200 to-white">
         <th class="p-2">Date</th>
         <th>
-          <base-span class="text-red-400 rounded-full shadow bg-white px-1"
+          <base-span class="text-white rounded-full shadow bg-red-400 px-1"
             >B</base-span
           >
           /
-          <base-span class="text-green-400 rounded-full shadow bg-white px-1"
+          <base-span class="text-white rounded-full shadow bg-green-400 px-1"
             >S</base-span
           >
         </th>
@@ -17,15 +17,16 @@
       </tr>
     </thead>
 
-    <tbody>
+    <transition-group name="fade" tag="tbody" mode="out-in">
       <tr
         v-for="{ date, type, rate, amount, id } in data"
         :key="id"
-        class="hover:bg-gray-100"
+        class="hover:bg-gray-100 bg-gradient-to-r hover:from-gray-100 hover:to-gray-200"
+        :class="type === 'SELL' ? 'from-green-100' : 'from-red-100'"
       >
         <table-td v-bind="{ type, date, rate, amount }" />
       </tr>
-    </tbody>
+    </transition-group>
   </table>
 </template>
 
@@ -55,3 +56,15 @@
     },
   })
 </script>
+
+<style scoped>
+  .fade-enter-active,
+  .fade-leave-active {
+    @apply transition duration-200;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    @apply opacity-0 transform translate-x-5;
+  }
+</style>
