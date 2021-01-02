@@ -17,7 +17,7 @@
       </tr>
     </thead>
 
-    <transition-group name="fade" tag="tbody" mode="out-in">
+    <tbody>
       <tr
         v-for="{ date, type, rate, amount, id } in data"
         :key="id"
@@ -26,7 +26,7 @@
       >
         <table-td v-bind="{ type, date, rate, amount }" />
       </tr>
-    </transition-group>
+    </tbody>
   </table>
 </template>
 
