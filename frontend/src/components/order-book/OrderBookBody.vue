@@ -3,18 +3,26 @@
     <div
       v-for="[price, amount] in priceAmount"
       :key="price"
-      class="flex px-10 py-0.5 justify-between items-center hover:bg-gray-50 duration-100 hover:bg-opacity-60"
+      class="grid grid-cols-2 px-10 hover:bg-gray-50 duration-100 hover:bg-opacity-60"
     >
-      <comma-filter
-        class="bg-clip-text text-transparent bg-gradient-to-r"
-        :class="valueClass"
-        :value="price"
-      />
       <comma-filter
         class="bg-clip-text text-transparent bg-gradient-to-l"
         :class="valueClass"
-        :value="amount"
+        :value="price"
       />
+      <div class="text-right relative -z-10">
+        <div
+          v-show="sum"
+          class="absolute rounded-l duration-1000 transition-all inset-y-0 -z-20 shadow right-0"
+          :class="barClass"
+          :style="compute(amount)"
+        ></div>
+        <comma-filter
+          class="bg-clip-text text-transparent bg-gradient-to-l"
+          :class="valueClass"
+          :value="amount"
+        />
+      </div>
     </div>
 
     <span class="span" :class="spanClass">{{ text }}</span>
@@ -44,6 +52,16 @@
         default: '',
       },
 
+      barClass: {
+        type: String,
+        default: '',
+      },
+
+      sum: {
+        type: Number,
+        required: true,
+      },
+
       valueClass: {
         type: String,
         default: '',
@@ -52,6 +70,14 @@
 
     components: {
       CommaFilter,
+    },
+
+    setup(props) {
+      const compute = (a: number): string => `width: ${(a / props.sum) * 100}%`
+
+      return {
+        compute,
+      }
     },
   })
 </script>

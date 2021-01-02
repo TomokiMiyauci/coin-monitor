@@ -3,14 +3,14 @@
     <order-book
       :asks="asks"
       :bids="bids"
-      class="bg-white rounded-md hover:shadow-xl duration-200 transition"
+      class="bg-white col-span-full md:col-span-2 rounded-mdhover:shadow-xl lg:col-span-2 xl:col-span-1 duration-200 transition"
     />
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
-  import OrderBook from '/@/components/base/OrderBook.vue'
+  import OrderBook from '/@/components/order-book/OrderBook.vue'
   import { depth } from '/@/reactives/api/bitpoint'
 
   export default defineComponent({

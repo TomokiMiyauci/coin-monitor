@@ -1,7 +1,7 @@
 <template>
   <base-card class="flex flex-col pb-4 min-h-full">
     <div class="flex p-2 justify-between items-center">
-      <h3 class="ml-2 p-2 mt-1 text-lg text-gray-400">Order Book</h3>
+      <h3 class="ml-2 p-2 mt-1 text-2xl text-gray-400">Order Book</h3>
 
       <slot name="menu" />
     </div>
@@ -17,8 +17,10 @@
           class="to-red-400 from-gray-50 bg-gradient-to-b"
           spanClass="bg-gradient-to-b from-gray-400 to-red-500"
           valueClass="from-gray-800 to-red-800"
+          barClass="bg-red-500"
           :priceAmount="sortedAsks"
           text="ask"
+          :sum="sumAmount"
         />
 
         <div
@@ -34,7 +36,9 @@
           class="bg-gradient-to-t to-green-400 from-gray-100"
           spanClass="bg-gradient-to-t from-gray-400 to-green-400"
           valueClass="from-gray-800 to-green-800"
+          barClass="bg-green-600"
           :priceAmount="bids"
+          :sum="sumAmount"
           text="bid"
         />
       </div>
@@ -52,7 +56,8 @@
   import BaseCard from '/@/components/base/BaseCard.vue'
   import type { PriceAmount } from '/@/components/order-book/share'
   import OrderBookBody from '/@/components/order-book/OrderBookBody.vue'
-  import { sort } from 'rambda'
+  import { sort, add } from 'rambda'
+  import TheTitleToolbar from '../app/TheTitleToolbar.vue'
 
   export default defineComponent({
     components: {
@@ -60,6 +65,7 @@
       SpinLoader,
       BaseCard,
       OrderBookBody,
+      TheTitleToolbar,
     },
 
     props: {
@@ -78,6 +84,14 @@
       const sortedAsks = computed(() =>
         sort(([a], [b]) => (a < b ? 1 : -1), props.asks)
       )
+
+      const sum = (acc: number, [_, amount]: PriceAmount[number]) =>
+        acc + amount
+      const sumAsksAmount = computed(() => props.asks.reduce(sum, 0))
+      const sumBidsAmount = computed(() => props.bids.reduce(sum, 0))
+      const sumAmount = computed(() =>
+        add(sumAsksAmount.value, sumBidsAmount.value)
+      )
       const tick = computed(() => {
         if (
           !!props.asks.length &&
@@ -90,7 +104,7 @@
         return
       })
 
-      return { tick, sortedAsks }
+      return { tick, sortedAsks, sumAmount }
     },
   })
 </script>
