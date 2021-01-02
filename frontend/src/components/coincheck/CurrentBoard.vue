@@ -1,11 +1,13 @@
 <template>
-  <div class="grid grid-cols-4 gap-4">
+  <div class="2xl:grid grid-cols-2 grid-rows-2 gap-4">
     <latest-price
-      class="col-span-full 2xl:col-span-2"
-      :data="historycalLast"
+      class="col-span-full row-span-1 2xl:col-span-1"
       :value="last"
     />
-    <ask-bid class="col-span-full 2xl:col-span-2" v-bind="askBidAttrs" />
+    <ask-bid
+      class="col-span-full row-span-2 2xl:col-span-1"
+      v-bind="askBidAttrs"
+    />
   </div>
 
   <base-card class="my-4">
@@ -39,7 +41,7 @@
   import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
   import TradeHistory from '/@/components/coincheck/TradeHistory.vue'
   import { useTicker } from '/@/components/coincheck/useTicker'
-  import LatestPrice from '/@/components/base/LatestPrice.vue'
+  import LatestPrice from '/@/components/last-price/LastPrice.vue'
   import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
   import { useHistory } from '/@/composites/rate'
   import { useHistorycal } from '/@/utils/firestore'
