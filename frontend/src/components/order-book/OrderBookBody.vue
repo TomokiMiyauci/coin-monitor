@@ -3,7 +3,7 @@
     <div
       v-for="[price, amount] in priceAmount"
       :key="price"
-      class="flex px-10 py-0.5 justify-between items-center"
+      class="flex px-10 py-0.5 justify-between items-center hover:bg-gray-50 duration-100 hover:bg-opacity-60"
     >
       <comma-filter
         class="bg-clip-text text-transparent bg-gradient-to-r"

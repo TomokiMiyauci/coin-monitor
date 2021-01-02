@@ -1,19 +1,17 @@
 <template>
-  <div class="grid grid-cols-2 gap-6">
-    <order-book :asks="asks" :bids="bids">
-      <template #menu>
-        <base-menu
-          min-width="188"
-          :value="pair"
-          :symbols="zaifOrderBookPairs"
-          @input="onInput"
-        >
-          <template #default="{ symbol }">
-            <base-svg-pair v-bind="format(symbol)" /> </template
-        ></base-menu>
-      </template>
-    </order-book>
-  </div>
+  <order-book :asks="asks" :bids="bids">
+    <template #menu>
+      <base-menu
+        min-width="188"
+        :value="pair"
+        :symbols="zaifOrderBookPairs"
+        @input="onInput"
+      >
+        <template #default="{ symbol }">
+          <base-svg-pair v-bind="format(symbol)" /> </template
+      ></base-menu>
+    </template>
+  </order-book>
 </template>
 
 <script lang="ts">

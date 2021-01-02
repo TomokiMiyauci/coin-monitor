@@ -1,5 +1,5 @@
 <template>
-  <base-card class="flex flex-col">
+  <base-card class="flex flex-col pb-4 min-h-full">
     <div class="flex p-2 justify-between items-center">
       <h3 class="ml-2 p-2 mt-1 text-lg text-gray-400">Order Book</h3>
 
@@ -31,7 +31,7 @@
         </div>
 
         <order-book-body
-          class="bg-gradient-to-t to-green-400 from-white"
+          class="bg-gradient-to-t to-green-400 from-gray-100"
           spanClass="bg-gradient-to-t from-gray-400 to-green-400"
           valueClass="from-gray-800 to-green-800"
           :priceAmount="bids"
