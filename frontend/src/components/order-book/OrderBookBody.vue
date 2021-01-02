@@ -5,8 +5,16 @@
       :key="price"
       class="flex px-10 py-0.5 justify-between items-center"
     >
-      <comma-filter :value="price" />
-      <comma-filter :value="amount" />
+      <comma-filter
+        class="bg-clip-text text-transparent bg-gradient-to-r"
+        :class="valueClass"
+        :value="price"
+      />
+      <comma-filter
+        class="bg-clip-text text-transparent bg-gradient-to-l"
+        :class="valueClass"
+        :value="amount"
+      />
     </div>
 
     <span class="span" :class="spanClass">{{ text }}</span>
@@ -32,6 +40,11 @@
       },
 
       spanClass: {
+        type: String,
+        default: '',
+      },
+
+      valueClass: {
         type: String,
         default: '',
       },
