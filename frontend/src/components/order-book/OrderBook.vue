@@ -57,7 +57,6 @@
   import type { PriceAmount } from '/@/components/order-book/share'
   import OrderBookBody from '/@/components/order-book/OrderBookBody.vue'
   import { sort, add } from 'rambda'
-  import TheTitleToolbar from '../app/TheTitleToolbar.vue'
 
   export default defineComponent({
     components: {
@@ -65,7 +64,6 @@
       SpinLoader,
       BaseCard,
       OrderBookBody,
-      TheTitleToolbar,
     },
 
     props: {
