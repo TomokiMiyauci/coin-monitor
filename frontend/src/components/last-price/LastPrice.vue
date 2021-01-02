@@ -33,8 +33,6 @@
   import CommaFilter from '/@/components/base/CommaFilter.vue'
   import TextLoader from '/@/components/base/loaders/TextLoader.vue'
   import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
-  import MdiArrowTopRight from '/@/components/base/icons/mdi/MdiArrowTopRight.vue'
-  import MdiMinusThick from '/@/components/base/icons/mdi/MdiMinusThick.vue'
   import IconUpDownFlat, {
     Status,
   } from '/@/components/base/icons/IconUpDownFlat.vue'
@@ -58,8 +56,6 @@
       CommaFilter,
       TextLoader,
       TheTitleToolbar,
-      MdiArrowTopRight,
-      MdiMinusThick,
       IconUpDownFlat,
     },
 

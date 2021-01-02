@@ -42,8 +42,8 @@ jobs:
           path: '**/node_modules'
           key: ${{ matrix.os }}-node-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
-      - name: Lint by VTI
-        run: yarn lerna run --scope frontend lint:markup
+      # - name: Lint by VTI
+      #   run: yarn lerna run --scope frontend lint:markup
 
   lint-script:
     needs: setup
