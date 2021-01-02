@@ -1,5 +1,5 @@
 <template>
-  <base-td class="px-5 py-1">
+  <base-td class="px-3 sm:px-5 py-1">
     {{ formattedDate }}
   </base-td>
   <base-td class="px-3 py-1 text-center">
@@ -11,7 +11,7 @@
     <comma-filter :value="rate" />
   </base-td>
 
-  <base-td class="px-5 py-1 text-right">
+  <base-td class="px-3 sm:px-5 py-1 text-right">
     {{ amount }}
   </base-td>
 </template>
