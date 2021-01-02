@@ -1,6 +1,6 @@
 <template>
   <default title="dashboard">
-    <base-card class="p-4 w-2/5">
+    <base-card class="p-4 w-full md:w-3/5">
       <table class="capitalize mx-auto">
         <tr>
           <th>market</th>
