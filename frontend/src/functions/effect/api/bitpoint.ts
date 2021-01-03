@@ -1,9 +1,11 @@
 import ky, { Options } from 'ky'
-import { baseGetApi } from '/@/functions/pure/api'
+import { curriedFirstBaseGetApi } from '/@/functions/pure/api'
 
 const kyInstance = ky.create({
   prefixUrl: 'https://smartapi.bitpoint.co.jp/bpj-smart-api',
 })
+
+const baseGetApi = curriedFirstBaseGetApi(kyInstance)
 
 type PriceQuality = {
   price: number
@@ -22,6 +24,12 @@ type ResponsePrice = {
     }
   ]
 }
+type ResponseTrades = {
+  id: number
+  price: number
+  qty: number
+  time: number
+}[]
 
 const json = (text: string) =>
   JSON.parse(text, (key, value) => {
@@ -38,10 +46,10 @@ const json = (text: string) =>
     }
     return value
   })
-const base = (path: string, options: Options) =>
-  baseGetApi(path, options, kyInstance)
-const baseGetDepth = (options: Options) => base('api/depth', options)
-const baseGetPrice = (options: Options) => base('api/ticker/price', options)
+
+const baseGetDepth = baseGetApi('api/depth')
+const baseGetPrice = baseGetApi('api/ticker/price')
+const baseGetTrades = baseGetApi('api/trades')
 
 const getDepth = (pair: 'BTCJPY' = 'BTCJPY', limit: 5 | 10 | 20 = 10) => {
   const options: Options = {
@@ -72,4 +80,28 @@ const getPrice = (pair: 'BTCJPY' = 'BTCJPY') => {
   return baseGetPrice(options) as Promise<ResponsePrice>
 }
 
-export { getDepth, ResponseDepth, getPrice, ResponsePrice }
+const getTrades = (pair: 'BTCJPY' = 'BTCJPY') => {
+  const options: Options = {
+    parseJson: (text) =>
+      JSON.parse(text, (key, value) => {
+        if (['price', 'time', 'qty'].includes(key)) {
+          return Number(value)
+        }
+
+        return value
+      }),
+    searchParams: {
+      symbol: pair,
+    },
+  }
+  return baseGetTrades(options) as Promise<ResponseTrades>
+}
+
+export {
+  getDepth,
+  ResponseDepth,
+  getPrice,
+  ResponsePrice,
+  getTrades,
+  ResponseTrades,
+}

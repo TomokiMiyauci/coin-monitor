@@ -1,4 +1,5 @@
 import ky, { Options } from 'ky'
+import { curry } from '@kahirokunn/ts-curry'
 import { Markets } from '/@/types/market'
 import { Pairs } from '/@/types/pair'
 
@@ -12,6 +13,16 @@ export const baseGetApi = (
   return kyInstance.get(path, options).json()
 }
 
+export const firstBaseGetApi = (
+  kyInstance: kyInstance,
+  path: string,
+  options: Options
+) => {
+  return kyInstance.get(path, options).json()
+}
+
+export const curriedBaseGetApi = curry(baseGetApi)
+export const curriedFirstBaseGetApi = curry(firstBaseGetApi)
 export const makePair = (pair: string) => ({ pair })
 export const makeMarket = (market: Markets) => ({ market })
 

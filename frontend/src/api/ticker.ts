@@ -1,17 +1,11 @@
-import { curry } from 'rambda'
+import { curry } from '@kahirokunn/ts-curry'
 import {
   Markets,
   zaif as _zaif,
   coincheck as _coincheck,
   bitbank as _bitbank,
 } from '/@/types/market'
-import {
-  baseGetApi,
-  kyInstance,
-  makeParameters,
-  makeParseJson,
-  receiverFactory,
-} from '/@/api/base'
+import { baseGetApi, kyInstance, makeParameters } from '/@/api/base'
 import { ResponseBody } from '/@/api/coincheck/ticker'
 import { ResponseBody as ZaifResponseBoby } from '/@/api/zaif/ticker'
 import { ResponseBody as BitbankResponseBoby } from '/@/api/bitbank/ticker'
@@ -26,14 +20,6 @@ import { Pairs } from '/@/types/pair'
 
 const curriedBaseGetApi = curry(baseGetApi)
 const _baseTicker = curriedBaseGetApi('api/src/ticker')
-
-const recieve = receiverFactory((key, value) => {
-  if (key === 'string') {
-    return value
-  }
-
-  return value
-})
 
 const baseTickerFactory = <T extends Markets>(market: T, pairs: Pairs<T>) => {
   switch (market) {

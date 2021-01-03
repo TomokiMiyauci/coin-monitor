@@ -4,6 +4,8 @@ import {
   ResponseDepth,
   getPrice,
   ResponsePrice,
+  getTrades,
+  ResponseTrades,
 } from '/@/functions/effect/api/bitpoint'
 
 const depth = () => {
@@ -30,4 +32,16 @@ const price = () => {
   }
 }
 
-export { depth, price }
+const trades = () => {
+  const { state, setState } = useReactive<ResponseTrades | undefined>(undefined)
+  const setData = async () => {
+    setState(await getTrades('BTCJPY'))
+  }
+
+  return {
+    state,
+    setData,
+  }
+}
+
+export { depth, price, trades }
