@@ -22,14 +22,12 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import BaseSpan from '/@/components/base/BaseSpan.vue'
   import TableTdWithoutType from '/@/components/trade-history/TableTdWithoutType.vue'
   import { CommonData } from '/@/reactives/bitpoint/useTrades'
 
   export default defineComponent({
     components: {
       TableTdWithoutType,
-      BaseSpan,
     },
     props: {
       data: {
