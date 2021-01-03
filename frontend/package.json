@@ -9,10 +9,12 @@
     "lint:markup": "vti diagnostics",
     "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore .",
     "lint:style": "stylelint src/**/*.{css,scss,vue}",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "yarn dev --mode STORYBOOK --port 6001"
   },
   "private": true,
   "dependencies": {
+    "@kahirokunn/ts-curry": "1.0.3",
     "@mdi/js": "^5.8.55",
     "dayjs": "^1.9.8",
     "firebase": "^0.900.4",
