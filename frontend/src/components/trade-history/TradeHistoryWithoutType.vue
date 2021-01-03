@@ -3,15 +3,6 @@
     <thead>
       <tr class="bg-gradient-to-r from-white via-gray-200 to-white">
         <th class="p-2">Date</th>
-        <th>
-          <base-span class="text-white rounded-full shadow bg-red-400 px-1"
-            >B</base-span
-          >
-          /
-          <base-span class="text-white rounded-full shadow bg-green-400 px-1"
-            >S</base-span
-          >
-        </th>
         <th>Rate</th>
         <th>Amount</th>
       </tr>
@@ -19,12 +10,11 @@
 
     <tbody>
       <tr
-        v-for="{ date, type, rate, amount, id } in data"
+        v-for="{ date, rate, amount, id } in data"
         :key="id"
         class="hover:bg-gray-100 bg-gradient-to-r hover:from-gray-100 hover:to-gray-200"
-        :class="type === 'SELL' ? 'from-green-100' : 'from-red-100'"
       >
-        <table-td v-bind="{ type, date, rate, amount }" />
+        <table-td-without-type v-bind="{ date, rate, amount }" />
       </tr>
     </tbody>
   </table>
@@ -33,14 +23,12 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import BaseSpan from '/@/components/base/BaseSpan.vue'
-  import TableTd from '/@/components/trade-history/TableTd.vue'
-  import type { CommonData as _CommonData } from '/@/reactives/bitpoint/useTrades'
-
-  type CommonData = _CommonData & { type: 'SELL' | 'BUY' }
+  import TableTdWithoutType from '/@/components/trade-history/TableTdWithoutType.vue'
+  import { CommonData } from '/@/reactives/bitpoint/useTrades'
 
   export default defineComponent({
     components: {
-      TableTd,
+      TableTdWithoutType,
       BaseSpan,
     },
     props: {
