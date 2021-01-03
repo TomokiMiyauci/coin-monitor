@@ -14,8 +14,6 @@
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue'
-  import ChipBuy from '/@/components/base/chips/ChipBuy.vue'
-  import ChipSell from '/@/components/base/chips/ChipSell.vue'
   import BaseTd from '/@/components/base/BaseTd.vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
 
@@ -23,8 +21,6 @@
     components: {
       BaseTd,
       CommaFilter,
-      ChipBuy,
-      ChipSell,
     },
 
     props: {
