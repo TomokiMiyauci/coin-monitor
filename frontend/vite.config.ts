@@ -23,8 +23,6 @@ const config: UserConfig = {
     },
   },
 
-  cssCodeSplit: false,
-
   shouldPreload: () => true,
 }
 
