@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref } from 'vue'
+  import { defineComponent, computed, ref, onBeforeMount } from 'vue'
   import AskBid from '/@/components/base/AskBid.vue'
   import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
   import TradeHistory from '/@/components/coincheck/TradeHistory.vue'
@@ -44,7 +44,7 @@
   import LatestPrice from '/@/components/last-price/LastPrice.vue'
   import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
   import { useHistory } from '/@/composites/rate'
-  // import { useHistorycal } from '/@/utils/firestore'
+  import { useHistorycal } from '/@/utils/firestore'
   import ChartLine from '/@/components/chart/ChartLine.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
   import BaseTitle from '/@/components/base/BaseTitle.vue'
@@ -66,10 +66,12 @@
       const historycalLast = useHistory(last, 10)
 
       const data = ref<number[]>([])
-      // const get = useHistorycal()
-      // get().then((e) => {
-      //   data.value = e.map(({ value }) => value)
-      // })
+      const get = useHistorycal()
+      onBeforeMount(() => {
+        get().then((e) => {
+          data.value = e.map(({ value }) => value)
+        })
+      })
 
       const askBidAttrs = computed(() => ({
         ask: ask.value,

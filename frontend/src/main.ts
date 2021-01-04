@@ -6,7 +6,7 @@ import '/@/assets/styles/tailwind.scss'
 import ky from '/@/plugins/ky'
 import { routes } from '/@/router'
 // import { router as storybookRouter } from '../stories/router'
-// import firestore from '/@/plugins/firebase'
+import firestore from '/@/plugins/firebase'
 
 export const createApp = ViteSSG(
   // the root component
@@ -15,7 +15,7 @@ export const createApp = ViteSSG(
   { routes },
   // function to have custom setups
   ({ app }) => {
-    app.use(ky)
+    app.use(ky).use(firestore)
     // install plugins etc.
   }
 )
