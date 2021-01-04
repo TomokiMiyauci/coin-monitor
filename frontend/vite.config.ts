@@ -15,6 +15,17 @@ const config: UserConfig = {
   },
 
   plugins: [svgPlugin()],
+  terserOptions: {
+    compress: true,
+    mangle: true,
+    output: {
+      comments: false,
+    },
+  },
+
+  cssCodeSplit: false,
+
+  shouldPreload: () => true,
 }
 
 export default config
