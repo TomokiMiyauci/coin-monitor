@@ -22,8 +22,6 @@ const config: UserConfig = {
       comments: false,
     },
   },
-
-  shouldPreload: () => true,
 }
 
 export default config
