@@ -1,4 +1,6 @@
-import ky, { Options } from 'ky'
+import ky from 'ky-universal'
+import type { Options } from 'ky'
+
 import { curry } from '@kahirokunn/ts-curry'
 import { Markets } from '/@/types/market'
 import { Pairs } from '/@/types/pair'
@@ -22,19 +24,29 @@ export const firstBaseGetApi = (
 }
 
 export const curriedBaseGetApi = curry(baseGetApi)
+export const getDepthApi = curriedBaseGetApi('api/src/depth')
+
 export const curriedFirstBaseGetApi = curry(firstBaseGetApi)
-export const makePair = (pair: string) => ({ pair })
+export const makePair = <T extends Markets>(pair: Pairs<T>) => ({ pair })
 export const makeMarket = (market: Markets) => ({ market })
+
+export const makeSearchParams = (
+  searchParams: Options['searchParams']
+): Options => ({
+  searchParams,
+})
 
 const getSearchParams = <T extends Markets>(
   market: T,
-  pair: string
+  pair: Pairs<T>
 ): Options => ({
   searchParams: {
     ...makePair(pair),
     ...makeMarket(market),
   },
 })
+
+export const curriedGetSearchParams = curry(getSearchParams)
 
 export const makeParameters = <T extends Markets>(market: T) => {
   return (pair: Pairs<T>) => getSearchParams(market, pair)

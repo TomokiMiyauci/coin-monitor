@@ -1,4 +1,6 @@
-import ky, { Options } from 'ky'
+import ky from 'ky-universal'
+import type { Options } from 'ky'
+
 import { Markets } from '/@/types/market'
 import { Pairs } from '/@/types/pair'
 

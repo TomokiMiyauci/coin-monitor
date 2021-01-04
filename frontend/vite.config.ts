@@ -1,7 +1,6 @@
-import { join } from 'path'
-import type { UserConfig } from 'vite'
+import { resolve } from 'path'
+import { UserConfig } from 'vite'
 import svgPlugin from 'vite-plugin-svg'
-import { VitePWA } from 'vite-plugin-pwa'
 import { name, description } from '../package.json'
 
 const PROJECT_NAME = name
@@ -11,29 +10,11 @@ const PROJECT_NAME = name
 
 const config: UserConfig = {
   alias: {
-    '/@/': join(__dirname, 'src'),
+    '/@/': resolve(__dirname, 'src'),
+    '@story': resolve(__dirname, 'stories'),
   },
 
-  terserOptions: {
-    compress: true,
-    mangle: true,
-    output: {
-      comments: false,
-    },
-  },
-
-  plugins: [
-    svgPlugin(),
-    VitePWA({
-      manifest: {
-        name: PROJECT_NAME,
-        short_name: PROJECT_NAME,
-        description,
-      },
-    }),
-  ],
-
-  shouldPreload: () => true,
+  plugins: [svgPlugin()],
 }
 
 export default config

@@ -1,4 +1,5 @@
-import ky, { Options } from 'ky'
+import ky from 'ky-universal'
+import type { Options } from 'ky'
 import { curriedFirstBaseGetApi } from '/@/functions/pure/api'
 
 const kyInstance = ky.create({

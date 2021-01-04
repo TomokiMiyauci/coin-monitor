@@ -44,7 +44,7 @@
   import LatestPrice from '/@/components/last-price/LastPrice.vue'
   import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
   import { useHistory } from '/@/composites/rate'
-  import { useHistorycal } from '/@/utils/firestore'
+  // import { useHistorycal } from '/@/utils/firestore'
   import ChartLine from '/@/components/chart/ChartLine.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
   import BaseTitle from '/@/components/base/BaseTitle.vue'
@@ -66,10 +66,10 @@
       const historycalLast = useHistory(last, 10)
 
       const data = ref<number[]>([])
-      const get = useHistorycal()
-      get().then((e) => {
-        data.value = e.map(({ value }) => value)
-      })
+      // const get = useHistorycal()
+      // get().then((e) => {
+      //   data.value = e.map(({ value }) => value)
+      // })
 
       const askBidAttrs = computed(() => ({
         ask: ask.value,

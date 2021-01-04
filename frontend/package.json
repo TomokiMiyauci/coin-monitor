@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite-ssg build",
     "lint:markup": "vti diagnostics",
     "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore .",
     "lint:style": "stylelint src/**/*.{css,scss,vue}",
@@ -19,8 +19,8 @@
     "dayjs": "^1.9.8",
     "firebase": "^0.900.4",
     "ky": "^0.25.0",
+    "ky-universal": "^0.8.2",
     "rambda": "^6.4.0",
-    "vite-plugin-pwa": "^0.2.1",
     "vue": "^3.0.4",
     "vue-router": "^4.0.1"
   },
@@ -31,6 +31,7 @@
     "@vue/compiler-sfc": "^3.0.4",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
+    "@vue/server-renderer": "^3.0.5",
     "bitbank-client": "^0.0.1-alpha.3",
     "coincheck-client": "^0.1.0-alpha.4",
     "eslint": "^7.14.0",
@@ -49,6 +50,7 @@
     "typescript": "^4.1.2",
     "vite": "^1.0.0-rc.13",
     "vite-plugin-svg": "^0.7.0",
+    "vite-ssg": "^0.1.1",
     "vti": "^0.0.23",
     "zaif-client": "^0.0.1-alpha.0"
   },
