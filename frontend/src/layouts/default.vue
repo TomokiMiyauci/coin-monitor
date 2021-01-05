@@ -47,7 +47,7 @@
     state.value = payload
   }
 
-  defineProps<{ title: String }>()
+  defineProps<{ title: string }>()
 </script>
 
 <style scoped>
