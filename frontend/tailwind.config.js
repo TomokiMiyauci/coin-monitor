@@ -49,6 +49,12 @@ module.exports = {
         '-10': '-10',
         '-20': '-20',
       },
+      borderRadius: {
+        '5xl': '3rem',
+        '7xl': '4.5rem',
+        '8xl': '6rem',
+        '9xl': '8rem',
+      },
     },
   },
   variants: {
