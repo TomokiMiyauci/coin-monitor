@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col lg:flex-row h-screen bg-gray-200">
     <the-navigation-drawer
-      class="fixed z-10 inset-y-0 left-0 w-64 transition duration-300 transform overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in"
+      :min-variant="isMinVariant"
+      @click="isMinVariant = !isMinVariant"
+      class="fixed z-10 inset-y-0 left-0 transition-all duration-300 transform overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in"
+      :class="[isMinVariant ? 'w-20' : 'w-64']"
     />
 
     <the-header
@@ -42,6 +45,7 @@
   import { defineProps, ref } from 'vue'
 
   const state = ref(false)
+  const isMinVariant = ref(false)
 
   const on = (payload: boolean) => {
     state.value = payload
