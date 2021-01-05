@@ -21,11 +21,15 @@
   "workspaces": [
     "api",
     "frontend",
-    "backend/*"
+    "backend/*",
+    "packages/**"
   ],
   "config": {
     "commitizen": {
       "path": "cz-emoji"
     }
+  },
+  "resolutions": {
+    "postcss": "8.2.2"
   }
 }
