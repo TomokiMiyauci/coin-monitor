@@ -1,7 +1,12 @@
 <template>
-  <div class="flex h-screen bg-gray-200">
+  <div class="flex flex-col lg:flex-row h-screen bg-gray-200">
     <the-navigation-drawer
       class="fixed z-10 inset-y-0 left-0 w-64 transition duration-300 transform overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in"
+    />
+
+    <the-header
+      class="h-16 static inset-x-0 top-0 w-full transition duration-700 lg:-translate-y-full transform lg:fixed -translate-y-0"
+      @open="on(true)"
     />
 
     <div class="flex-1 flex flex-col overflow-hidden">
@@ -21,24 +26,38 @@
         </div>
       </main>
     </div>
+    <transition name="fade">
+      <hover-navigation @close="on(false)" v-show="state">
+        <page-navs />
+      </hover-navigation>
+    </transition>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import TheNavigationDrawer from '/@/components/app/TheNavigationDrawer.vue'
+  import TheHeader from '/@/components/app/TheHeader.vue'
+  import HoverNavigation from '/@/components/app/HoverNavigation.vue'
+  import PageNavs from '/@/components/app/PageNavs.vue'
+  import { defineProps, ref } from 'vue'
 
-  import { defineComponent } from 'vue'
+  const state = ref(false)
 
-  export default defineComponent({
-    components: {
-      TheNavigationDrawer,
-    },
+  const on = (payload: boolean) => {
+    state.value = payload
+  }
 
-    props: {
-      title: {
-        type: String,
-        default: '',
-      },
-    },
-  })
+  defineProps<{ title: String }>()
 </script>
+
+<style scoped>
+  .fade-enter-from,
+  .fade-leave-to {
+    @apply transform-gpu  opacity-0 translate-x-full;
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    @apply transition duration-500 ease-out;
+  }
+</style>

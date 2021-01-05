@@ -1,6 +1,8 @@
 <template>
-  <the-toolbar class="p-4 pb-0">
+  <the-toolbar class="p-4 pb-0 flex justify-between">
     <base-title> <slot /></base-title>
+
+    <slot name="right" />
   </the-toolbar>
 </template>
 
