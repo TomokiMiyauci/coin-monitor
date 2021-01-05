@@ -1,9 +1,9 @@
 <template>
-  <router-view />
+  <default>
+    <router-view />
+  </default>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
-
-  export default defineComponent({})
+<script setup lang="ts">
+  import Default from '/@/layouts/default.vue'
 </script>

@@ -15,16 +15,6 @@
     <div class="flex-1 flex flex-col overflow-hidden">
       <main class="flex-1 overflow-x-hidden overflow-y-auto">
         <div class="container mx-auto px-4 sm:px-6 py-8">
-          <div class="flex justify-between">
-            <slot name="header">
-              <h3 class="text-gray-700 text-3xl mb-8 font-medium capitalize">
-                {{ title }}
-              </h3>
-
-              <slot name="header-rest" />
-            </slot>
-          </div>
-
           <slot />
         </div>
       </main>
@@ -42,7 +32,7 @@
   import TheHeader from '/@/components/app/TheHeader.vue'
   import HoverNavigation from '/@/components/app/HoverNavigation.vue'
   import PageNavs from '/@/components/app/PageNavs.vue'
-  import { defineProps, ref } from 'vue'
+  import { ref } from 'vue'
 
   const state = ref(false)
   const isMinVariant = ref(false)
@@ -50,8 +40,6 @@
   const on = (payload: boolean) => {
     state.value = payload
   }
-
-  defineProps<{ title: string }>()
 </script>
 
 <style scoped>

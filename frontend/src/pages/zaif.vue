@@ -1,18 +1,17 @@
 <template>
-  <default title="zaif">
-    <current-board />
-    <template #header-rest>
-      <base-menu
-        min-width="188"
-        :value="pair"
-        :symbols="zaifOrderBookPairs"
-        @input="onInput"
-      >
-        <template #default="{ symbol }">
-          <base-svg-pair v-bind="format(symbol)" /> </template
-      ></base-menu>
-    </template>
-  </default>
+  <div class="flex justify-between">
+    <h3 class="text-gray-700 text-3xl mb-8 font-medium capitalize">Zaif</h3>
+    <base-menu
+      min-width="188"
+      :value="pair"
+      :symbols="zaifOrderBookPairs"
+      @input="onInput"
+    >
+      <template #default="{ symbol }">
+        <base-svg-pair v-bind="format(symbol)" /> </template
+    ></base-menu>
+  </div>
+  <current-board />
 </template>
 
 <script lang="ts">
@@ -20,7 +19,6 @@
   import BaseMenu from '/@/components/base/BaseMenu.vue'
   import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
 
-  import Default from '/@/layouts/default.vue'
   import CurrentBoard from '/@/components/zaif/CurrentBoard.vue'
   import {
     zaifOrderBookPairs,
@@ -28,7 +26,6 @@
   } from '/@/components/zaif/pair'
   export default defineComponent({
     components: {
-      Default,
       CurrentBoard,
       BaseMenu,
       BaseSvgPair,
