@@ -21,7 +21,7 @@
     </div>
     <transition name="fade">
       <hover-navigation @close="on(false)" v-show="state">
-        <page-navs />
+        <page-navs @close="on(false)" />
       </hover-navigation>
     </transition>
   </div>
