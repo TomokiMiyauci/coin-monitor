@@ -1,5 +1,7 @@
 <template>
-  <header class="bg-gray-800 px-3 py-1 flex items-center justify-between">
+  <header
+    class="bg-gray-800 px-3 py-1 flex flex-none items-center justify-between"
+  >
     <logo-letter />
 
     <button
