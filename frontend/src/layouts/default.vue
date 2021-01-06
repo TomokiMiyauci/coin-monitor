@@ -3,12 +3,12 @@
     <the-navigation-drawer
       :min-variant="isMinVariant"
       @click="isMinVariant = !isMinVariant"
-      class="fixed z-10 inset-y-0 left-0 transition-all duration-300 transform overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in"
+      class="fixed z-10 inset-y-0 left-0 transform-gpu duration-300 transition-all overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in"
       :class="[isMinVariant ? 'w-20' : 'w-64']"
     />
 
     <the-header
-      class="h-16 static inset-x-0 top-0 w-full transition duration-700 lg:-translate-y-full transform lg:fixed -translate-y-0"
+      class="h-16 static rounded-bl-5xl inset-x-0 top-0 w-full transition delay-500 duration-700 lg:-translate-y-full transform lg:fixed -translate-y-0"
       @open="on(true)"
     />
 
@@ -20,7 +20,7 @@
       </main>
     </div>
     <transition name="fade">
-      <hover-navigation @close="on(false)" v-show="state">
+      <hover-navigation class="max-w-9/12" @close="on(false)" v-show="state">
         <page-navs @close="on(false)" />
       </hover-navigation>
     </transition>
