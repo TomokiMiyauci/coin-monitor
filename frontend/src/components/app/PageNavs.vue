@@ -4,7 +4,7 @@
       class="flex rounded items-center mt-4 py-2 hover:bg-gray-600 transition duration-200 text-gray-100"
       :class="[minVariant ? 'justify-center' : 'px-10']"
       to="/"
-      @click.navive.prevent="on('/')"
+      @click.prevent="on('/')"
       active-class="bg-gray-700"
     >
       <icon-text
@@ -23,7 +23,7 @@
       v-for="{ to, icon } in navs"
       :key="to"
       :to="to"
-      @click.navive.prevent="on(to)"
+      @click.prevent="on(to)"
       class="flex rounded items-center mt-1 py-2 hover:bg-gray-600 transition duration-200 text-gray-100"
       :class="[minVariant ? 'justify-center' : 'px-10']"
       active-class="bg-gray-700"
@@ -41,7 +41,7 @@
 <script setup lang="ts">
   import { defineProps, useContext } from 'vue'
   const { emit } = useContext()
-  import { useRouter, useRoute, RouteLocationRaw } from 'vue-router'
+  import { useRouter, useRoute } from 'vue-router'
   const router = useRouter()
   const route = useRoute()
   import MdiDashboard from '/@/components/base/icons/mdi/MdiDashboard.vue'
@@ -50,7 +50,7 @@
   import { getComponent } from '/@/components/market/symbol'
   import IconText from '/@/components/base/icons/IconText.vue'
 
-  const on = async (routeLocation: RouteLocationRaw) => {
+  const on = (routeLocation: string) => {
     router.push(routeLocation)
     if (route.path !== routeLocation) {
       emit('close')
