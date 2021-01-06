@@ -1,25 +1,15 @@
 <template>
   <base-div
-    class="rounded-md from-gray-100 via-white to-gray-100 bg-gradient-to-b shadow-md hover:shadow-xl transition-shadow duration-200"
-    :class="{ 'overflow-hidden': overflowHidden }"
+    class="rounded-3xl bg-gray-50 bg-gradient-to-b shadow-md hover:shadow-xl transition-shadow duration-200"
+    :class="{ 'overflow-hidden': overflowHidden || true }"
   >
     <slot />
   </base-div>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue'
+<script setup lang="ts">
+  import { defineProps } from 'vue'
   import BaseDiv from '/@/components/base/BaseDiv.vue'
-  export default defineComponent({
-    components: {
-      BaseDiv,
-    },
 
-    props: {
-      overflowHidden: {
-        type: Boolean,
-        default: true,
-      },
-    },
-  })
+  defineProps<{ overflowHidden?: true }>()
 </script>

@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <span>
     <div class="relative">
       <button
         type="button"
-        aria-haspopup="list-box"
+        aria-haspopup="listbox"
         :aria-expanded="hover"
         aria-labelledby="list-box-label"
-        class="relative bg-white border hover:shadow-md border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800 sm:text-sm transition duration-200"
+        class="relative bg-white border hover:shadow-md border-gray-300 rounded-2xl shadow-sm pl-3 pr-10 py-2 text-left focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800 sm:text-sm transition duration-200"
         :style="style"
         @click="hover = true"
       >
@@ -42,14 +42,14 @@
       <transition name="slide-down">
         <div
           v-if="hover"
-          class="absolute mt-1 w-full rounded-md bg-white shadow hover:shadow-xl duration-300 transition-shadow z-20"
+          class="absolute mt-1 w-full bg-white overflow-y-scroll rounded-2xl overflow-hidden shadow hover:shadow-xl duration-300 transition-shadow z-20"
         >
           <ul
             tabindex="-1"
             role="list-box"
             aria-labelledby="list-box-label"
             aria-activedescendant="list-box-item-3"
-            class="text-gray-900 cursor-pointer rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+            class="text-gray-900 cursor-pointer rounded-2xl text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
             :class="maxHeight"
           >
             <!--
@@ -87,7 +87,7 @@
         </div>
       </transition>
     </div>
-  </div>
+  </span>
 </template>
 
 <script lang="ts">

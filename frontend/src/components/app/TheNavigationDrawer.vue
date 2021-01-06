@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-gray-800 flex flex-col items-center flex-shrink-0 justify-between p-4"
+    class="bg-gray-800 shadow-md flex flex-col items-center flex-shrink-0 justify-between p-4"
     :class="[minVariant ? 'rounded-3xl lg:m-6' : 'rounded-r-7xl my-6']"
   >
     <span>

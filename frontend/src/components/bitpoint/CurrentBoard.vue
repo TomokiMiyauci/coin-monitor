@@ -4,7 +4,7 @@
     <order-book
       :asks="asks"
       :bids="bids"
-      class="bg-white col-span-1 rounded-mdhover:shadow-xl duration-200 transition"
+      class="bg-white col-span-2 sm:col-span-1 rounded-mdhover:shadow-xl duration-200 transition"
     />
 
     <base-card class="w-80 col-span-1 max-h-96 overflow-y-scroll">
