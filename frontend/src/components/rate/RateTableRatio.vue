@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps } from 'vue'
+  import { defineProps, ref } from 'vue'
 
   import BaseRateTable from '/@/components/rate/BaseRateTable.vue'
   import CoincheckSymbol from '/@/components/coincheck/CoincheckSymbol.vue'
@@ -55,14 +55,13 @@
     classBodyTd?: string
   }>()
 
-  ref: hover = false
+  const hover = ref(false)
 
   const on = () => {
-    hover = true
-    console.log(1)
+    hover.value = true
   }
   const off = () => {
-    hover = false
+    hover.value = false
   }
 </script>
 
