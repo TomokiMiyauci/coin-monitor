@@ -42,10 +42,10 @@
       <transition name="slide-down">
         <div
           v-if="hover"
-          class="absolute mt-1 w-full bg-white overflow-y-scroll rounded-2xl overflow-hidden shadow hover:shadow-xl duration-300 transition-shadow z-20"
+          class="absolute mt-1 w-full bg-white overflow-y-scroll rounded-2xl overflow-hidden shadow-md hover:shadow-xl duration-300 transition-shadow z-20"
         >
           <ul
-            tabindex="-1"
+            :tabindex="-1"
             role="list-box"
             aria-labelledby="list-box-label"
             aria-activedescendant="list-box-item-3"

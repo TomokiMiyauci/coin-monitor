@@ -27,7 +27,7 @@
               <div
                 class="w-44 text-white hover:opacity-80 shadow hover:shadow-lg hover:scale-105 transform transition duration-200 h-44 bg-gradient-to-br from-purple-400 to-red-500 rounded-full flex justify-center items-center"
               >
-                {{ _high }}
+                {{ highRef }}
               </div>
               <div class="text-center p-2">High</div>
             </div>
@@ -36,7 +36,7 @@
               <div
                 class="w-44 text-white hover:opacity-80 shadow hover:shadow-lg hover:scale-105 transform transition duration-200 h-44 bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex justify-center items-center"
               >
-                {{ _low }}
+                {{ lowRef }}
               </div>
               <div class="text-center p-2">Low</div>
             </div>
@@ -45,9 +45,9 @@
               <div
                 class="w-44 text-white hover:opacity-80 shadow hover:shadow-lg hover:scale-105 transform transition duration-200 h-44 bg-gradient-to-br from-green-400 to-yellow-500 rounded-full flex justify-center items-center"
               >
-                {{ _volume }}
+                {{ volumeRef }}
               </div>
-              <div class="text-center p-2">volume</div>
+              <div class="text-center p-2">Volume</div>
             </div>
           </div>
         </div>
@@ -100,14 +100,14 @@
     },
 
     setup(props) {
-      const _high = computed(() => toComma(props.high))
-      const _low = computed(() => toComma(props.low))
-      const _volume = computed(() => toComma(props.volume))
+      const highRef = computed(() => toComma(props.high))
+      const lowRef = computed(() => toComma(props.low))
+      const volumeRef = computed(() => toComma(props.volume))
 
       return {
-        _high,
-        _low,
-        _volume,
+        highRef,
+        lowRef,
+        volumeRef,
       }
     },
   })
