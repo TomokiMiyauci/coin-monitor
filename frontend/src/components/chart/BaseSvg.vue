@@ -1,5 +1,9 @@
 <template>
-  <svg v-bind="{ ...$props, ...$attrs }" :viewBox="_viewBox" :class="className">
+  <svg
+    v-bind="{ ...$props, ...$attrs }"
+    :viewBox="viewBoxRef"
+    :class="className"
+  >
     <slot />
   </svg>
 </template>
@@ -36,7 +40,7 @@
     },
 
     setup(props) {
-      const viewBox = computed<string>(() =>
+      const viewBoxRef = computed<string>(() =>
         _viewBox({
           x: props.viewBox.x,
           y: props.viewBox.y,
@@ -46,7 +50,7 @@
       )
 
       return {
-        _viewBox: viewBox,
+        viewBoxRef,
       }
     },
   })
