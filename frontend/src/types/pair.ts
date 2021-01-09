@@ -1,11 +1,12 @@
 import { zaif, coincheck, bitbank, Markets } from '/@/types/market'
 import type { getTicker } from 'zaif-client'
 import type { getTicker as BitbankPair } from 'bitbank-client'
+import type { getRate } from 'coincheck-client'
 import { curry } from '@kahirokunn/ts-curry'
 type Arg<T extends (pair: any) => Promise<any>> = Parameters<T>[number]
 
 export type ZaifPair = Arg<typeof getTicker>
-export type CoincheckPair = ''
+export type CoincheckPair = Arg<typeof getRate>
 export type BitbankPair = Arg<typeof BitbankPair>
 
 export type Pairs<T extends Markets> = T extends typeof coincheck
