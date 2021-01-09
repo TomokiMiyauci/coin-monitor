@@ -2,7 +2,7 @@
   <base-table :items="items" :headers="headersRef">
     <template #header="{ headers }">
       <slot name="header" :headers="headers">
-        <th :class="header.class" v-for="header in headers">
+        <th :class="header.class" v-for="header in headers" :key="header.value">
           {{ header.text }}
         </th>
       </slot>

@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <slot name="header" :headers="headersRef">
-          <th v-for="header in headersRef">
+          <th v-for="header in headersRef" :key="header.value">
             {{ header.text }}
           </th>
         </slot>
@@ -11,9 +11,13 @@
     </thead>
 
     <tbody>
-      <tr :class="classTr || 'hover:bg-gray-100'" v-for="item in itemsRef">
+      <tr
+        :class="classTr || 'hover:bg-gray-100'"
+        v-for="(item, index) in itemsRef"
+        :key="index"
+      >
         <slot name="item" :item="item">
-          <td v-for="{ value } in headersRef">
+          <td v-for="{ value } in headersRef" :key="value">
             {{ item[value] }}
           </td>
         </slot>
