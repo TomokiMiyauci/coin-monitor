@@ -24,12 +24,8 @@
 <script lang="ts">
   import { computed, defineComponent, ref } from 'vue'
   import { getPairs } from '/@/components/coincheck/useRate'
-  import BaseRate from '/@/components/base/BaseRate.vue'
-  import BaseMenu from '/@/components/base/BaseMenu.vue'
-  import BaseSvgSymbol from '../base/BaseSvgSymbol.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
 
-  import CoincheckSymbol from './CoincheckSymbol.vue'
   import { coincheckSymbols } from '/@/components/base/coin'
 
   import { useRate } from '/@/reactives/api/coincheck'
@@ -40,10 +36,6 @@
 
   export default defineComponent({
     components: {
-      BaseRate,
-      BaseMenu,
-      BaseSvgSymbol,
-      CoincheckSymbol,
       BaseCard,
       RateTableRatio,
     },
