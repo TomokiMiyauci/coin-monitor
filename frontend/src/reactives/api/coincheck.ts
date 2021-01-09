@@ -2,22 +2,26 @@ import { kyInstance } from '/@/functions/pure/api'
 import { useReactive } from '/@/core/reactive'
 import {
   getOpenPrice,
+  getYesterdayNowPrice,
+  baseGetPrice,
   ResponseData,
   getRate,
   ResponseGetRate,
 } from '/@/functions/effect/api/coincheck'
-import { useFirestore } from '/@/plugins/firebase'
+import { FirebaseFirestore } from 'firebase/firestore/lite'
 import { CoincheckPair } from '/@/types/pair'
 
-const useOpenPrice = (pair: CoincheckPair) => {
-  const { $firestore } = useFirestore()
+const baseUsePrice = <T>(fn: typeof baseGetPrice) => (
+  pair: T,
+  date: Date,
+  firestore: FirebaseFirestore
+) => {
   const { state, setState, resetState } = useReactive<
-    (ResponseData & { pair: CoincheckPair }) | undefined
+    (ResponseData & { pair: T }) | undefined
   >(undefined)
 
   const setData = async () => {
-    setState({ ...(await getOpenPrice(pair, $firestore)), pair })
-    console.log(state.value)
+    setState({ ...(await fn(pair, date, firestore)), pair })
   }
 
   return {
@@ -26,6 +30,9 @@ const useOpenPrice = (pair: CoincheckPair) => {
     resetState,
   }
 }
+
+const useOpenPrice = baseUsePrice<CoincheckPair>(getOpenPrice)
+const useYesterdayNowPrice = baseUsePrice<CoincheckPair>(getYesterdayNowPrice)
 
 const useRate = (kyInstance: kyInstance, pair: CoincheckPair) => {
   const { state, setState, resetState } = useReactive<
@@ -43,4 +50,4 @@ const useRate = (kyInstance: kyInstance, pair: CoincheckPair) => {
   }
 }
 
-export { useOpenPrice, useRate }
+export { useOpenPrice, useYesterdayNowPrice, useRate }
