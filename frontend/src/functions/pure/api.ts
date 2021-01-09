@@ -3,7 +3,12 @@ import type { Options } from 'ky'
 
 import { curry } from '@kahirokunn/ts-curry'
 import { Markets } from '/@/types/market'
-import { Pairs } from '/@/types/pair'
+import { coincheckPair, Pairs } from '/@/types/pair'
+import { orderBy, where, limit } from 'firebase/firestore/lite'
+import { joinSlash } from '/@/utils/format'
+import { CoincheckPair } from '/@/types/pair'
+import { m } from '/@/functions/pure/options'
+import { rate, depth } from '/@/functions/pure/path'
 
 export type kyInstance = typeof ky
 
@@ -24,42 +29,52 @@ export const firstBaseGetApi = (
 }
 
 export const curriedBaseGetApi = curry(baseGetApi)
-export const getDepthApi = curriedBaseGetApi('api/src/depth')
 
+export const getDepthApi = curriedBaseGetApi(depth)
+export const baseGetRateApi = curriedBaseGetApi(rate)
+
+const coincheckOption = m('coincheck')
+
+export const run = <T, U extends Markets>(
+  base: typeof baseGetRateApi,
+  pair: Pairs<U>,
+  kyInstance: kyInstance
+): Promise<T> => {
+  return base({ searchParams: coincheckPair(pair) })(kyInstance) as Promise<T>
+}
+
+export const curriedRun = <T, U extends Markets>(
+  base: typeof baseGetRateApi
+) => (pair: Pairs<U>, kyInstance: kyInstance) =>
+  run(base, pair, kyInstance) as Promise<T>
 export const curriedFirstBaseGetApi = curry(firstBaseGetApi)
-export const makePair = <T extends Markets>(pair: Pairs<T>) => ({ pair })
-export const makeMarket = (market: Markets) => ({ market })
 
-export const makeSearchParams = (
-  searchParams: Options['searchParams']
-): Options => ({
-  searchParams,
-})
+// export const makeParameters = <T extends Markets>(market: T) => {
+//   return (pair: Pairs<T>) => getSearchParams(market, pair)
+// }
 
-const getSearchParams = <T extends Markets>(
-  market: T,
-  pair: Pairs<T>
-): Options => ({
-  searchParams: {
-    ...makePair(pair),
-    ...makeMarket(market),
-  },
-})
+// export const receiverFactory = (fn: (key: string, value: any) => any) => {
+//   return (key: string, value: any) => fn(key, value)
+// }
 
-export const curriedGetSearchParams = curry(getSearchParams)
+const getCollectionPath = (
+  root: 'markets',
+  second: 'coincheck',
+  third: 'pairs',
+  forth: CoincheckPair,
+  fifth: 'rates'
+) => joinSlash(root, second, third, forth, fifth)
 
-export const makeParameters = <T extends Markets>(market: T) => {
-  return (pair: Pairs<T>) => getSearchParams(market, pair)
-}
+const curriedGetCollectionPath = curry(getCollectionPath)
+const marketsPath = curriedGetCollectionPath('markets')
+const coincheckPath = marketsPath('coincheck')
+const pairsPath = coincheckPath('pairs')
 
-type Reciever = Parameters<JSON['parse']>[1]
+const curriedOrderBy = curry(orderBy)
+const dateOrderBy = curriedOrderBy('date')
+const curriedWhere = curry(where)
+const dateWhere = curriedWhere('date')
+const dateRatherThanWhere = dateWhere('>')
+const limit1 = limit(1)
 
-export const makeParseJson = (reciever: Reciever): Options => ({
-  parseJson: (text: string) => {
-    JSON.parse(text, reciever)
-  },
-})
-
-export const receiverFactory = (fn: (key: string, value: any) => any) => {
-  return (key: string, value: any) => fn(key, value)
-}
+export { pairsPath, dateOrderBy, dateRatherThanWhere, limit1 }
