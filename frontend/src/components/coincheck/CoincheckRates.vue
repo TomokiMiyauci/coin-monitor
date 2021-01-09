@@ -17,7 +17,11 @@
       </base-menu> -->
     </div>
 
-    <rate-table-ratio class="w-full" :data="ccc"> </rate-table-ratio>
+    <rate-table-ratio-ip class="w-full" :items="ccc">
+      <template #symbol-icon="{ symbol }">
+        <coincheck-symbol :symbol="symbol" />
+      </template>
+    </rate-table-ratio-ip>
   </base-card>
 </template>
 
@@ -27,21 +31,29 @@
   import BaseCard from '/@/components/base/BaseCard.vue'
 
   import { coincheckSymbols } from '/@/components/base/coin'
+  import CoincheckSymbol from '/@/components/coincheck/CoincheckSymbol.vue'
 
   import { useRate } from '/@/reactives/api/coincheck'
   import { useKy } from '/@/plugins/ky'
   import { useInterval } from '/@/core/interval'
-  import { useOpenPrice } from '/@/reactives/api/coincheck'
-  import RateTableRatio from '/@/components/rate/RateTableRatio.vue'
+  import {
+    useOpenPrice,
+    useYesterdayNowPrice,
+  } from '/@/reactives/api/coincheck'
+  import RateTableRatioIp from '/@/components/rate/RateTableRatioIp.vue'
+  import { useFirestore } from '/@/plugins/firebase'
 
   export default defineComponent({
     components: {
       BaseCard,
-      RateTableRatio,
+      RateTableRatioIp,
+      CoincheckSymbol,
     },
 
     setup() {
       const { $http } = useKy()
+      const { $firestore } = useFirestore()
+      const now = new Date()
 
       const base = ref('JPY')
 
@@ -99,7 +111,17 @@
       })
 
       const b = lowerPairs.value.map((pair) => {
-        const { state, setData } = useOpenPrice(pair)
+        const { state, setData } = useOpenPrice(pair, now, $firestore)
+        setData()
+
+        return {
+          state,
+          setData,
+        }
+      })
+
+      const c = lowerPairs.value.map((pair) => {
+        const { state, setData } = useYesterdayNowPrice(pair, now, $firestore)
         setData()
 
         return {
@@ -126,19 +148,31 @@
         }, {})
       })
 
+      const eee = computed(() => {
+        return c.reduce((acc, { state }) => {
+          if (!state.value) return acc
+
+          acc[state.value.pair] = state.value.value
+          return acc
+        }, {})
+      })
+
       const ccc = computed(() => {
         return pairs.map(({ baseSymbol, symbol }) => {
           const p = lowerPair(baseSymbol, symbol)
           const a = (bbb.value[p] as any) as number
+          const e = (eee.value[p] as any) as number
           const b = (bbbb.value[p] as any) as number
 
-          const ratio = !!a && !!b ? (b / a - 1) * 100 : undefined
+          const ratioIp = !!a && !!b ? (b / a - 1) * 100 : undefined
+          const ratio = !!e && !!b ? (b / e - 1) * 100 : undefined
 
           return {
             baseSymbol,
             symbol,
             rate: bbbb.value[p],
             ratio,
+            ratioIp,
           }
         })
       })

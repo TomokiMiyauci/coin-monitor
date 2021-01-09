@@ -1,8 +1,20 @@
 <template>
   <base-rate-table :items="items">
     <template #header>
-      <th class="w-1/2"></th>
+      <th class="w-1/3"></th>
       <th></th>
+
+      <th class="text-right whitespace-nowrap px-3">
+        <text-icon text="0:00">
+          <base-tooltip class-content="px-4 py-2 right-0">
+            <mdi-mdi-help-circle class="w-4 align-top h-4" />
+
+            <template #content>
+              <span class="whitespace-nowrap">Now / Initial Price</span>
+            </template>
+          </base-tooltip>
+        </text-icon>
+      </th>
       <th class="text-right px-3">
         <text-icon text="1D">
           <base-tooltip class-content="px-4 py-2 right-0">
@@ -25,6 +37,13 @@
     </template>
 
     <template #expand-td="{ item }">
+      <td class="text-right pr-3">
+        <text-loader :value="item.ratioIp" skelton-style="min-width: 3rem">
+          <flash-box :value="isNumber(item.ratioIp)">
+            <percentage :value="isNumber(item.ratioIp)" />
+          </flash-box>
+        </text-loader>
+      </td>
       <td class="text-right pr-3">
         <text-loader :value="item.ratio" skelton-style="min-width: 3rem">
           <flash-box :value="isNumber(item.ratio)">
@@ -50,6 +69,6 @@
   import { isNumber } from '/@/utils/assert'
 
   defineProps<{
-    items: { symbol: string; rate?: number; ratio?: number }[]
+    items: { symbol: string; rate?: number; ratio?: number; ratioIp?: number }[]
   }>()
 </script>
