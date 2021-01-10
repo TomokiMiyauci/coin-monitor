@@ -15,13 +15,17 @@
       </base-menu>
     </div>
 
-    <base-rate :rates="rates">
+    <rate-table-ratio
+      class="w-full"
+      :headers="[{ value: 'ratio' }]"
+      :items="rates"
+    >
       <template #default="{ symbol }">
         <base-svg-symbol :symbol="symbol">
           <zaif-symbol :symbol="symbol" />
         </base-svg-symbol>
       </template>
-    </base-rate>
+    </rate-table-ratio>
   </base-card>
 </template>
 
@@ -30,7 +34,7 @@
   import BaseSvgSymbol from '/@/components/base/BaseSvgSymbol.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
   import BaseMenu from '/@/components/base/BaseMenu.vue'
-  import BaseRate from '/@/components/base/BaseRate.vue'
+  import RateTableRatio from '/@/components/rate/RateTableRatio.vue'
 
   import { zaifBaseSymbols, ZaifBaseSymbol } from '/@/components/base/coin'
   import { useRates, usePair } from '/@/components/zaif/useRate'
@@ -41,8 +45,8 @@
       BaseSvgSymbol,
       BaseCard,
       BaseMenu,
-      BaseRate,
       ZaifSymbol,
+      RateTableRatio,
     },
 
     setup() {
