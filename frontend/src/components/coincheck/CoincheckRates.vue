@@ -122,7 +122,7 @@
   const b = lowerPairs.value.map((pair) => activator(pair,useOpenPrice, now, $firestore))
   const c = lowerPairs.value.map((pair) => activator(pair,useYesterdayNowPrice, now, $firestore))
 
-  const reducer = (acc: {}, cur: ReturnType<typeof activator>) => {
+  const reducer = (acc: any, cur: ReturnType<typeof activator>) => {
     if (!cur.state.value) return acc
 
       acc[cur.state.value.pair] = cur.state.value.value
