@@ -1,5 +1,5 @@
 <template>
-  <base-card>
+  <base-card class="overflow-scroll">
     <div class="flex p-2 justify-between items-center">
       <h3 class="ml-2 text-lg text-gray-400">Coins</h3>
 

@@ -22,15 +22,15 @@
 
   <div class="grid grid-rows-3 grid-cols-6 mt-4 gap-4">
     <coincheck-rates
-      class="col-span-full sm:col-span-3 xl:col-span-2 w-full row-span-3 hover:shadow-xl duration-200 transition bg-white mx-auto shadow rounded-md"
+      class="col-span-full md:col-span-3 xl:col-span-3 2xl:col-span-2 w-full row-span-3 hover:shadow-xl duration-200 transition bg-white mx-auto shadow rounded-md"
     />
 
     <order-books
-      class="row-span-3 sm:col-span-3 xl:col-span-4 w-full col-span-full bg-white rounded-md hover:shadow-xl duration-200 transition"
+      class="row-span-3 sm:col-span-3 xl:col-span-3 2xl:col-span-2 w-full col-span-full bg-white rounded-md hover:shadow-xl duration-200 transition"
     />
 
     <trade-history
-      class="bg-white rounded-md shadow row-span-3 xl:col-span-4 2xl:col-span-2 col-span-full hover:shadow-xl duration-200 transition"
+      class="bg-white rounded-md shadow sm:col-span-3 row-span-2 xl:col-span-3 2xl:col-span-2 col-span-full hover:shadow-xl duration-200 transition"
     />
   </div>
 </template>
