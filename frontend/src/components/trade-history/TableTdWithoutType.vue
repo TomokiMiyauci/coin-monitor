@@ -1,25 +1,23 @@
 <template>
-  <base-td class="px-3 sm:px-5 py-1">
+  <td class="px-3 sm:px-5 py-1">
     {{ formattedDate }}
-  </base-td>
+  </td>
 
-  <base-td class="px-3 py-1 text-center">
+  <td class="px-3 py-1 text-center">
     <comma-filter :value="rate" />
-  </base-td>
+  </td>
 
-  <base-td class="px-3 sm:px-5 py-1 text-right">
+  <td class="px-3 sm:px-5 py-1 text-right">
     {{ amount }}
-  </base-td>
+  </td>
 </template>
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue'
-  import BaseTd from '/@/components/base/BaseTd.vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
 
   export default defineComponent({
     components: {
-      BaseTd,
       CommaFilter,
     },
 
