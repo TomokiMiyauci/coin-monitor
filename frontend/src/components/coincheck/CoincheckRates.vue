@@ -51,8 +51,8 @@
   import RateTableRatio from '/@/components/rate/RateTableRatio.vue'
   import { useFirestore } from '/@/plugins/firebase'
   import BaseSvgSymbol from '/@/components/base/BaseSvgSymbol.vue'
-  import {getLowercasePair} from '/@/utils/format'
-  import type {FirebaseFirestore} from 'firebase/firestore/lite'
+  import { getLowercasePair } from '/@/utils/format'
+  import type { FirebaseFirestore } from 'firebase/firestore/lite'
   const { $http } = useKy()
   const { $firestore } = useFirestore()
   const now = new Date()
@@ -94,7 +94,8 @@
       baseSymbol: string
       symbol: string
     }[]
-  ) => pairs.map(({ baseSymbol, symbol }) => getLowercasePair(symbol, baseSymbol))
+  ) =>
+    pairs.map(({ baseSymbol, symbol }) => getLowercasePair(symbol, baseSymbol))
   const lowerPairs = computed(() => convertor(pairs))
 
   const a = lowerPairs.value.map((pair) => {
@@ -109,7 +110,12 @@
     }
   })
 
-  const activator = (pair: string, fn: typeof useOpenPrice, date: Date, firestore: FirebaseFirestore) => {
+  const activator = (
+    pair: string,
+    fn: typeof useOpenPrice,
+    date: Date,
+    firestore: FirebaseFirestore
+  ) => {
     const { state, setData } = fn(pair, date, firestore)
     setData()
 
@@ -119,25 +125,30 @@
     }
   }
 
-  const b = lowerPairs.value.map((pair) => activator(pair,useOpenPrice, now, $firestore))
-  const c = lowerPairs.value.map((pair) => activator(pair,useYesterdayNowPrice, now, $firestore))
+  const b = lowerPairs.value.map((pair) =>
+    activator(pair, useOpenPrice, now, $firestore)
+  )
+  const c = lowerPairs.value.map((pair) =>
+    activator(pair, useYesterdayNowPrice, now, $firestore)
+  )
 
   const reducer = (acc: any, cur: ReturnType<typeof activator>) => {
     if (!cur.state.value) return acc
 
-      acc[cur.state.value.pair] = cur.state.value.value
-      return acc
-}
+    acc[cur.state.value.pair] = cur.state.value.value
+    return acc
+  }
 
-  const bbbb = computed(() =>  a.reduce((acc, cur) => {
-     if (!cur.state.value) return acc
-
+  const bbbb = computed(() =>
+    a.reduce((acc, cur) => {
+      if (!cur.state.value) return acc
 
       acc[cur.state.value.pair] = cur.state.value.rate
       return acc
-  }, {}))
-  const bbb = computed(() =>  b.reduce(reducer, {}))
-  const eee = computed(() =>  c.reduce(reducer, {}))
+    }, {})
+  )
+  const bbb = computed(() => b.reduce(reducer, {}))
+  const eee = computed(() => c.reduce(reducer, {}))
 
   const ccc = computed(() => {
     return pairs.map(({ baseSymbol, symbol }) => {
@@ -189,4 +200,4 @@
   //     })
   //   )
   // )
-
+</script>
