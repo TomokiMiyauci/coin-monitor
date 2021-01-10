@@ -1,14 +1,11 @@
 <template>
-  <base-span :class="className">{{ percentagedNumber }}%</base-span>
+  <span :class="className">{{ percentagedNumber }}%</span>
 </template>
 
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
-  import BaseSpan from './BaseSpan.vue'
 
   export default defineComponent({
-    components: { BaseSpan },
-
     props: {
       value: {
         type: Number,

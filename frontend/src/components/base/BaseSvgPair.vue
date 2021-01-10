@@ -14,18 +14,16 @@
         class="inline-block absolute left-0 top-0 bg-white border shadow-sm rounded-full"
       />
     </span>
-    <base-span class="align-middle ml-12">{{ pair }}</base-span>
+    <span class="align-middle ml-12">{{ pair }}</span>
   </div>
 </template>
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue'
   import { getComponent } from '/@/components/zaif/symbol'
-  import BaseSpan from '/@/components/base/BaseSpan.vue'
   import { ZaifBaseSymbol } from '/@/components/base/coin'
 
   export default defineComponent({
-    components: { BaseSpan },
     props: {
       symbol: {
         type: String as () => ZaifBaseSymbol,

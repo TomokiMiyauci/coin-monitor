@@ -1,16 +1,13 @@
 <template>
-  <base-span ref="baseSpan">
+  <span ref="span">
     <slot />
-  </base-span>
+  </span>
 </template>
 
 <script lang="ts">
   import { defineComponent, ref, watchEffect } from 'vue'
-  import BaseSpan from '/@/components/base/BaseSpan.vue'
 
   export default defineComponent({
-    components: { BaseSpan },
-
     props: {
       value: {
         type: Number,
@@ -18,15 +15,15 @@
       },
     },
     setup() {
-      const baseSpan = ref<InstanceType<typeof BaseSpan>>()
+      const span = ref<HTMLSpanElement>()
       const flush = (): void => {
-        if (!baseSpan.value) return
-        baseSpan.value.$el.animate({ opacity: [1, 0, 1] }, 200)
+        if (!span.value) return
+        span.value.animate({ opacity: [1, 0, 1] }, 200)
       }
 
       watchEffect(flush)
 
-      return { baseSpan }
+      return { span }
     },
   })
 </script>

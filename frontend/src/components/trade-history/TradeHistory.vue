@@ -4,12 +4,10 @@
       <tr class="bg-gradient-to-r from-white via-gray-200 to-white">
         <th class="p-2">Date</th>
         <th>
-          <base-span class="text-white rounded-full shadow bg-red-400 px-1"
-            >B</base-span
-          >
+          <span class="text-white rounded-full shadow bg-red-400 px-1">B</span>
           /
-          <base-span class="text-white rounded-full shadow bg-green-400 px-1"
-            >S</base-span
+          <span class="text-white rounded-full shadow bg-green-400 px-1"
+            >S</span
           >
         </th>
         <th>Rate</th>
@@ -32,7 +30,6 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue'
-  import BaseSpan from '/@/components/base/BaseSpan.vue'
   import TableTd from '/@/components/trade-history/TableTd.vue'
   import type { CommonData as _CommonData } from '/@/reactives/bitpoint/useTrades'
 
@@ -41,7 +38,6 @@
   export default defineComponent({
     components: {
       TableTd,
-      BaseSpan,
     },
     props: {
       data: {
