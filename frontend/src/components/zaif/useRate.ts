@@ -27,26 +27,13 @@ export const useRate = (pair: Ref<'bch_jpy'>) => {
     setRate(last_price)
   }
 
-  const { stateRef, setState } = useReactive<number | undefined>(undefined)
-
-  const s = watch(state, (now) => {
-    setState(now)
-    stop()
-  })
-
   watchEffect(() => {
-    console.log(111)
     setData()
-  })
-
-  const ratio = computed(() => {
-    if (!state.value || !stateRef.value) return undefined
-    return state.value / stateRef.value - 1
   })
 
   const { changeInterval, resetInterval } = useInterval(setData, 10000)
 
-  return { setData, rate: state, changeInterval, ratio, stop: resetInterval }
+  return { setData, rate: state, changeInterval, stop: resetInterval }
 }
 
 export const useR = (pair: Pair) => {
@@ -147,5 +134,5 @@ export const usePair = (baseSymgbol: Ref<ZaifSymbol>) => {
   }
 }
 
-const getPair = (baseSymbol: ZaifSymbol) =>
+export const getPair = (baseSymbol: ZaifSymbol) =>
   zaifPairs.filter((pair) => pair.endsWith(`_${toLowerCase(baseSymbol)}`))

@@ -59,7 +59,7 @@ export const curriedFirstBaseGetApi = curry(firstBaseGetApi)
 
 const getCollectionPath = (
   root: 'markets',
-  second: 'coincheck',
+  second: 'coincheck' | 'zaif',
   third: 'pairs',
   forth: CoincheckPair,
   fifth: 'rates'
@@ -68,7 +68,9 @@ const getCollectionPath = (
 const curriedGetCollectionPath = curry(getCollectionPath)
 const marketsPath = curriedGetCollectionPath('markets')
 const coincheckPath = marketsPath('coincheck')
-const pairsPath = coincheckPath('pairs')
+const zaifPath = marketsPath('zaif')
+const coincheckPairsPath = coincheckPath('pairs')
+const zaifPairsPath = zaifPath('pairs')
 
 const curriedOrderBy = curry(orderBy)
 const dateOrderBy = curriedOrderBy('date')
@@ -77,4 +79,10 @@ const dateWhere = curriedWhere('date')
 const dateRatherThanWhere = dateWhere('>')
 const limit1 = limit(1)
 
-export { pairsPath, dateOrderBy, dateRatherThanWhere, limit1 }
+export {
+  coincheckPairsPath,
+  zaifPairsPath,
+  dateOrderBy,
+  dateRatherThanWhere,
+  limit1,
+}
