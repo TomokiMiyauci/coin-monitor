@@ -63,6 +63,13 @@
         'eth_jpy',
         'bch_jpy',
         'mona_jpy',
+        'zaif_jpy',
+        'cicc_jpy',
+        'fscc_jpy',
+        'ncxc_jpy',
+        'xcp_jpy',
+        'erc20.cms_jpy',
+        'mosaic.cms_jpy',
       ].map((pair) => {
         const { state, setData } = useOpenPrice(pair, now, $firestore)
         setData()
@@ -88,7 +95,7 @@
       const rates = computed(() =>
         _rates.value.map(({ baseSymbol, symbol, rate }) => {
           const pair = joinSeparator(symbol.toLowerCase(), baseSymbol)
-          const _rate = openPriceMap.value[pair]
+          const _rate = pair === 'jpyz_jpy' ? 1 : openPriceMap.value[pair]
           return {
             rate,
             baseSymbol,
