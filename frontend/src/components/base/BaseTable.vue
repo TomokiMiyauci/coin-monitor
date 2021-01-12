@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table class="w-full">
     <thead>
       <tr>
         <slot name="header" :headers="headersRef">
