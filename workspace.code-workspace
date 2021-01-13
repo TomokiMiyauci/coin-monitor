@@ -1,0 +1,39 @@
+{
+  "folders": [
+    {
+      "path": "frontend"
+    },
+    {
+      "path": "backend"
+    },
+    {
+      "path": "api"
+    },
+    {
+      "path": "packages"
+    },
+    {
+      "path": "./",
+      "name": "root"
+    }
+  ],
+  "settings": {
+    "vetur.experimental.templateInterpolationService": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true
+    },
+    "scss.validate": false,
+    "css.validate": false,
+    "typescript.tsdk": "root/node_modules/typescript/lib",
+    "liveServer.settings.multiRootWorkspaceName": "frontend",
+    "jest.disabledWorkspaceFolders": [
+      "api",
+      "root"
+    ],
+    "deepscan.ignoreConfirmWarning": true
+  },
+
+  "extensions": {}
+}
