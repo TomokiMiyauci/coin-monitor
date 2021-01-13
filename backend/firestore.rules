@@ -4,5 +4,17 @@ service cloud.firestore {
     match /{document=**} {
       allow read, write: if false;
     }
+
+    match /markets/{market} {
+      allow create, read;
+
+      match /pairs/{pair} {
+        allow create, read;
+
+        match /rates/{rate} {
+          allow create, read;
+        }
+      }
+    }
   }
 }
