@@ -1,5 +1,5 @@
 import { NowRequest, NowResponse } from '@vercel/node'
-import { allowCors } from '../utils/cors'
+import { allowCors } from '../../../packages/share/utils/cors'
 import { getLastPrice } from 'zaif-client'
 
 type Pair = Parameters<typeof getLastPrice>[number]

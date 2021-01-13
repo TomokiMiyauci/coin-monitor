@@ -1,5 +1,5 @@
 import { NowRequest, NowResponse } from '@vercel/node'
-import { allowCors } from '../utils/cors'
+import { allowCors } from '../../../packages/share/utils/cors'
 import { getCurrencies } from 'zaif-client'
 
 const fn = async (_: NowRequest, res: NowResponse) => {

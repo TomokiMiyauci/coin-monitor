@@ -1,5 +1,5 @@
 import { NowRequest, NowResponse } from '@vercel/node'
-import { allowCors } from '../utils/cors'
+import { allowCors } from '../../../packages/share/utils/cors'
 import { getRate } from 'coincheck-client'
 
 const fn = async (req: NowRequest, res: NowResponse) => {
