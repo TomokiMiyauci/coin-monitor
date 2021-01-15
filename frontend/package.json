@@ -10,7 +10,8 @@
     "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore .",
     "lint:style": "stylelint src/**/*.vue",
     "test": "jest",
-    "storybook": "yarn dev --mode STORYBOOK --port 6001"
+    "storybook": "yarn dev --mode STORYBOOK --port 6001",
+    "commit": "cz"
   },
   "private": true,
   "dependencies": {
@@ -20,12 +21,14 @@
     "firebase": "^0.900.4",
     "ky": "^0.25.0",
     "ky-universal": "^0.8.2",
+    "nprogress": "^0.2.0",
     "rambda": "^6.4.0",
     "vue": "^3.0.4",
     "vue-router": "^4.0.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.17",
+    "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "@vue/compiler-sfc": "^3.0.4",

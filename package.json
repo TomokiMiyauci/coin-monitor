@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "commit": "cz",
     "postinstall": "husky install"
   },
   "devDependencies": {
