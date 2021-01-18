@@ -1,20 +1,20 @@
 <template>
-  <table class="w-full">
-    <thead>
+  <table :class="classTable">
+    <thead :class="classThead">
       <tr>
         <slot name="header" :headers="headersRef">
-          <th v-for="header in headersRef" :key="header.value">
+          <th v-for="header in headersRef" :key="header.value" :class="classTh">
             {{ header.text }}
           </th>
         </slot>
       </tr>
     </thead>
 
-    <tbody>
+    <tbody :class="classTbody">
       <tr
-        :class="classTr || 'hover:bg-gray-100'"
         v-for="(item, index) in itemsRef"
         :key="index"
+        :class="classTr || 'hover:bg-gray-100'"
       >
         <slot name="item" :item="item">
           <td v-for="{ value } in headersRef" :key="value">
@@ -27,15 +27,17 @@
 </template>
 
 <script lang="ts">
-  export type Headers = {
+  type Headers = {
     text?: string
     class?: string
     value: string | number
   }[]
-  export type Items = {
+  type Items = {
     class?: string
     [k: string]: string | number | undefined
   }[]
+
+  export { Headers, Items }
 </script>
 
 <script setup lang="ts">
@@ -51,6 +53,10 @@
       class?: string
       [k: string]: string | number | undefined
     }[]
+    classTable?: string
+    classThead?: string
+    classTbody?: string
+    classTh?: string
     classTr?: string
   }>()
 
