@@ -123,6 +123,7 @@
   import ButtonKeyboardEsc from '/@/components/base/buttons/keyboards/ButtonKeyboardEsc.vue'
   import ButtonKeyboardSpace from '/@/components/base/buttons/keyboards/ButtonKeyboardSpace.vue'
   import ButtonCloseCircle from '/@/components/base/buttons/ButtonCloseCircle.vue'
+  import { add } from '/@/utils/math'
 
   const props = defineProps<{
     value: string
@@ -199,8 +200,6 @@
     hide()
     button.value?.focus()
   }
-
-  const add = (a: number, b: number): number => a + b
 
   const onMouse = (index?: number): void => {
     selected.value = index
