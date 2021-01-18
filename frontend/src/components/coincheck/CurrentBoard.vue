@@ -45,14 +45,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref } from 'vue'
+  import { defineComponent, computed, ref, onBeforeMount } from 'vue'
   import AskBid from '/@/components/base/AskBid.vue'
   import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
   import TradeHistory from '/@/components/coincheck/TradeHistory.vue'
   import { useTicker } from '/@/components/coincheck/useTicker'
   import LatestPrice from '/@/components/last-price/LastPrice.vue'
   import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
-  import { useHistory } from '/@/composites/rate'
   import BaseCard from '/@/components/base/BaseCard.vue'
   import BaseTitle from '/@/components/base/BaseTitle.vue'
   import LineChart from '/@/components/chart/LineChart.vue'
@@ -75,15 +74,17 @@
 
     setup() {
       const { last, ask, bid, high, low, volume } = useTicker()
-      const historycalLast = useHistory(last, 10)
       const { $firestore } = useFirestore()
       const data = ref<number[]>([])
       const labels = ref<string[]>([])
-      getPrices(coincheckPairsPath)('btc_jpy', new Date(), $firestore).then(
-        (e) => {
-          data.value = e.map((a) => a.value)
-          labels.value = e.map((a) => a.date.toLocaleTimeString())
-        }
+
+      onBeforeMount(() =>
+        getPrices(coincheckPairsPath)('btc_jpy', new Date(), $firestore).then(
+          (e) => {
+            data.value = e.map((a) => a.value)
+            labels.value = e.map((a) => a.date.toLocaleTimeString())
+          }
+        )
       )
 
       const lowValue = computed(() => min(data.value))
