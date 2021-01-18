@@ -4,14 +4,15 @@
       <button
         ref="button"
         :aria-expanded="isShow"
-        class="p-2 pl-3 flex justify-between items-center bg-white hover:bg-gray-50 border w-40 hover:shadow-md border-gray-300 rounded-2xl shadow-sm text-left focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800 sm:text-sm transition duration-200"
+        class="p-2 pl-3 flex justify-between items-center bg-white hover:bg-gray-50 border hover:shadow-md border-gray-300 rounded-2xl shadow-sm text-left focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800 sm:text-sm transition duration-200"
+        :class="classButton"
         @click="switchShow(isShow)"
       >
-        <slot name="button" :isShow="isShow">
-          <span>{{ value }}</span>
+        <slot name="buttonContent" :value="value">
+          <span>{{ buttonTitle }}</span>
         </slot>
 
-        <MdiUnfoldMoreHorizontal />
+        <MdiUnfoldMoreHorizontal class="ml-3" />
       </button>
     </slot>
 
@@ -24,11 +25,13 @@
     <transition name="slide-down">
       <div
         v-show="isShow"
-        class="absolute mt-1 w-full bg-white overflow-y-scroll rounded-2xl overflow-hidden shadow-md hover:shadow-xl duration-300 transition-shadow"
+        class="absolute border mt-1 w-full bg-white overflow-y-scroll rounded-2xl overflow-hidden shadow-md hover:shadow-xl duration-300 transition-shadow z-20"
       >
         <slot name="header">
-          <header class="px-3 py-2 flex items-center justify-between border-b">
-            <h3>{{ title }}</h3>
+          <header
+            class="px-3 bg-gray-50 sticky py-2 flex items-center justify-between border-b"
+          >
+            <h3 class="text-lg">{{ title }}</h3>
             <button-close-circle
               class="bg-gray-300 focus:ring-2 focus:ring-gray-800"
               @click="hide"
@@ -42,7 +45,7 @@
           role="list-box"
           aria-labelledby="list-box-label"
           aria-activedescendant="list-box-item-1"
-          class="text-gray-900 py-1 cursor-pointer text-base overflow-auto focus:outline-none sm:text-sm"
+          class="text-gray-900 py-1 cursor-pointer overflow-y-scroll h-52 text-base overflow-auto focus:outline-none sm:text-sm"
           :class="maxHeight"
           @keydown.up.prevent="onArrowUp"
           @keydown.down.prevent="onArrowDown"
@@ -56,14 +59,16 @@
             :key="`${d}-${index}`"
             role="option"
             class="select-none items-center flex justify-between py-2 transition duration-200 p-3"
-            :class="{
-              'text-white font-bold bg-gray-800': selected === index,
-            }"
+            :class="[
+              { 'text-white bg-gray-800': selected === index },
+              { 'font-bold': d === value },
+            ]"
             @mouseenter="onMouse(index)"
-            @mouseleave="onMouse()"
             @click="onClick(d)"
           >
-            <span>{{ d }}</span>
+            <slot name="candidate" :candidate="d">
+              <span>{{ d }}</span>
+            </slot>
 
             <transition name="fade">
               <mdi-check v-show="d === value" width="20" height="20" />
@@ -71,7 +76,9 @@
           </li>
         </ul>
 
-        <div class="border-t hidden px-4 p-1 text-xs md:flex flex-wrap gap-3">
+        <div
+          class="border-t hidden bg-gray-200 px-4 p-1 text-xs md:flex flex-wrap gap-3"
+        >
           <span class="bg-gray-100 p-1 rounded">
             <button-keyboard-arrow-up @click="onArrowUp" />
 
@@ -119,10 +126,12 @@
 
   const props = defineProps<{
     value: string
-    candidates: string[]
+    candidates: Readonly<string[]>
     minWidth?: string | number
     maxHeight?: string | number
     title?: string
+    placeholder?: string
+    classButton?: string
   }>()
   defineEmit(['input'])
   const { emit } = useContext()
@@ -144,6 +153,8 @@
     hide()
   }
 
+  const buttonTitle = computed(() => props.value || props.placeholder)
+
   const show = async () => {
     const picked = props.candidates.findIndex((v) => v === props.value)
     if (picked > -1) {
@@ -157,16 +168,26 @@
 
   const length = computed<number>(() => props.candidates.length)
 
-  const onArrowDown = (): void => {
+  const onArrowDown = () => {
+    ul.value?.scrollBy({
+      top: 37,
+      behavior: 'smooth',
+    })
     const _selected = selected.value || 0
     const result = add(_selected, 1)
-    selected.value = result >= length.value ? 0 : result
+    if (result >= length.value) return
+    selected.value = result
   }
 
-  const onArrowUp = (): void => {
+  const onArrowUp = () => {
+    ul.value?.scrollBy({
+      top: -37,
+      behavior: 'smooth',
+    })
     const _selected = selected.value || 0
     const result = add(_selected, -1)
-    selected.value = result < 0 ? length.value - 1 : result
+    if (result < 0) return
+    selected.value = result
   }
 
   const onSelect = async () => {
