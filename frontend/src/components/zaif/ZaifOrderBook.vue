@@ -2,14 +2,20 @@
   <order-book :asks="asks" :bids="bids">
     <template #menu>
       <base-menu
-        min-width="188"
         :value="pair"
-        :symbols="zaifOrderBookPairs"
+        title="Symbol Pair"
+        class-button=" w-52"
+        :candidates="zaifOrderBookPairs"
         @input="onInput"
       >
-        <template #default="{ symbol }">
-          <base-svg-pair v-bind="format(symbol)" /> </template
-      ></base-menu>
+        <template #buttonContent="{ value }">
+          <base-svg-pair v-bind="format(value)" />
+        </template>
+
+        <template #candidate="{ candidate }">
+          <base-svg-pair v-bind="format(candidate)" />
+        </template>
+      </base-menu>
     </template>
   </order-book>
 </template>
@@ -18,12 +24,12 @@
   import { defineComponent, Ref, inject } from 'vue'
   import { useDepth } from '/@/components/zaif/useDepth'
   import OrderBook from '/@/components/order-book/OrderBook.vue'
-  import BaseMenu from '/@/components/base/BaseMenu.vue'
   import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
   import {
     zaifOrderBookPairs,
     ZaifOrderBookPairs,
   } from '/@/components/zaif/pair'
+  import BaseMenu from '/@/components/menu/BaseMenu.vue'
 
   export default defineComponent({
     components: {
