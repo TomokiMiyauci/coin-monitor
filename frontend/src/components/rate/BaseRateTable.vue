@@ -1,8 +1,12 @@
 <template>
-  <base-table :items="items" :headers="headersRef">
+  <base-table
+    class-table="min-w-full overflow-x-scroll"
+    :items="items"
+    :headers="headersRef"
+  >
     <template #header="{ headers }">
       <slot name="header" :headers="headers">
-        <th :class="header.class" v-for="header in headers" :key="header.value">
+        <th v-for="header in headers" :key="header.value" :class="header.class">
           {{ header.text }}
         </th>
       </slot>
@@ -26,49 +30,6 @@
       </slot>
     </template>
   </base-table>
-  <!-- <table>
-    <thead>
-      <tr>
-        <slot name="th-symbol">
-          <th :class="classHdSymbol">
-            <slot name="th-inner-symbol" />
-          </th>
-        </slot>
-        <slot name="th-rate">
-          <th :class="classHdRate">
-            <slot name="th-inner-rate" />
-          </th>
-        </slot>
-        <slot name="expand-th"> </slot>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr
-        :class="classBodyTd || 'hover:bg-gray-100'"
-        v-for="d in items"
-        :key="d.symbol"
-      >
-        <slot :symbol="d.symbol" name="td-symbol">
-          <td :class="classTdSymbol || 'p-2'">
-            <slot :symbol="d.symbol" name="td-inner-symbol" />
-          </td>
-        </slot>
-
-        <slot :rate="d.rate" name="td-rate">
-          <td :class="classTdRate || 'text-right px-3'">
-            <slot :rate="d.rate" name="td-inner-rate">
-              <text-loader skelton-style="min-width: 6rem;" :value="d.rate">
-                <comma-filter :value="d.rate" />
-              </text-loader>
-            </slot>
-          </td>
-        </slot>
-
-        <slot :data="d" name="expand-td" />
-      </tr>
-    </tbody>
-  </table> -->
 </template>
 
 <script setup lang="ts">
