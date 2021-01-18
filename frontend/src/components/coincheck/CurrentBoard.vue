@@ -12,11 +12,20 @@
 
   <base-card class="my-4">
     <base-title class="p-4">history</base-title>
-    <chart-line
-      class="stroke-8 md:stroke-4"
-      width="100%"
-      height="100%"
-      :data="data"
+    <line-chart
+      :data="{
+        labels,
+        series: [data],
+      }"
+      :options="{
+        low: lowValue,
+        height: 500,
+        fullWidth: true,
+        chartPadding: {
+          left: 50,
+          right: 70,
+        },
+      }"
     />
   </base-card>
 
@@ -36,7 +45,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, onBeforeMount } from 'vue'
+  import { defineComponent, computed, ref } from 'vue'
   import AskBid from '/@/components/base/AskBid.vue'
   import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
   import TradeHistory from '/@/components/coincheck/TradeHistory.vue'
@@ -44,34 +53,48 @@
   import LatestPrice from '/@/components/last-price/LastPrice.vue'
   import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
   import { useHistory } from '/@/composites/rate'
-  import { useHistorycal } from '/@/utils/firestore'
-  import ChartLine from '/@/components/chart/ChartLine.vue'
   import BaseCard from '/@/components/base/BaseCard.vue'
   import BaseTitle from '/@/components/base/BaseTitle.vue'
+  import LineChart from '/@/components/chart/LineChart.vue'
+  import { useFirestore } from '/@/plugins/firebase'
+  import { getPrices } from '/@/functions/effect/api/share'
+  import { coincheckPairsPath } from '/@/functions/pure/api'
+  import { min } from '/@/utils/math'
 
   export default defineComponent({
     components: {
       BaseCard,
-      ChartLine,
       LatestPrice,
       AskBid,
       OrderBooks,
       TradeHistory,
       CoincheckRates,
       BaseTitle,
+      LineChart,
     },
 
     setup() {
       const { last, ask, bid, high, low, volume } = useTicker()
       const historycalLast = useHistory(last, 10)
-
+      const { $firestore } = useFirestore()
       const data = ref<number[]>([])
-      const get = useHistorycal()
-      onBeforeMount(() => {
-        get().then((e) => {
-          data.value = e.map(({ value }) => value)
-        })
-      })
+      const labels = ref<string[]>([])
+      getPrices(coincheckPairsPath)('btc_jpy', new Date(), $firestore).then(
+        (e) => {
+          data.value = e.map((a) => a.value)
+          labels.value = e.map((a) => a.date.toLocaleTimeString())
+        }
+      )
+
+      const lowValue = computed(() => min(data.value))
+
+      // const data = ref<number[]>([])
+      // const get = useHistorycal()
+      // onBeforeMount(() => {
+      //   get().then((e) => {
+      //     data.value = e.map(({ value }) => value)
+      //   })
+      // })
 
       const askBidAttrs = computed(() => ({
         ask: ask.value,
@@ -83,8 +106,9 @@
 
       return {
         data,
+        labels,
         last,
-        historycalLast,
+        lowValue,
         askBidAttrs,
       }
     },
