@@ -1,14 +1,9 @@
 <template>
   <button
-    class="inline-block p-3 text-center text-white transition border border-yellow-500 rounded-full ripple focus:outline-none"
-    @click="$emit('click')"
+    class="flex justify-center items-center align-middle text-center transition border rounded-full focus:outline-none"
   >
     <slot />
   </button>
 </template>
 
-<script setup lang="ts">
-  import { defineEmit } from 'vue'
-
-  defineEmit(['click'])
-</script>
+<script setup lang="ts"></script>
