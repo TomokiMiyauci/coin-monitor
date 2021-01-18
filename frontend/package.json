@@ -17,6 +17,7 @@
   "dependencies": {
     "@kahirokunn/ts-curry": "1.0.3",
     "@mdi/js": "^5.8.55",
+    "chartist": "^0.11.4",
     "dayjs": "^1.9.8",
     "firebase": "^0.900.4",
     "ky": "^0.25.0",
@@ -27,10 +28,12 @@
     "vue-router": "^4.0.1"
   },
   "devDependencies": {
+    "@types/chartist": "^0.11.0",
     "@types/jest": "^26.0.17",
     "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
+    "@vitejs/plugin-vue": "^1.0.6",
     "@vue/compiler-sfc": "^3.0.4",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
@@ -38,6 +41,7 @@
     "autoprefixer": "^10.1.0",
     "bitbank-client": "^0.0.1-alpha.3",
     "coincheck-client": "^0.1.0-alpha.4",
+    "commitizen": "^4.2.2",
     "eslint": "^7.14.0",
     "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-vue": "^7.1.0",
