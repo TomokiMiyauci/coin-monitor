@@ -62,7 +62,7 @@ const getCollectionPath = (
   second: 'coincheck' | 'zaif',
   third: 'pairs',
   forth: CoincheckPair,
-  fifth: 'rates'
+  fifth: 'rates' | '1H'
 ) => joinSlash(root, second, third, forth, fifth)
 
 const curriedGetCollectionPath = curry(getCollectionPath)
@@ -78,6 +78,7 @@ const curriedWhere = curry(where)
 const dateWhere = curriedWhere('date')
 const dateRatherThanWhere = dateWhere('>')
 const limit1 = limit(1)
+const limit12 = limit(12)
 
 export {
   coincheckPairsPath,
@@ -85,4 +86,5 @@ export {
   dateOrderBy,
   dateRatherThanWhere,
   limit1,
+  limit12,
 }
