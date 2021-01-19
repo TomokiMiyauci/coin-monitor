@@ -2,7 +2,7 @@
   <base-menu
     :value="value"
     title="Symbol Pair"
-    class-button="w-52"
+    class-button="w-52 sm:w-40 lg:w-52"
     :candidates="zaifOrderBookPairs"
     @input="$emit('input', $event)"
   >
@@ -32,8 +32,4 @@
       baseSymbol: baseSymbol.toUpperCase(),
     }
   }
-
-  // const onInput = (payload: ZaifOrderBookPairs) => {
-  //   pair.value = payload
-  // }
 </script>
