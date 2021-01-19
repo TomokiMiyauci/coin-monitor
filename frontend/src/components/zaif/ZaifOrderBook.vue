@@ -1,67 +1,25 @@
 <template>
   <order-book :asks="asks" :bids="bids">
     <template #menu>
-      <base-menu
-        :value="pair"
-        title="Symbol Pair"
-        class-button=" w-52"
-        :candidates="zaifOrderBookPairs"
-        @input="onInput"
-      >
-        <template #buttonContent="{ value }">
-          <base-svg-pair v-bind="format(value)" />
-        </template>
-
-        <template #candidate="{ candidate }">
-          <base-svg-pair v-bind="format(candidate)" />
-        </template>
-      </base-menu>
+      <select-box-zaif-pair :value="pair" @input="onInput" />
     </template>
   </order-book>
 </template>
 
-<script lang="ts">
-  import { defineComponent, Ref, inject } from 'vue'
+<script setup lang="ts">
+  import { inject } from 'vue'
+  import type { Ref } from 'vue'
+
   import { useDepth } from '/@/components/zaif/useDepth'
+  import SelectBoxZaifPair from '/@/components/zaif/SelectBoxZaifPair.vue'
   import OrderBook from '/@/components/order-book/OrderBook.vue'
-  import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
-  import {
-    zaifOrderBookPairs,
-    ZaifOrderBookPairs,
-  } from '/@/components/zaif/pair'
-  import BaseMenu from '/@/components/menu/BaseMenu.vue'
+  import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
 
-  export default defineComponent({
-    components: {
-      OrderBook,
-      BaseMenu,
-      BaseSvgPair,
-    },
+  const pair = inject('orderBookPair') as Ref<ZaifOrderBookPairs>
 
-    setup() {
-      const pair = inject('orderBookPair') as Ref<ZaifOrderBookPairs>
-      const { asks, bids } = useDepth(pair)
+  const onInput = (payload: ZaifOrderBookPairs) => {
+    pair.value = payload
+  }
 
-      const format = (payload: ZaifOrderBookPairs) => {
-        const [symbol, baseSymbol] = payload.split('_')
-        return {
-          symbol: symbol.toUpperCase(),
-          baseSymbol: baseSymbol.toUpperCase(),
-        }
-      }
-
-      const onInput = (payload: ZaifOrderBookPairs) => {
-        pair.value = payload
-      }
-
-      return {
-        onInput,
-        pair,
-        format,
-        bids,
-        asks,
-        zaifOrderBookPairs,
-      }
-    },
-  })
+  const { asks, bids } = useDepth(pair)
 </script>

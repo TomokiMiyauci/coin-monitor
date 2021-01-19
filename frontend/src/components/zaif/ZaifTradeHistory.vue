@@ -1,54 +1,25 @@
 <template>
   <trade-history :data="data">
     <template #menu>
-      <base-menu
-        min-width="188"
-        :value="pair"
-        :symbols="zaifOrderBookPairs"
-        @input="onInput"
-      >
-        <template #default="{ symbol }">
-          <base-svg-pair v-bind="format(symbol)" /> </template
-      ></base-menu>
+      <select-box-zaif-pair :value="pair" @input="onInput" />
     </template>
   </trade-history>
 </template>
 
-<script lang="ts">
-  import { defineComponent, inject, Ref } from 'vue'
+<script setup lang="ts">
+  import { inject } from 'vue'
+  import type { Ref } from 'vue'
   import { useTrades } from '/@/components/zaif/useTrades'
   import TradeHistory from '/@/components/base/TradeHistory.vue'
-  import BaseMenu from '/@/components/base/BaseMenu.vue'
-  import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
+  import SelectBoxZaifPair from '/@/components/zaif/SelectBoxZaifPair.vue'
 
-  import {
-    zaifOrderBookPairs,
-    ZaifOrderBookPairs,
-  } from '/@/components/zaif/pair'
+  import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
 
-  export default defineComponent({
-    components: {
-      TradeHistory,
-      BaseMenu,
-      BaseSvgPair,
-    },
-    setup() {
-      const pair = inject('historyPair') as Ref<ZaifOrderBookPairs>
+  const pair = inject('historyPair') as Ref<ZaifOrderBookPairs>
 
-      const { data } = useTrades(pair)
-      const format = (payload: ZaifOrderBookPairs) => {
-        const [symbol, baseSymbol] = payload.split('_')
-        return {
-          symbol: symbol.toUpperCase(),
-          baseSymbol: baseSymbol.toUpperCase(),
-        }
-      }
+  const { data } = useTrades(pair)
 
-      const onInput = (payload: ZaifOrderBookPairs) => {
-        pair.value = payload
-      }
-
-      return { data, format, onInput, pair, zaifOrderBookPairs }
-    },
-  })
+  const onInput = (payload: ZaifOrderBookPairs) => {
+    pair.value = payload
+  }
 </script>
