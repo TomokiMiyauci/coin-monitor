@@ -41,17 +41,19 @@ const curriedBaseGetP = (fn: (fromDate: Date) => Date) => (
   baseGet(
     f(pair)('1H'),
     firestore,
-    orderBy('date', 'asc'),
+    orderBy('date', 'desc'),
     dateRatherThanWhere(fn(date)),
     limit12
   ).then((e) =>
-    e.docs.map((b) => {
-      const { date, value } = b.data()
-      return {
-        date: date.toDate(),
-        value,
-      }
-    })
+    e.docs
+      .map((b) => {
+        const { date, value } = b.data()
+        return {
+          date: date.toDate(),
+          value,
+        }
+      })
+      .reverse()
   )
 
 const curriedBaseGetPrice = (fn: (fromDate: Date) => Date) => (
@@ -63,9 +65,10 @@ const curriedBaseGetPrice = (fn: (fromDate: Date) => Date) => (
     orderBy('date', 'asc'),
     dateRatherThanWhere(fn(date)),
     limit1
-  ).then(({ docs }) => docs[0].data())
+  ).then(({ docs }) => (docs.length ? docs[0].data() : undefined))
 
 const getOpenPrice = curriedBaseGetPrice(getMidnightFromDate)
 const getYesterdayNowPrice = curriedBaseGetPrice(getBefore1DayFromDate)
 const getPrices = curriedBaseGetP(getBefore1DayFromDate)
+
 export { getOpenPrice, getYesterdayNowPrice, ResponseData, getPrices }

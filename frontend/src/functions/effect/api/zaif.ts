@@ -1,6 +1,7 @@
 import { zaifPairsPath } from '/@/functions/pure/api'
-import { getOpenPrice } from '/@/functions/effect/api/share'
+import { getOpenPrice, getPrices } from '/@/functions/effect/api/share'
 
 const baseZaifGetOpenPrice = getOpenPrice(zaifPairsPath)
+const get1HRates = getPrices(zaifPairsPath)
 
-export { baseZaifGetOpenPrice }
+export { baseZaifGetOpenPrice, get1HRates }

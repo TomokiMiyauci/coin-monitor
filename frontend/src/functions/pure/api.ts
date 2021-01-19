@@ -77,6 +77,7 @@ const dateOrderBy = curriedOrderBy('date')
 const curriedWhere = curry(where)
 const dateWhere = curriedWhere('date')
 const dateRatherThanWhere = dateWhere('>')
+const dateLessThanWhere = dateWhere('<')
 const limit1 = limit(1)
 const limit12 = limit(12)
 
@@ -85,6 +86,7 @@ export {
   zaifPairsPath,
   dateOrderBy,
   dateRatherThanWhere,
+  dateLessThanWhere,
   limit1,
   limit12,
 }
