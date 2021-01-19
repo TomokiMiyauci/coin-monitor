@@ -4,7 +4,7 @@
       <button
         ref="button"
         :aria-expanded="isShow"
-        class="p-2 pl-3 flex justify-between items-center bg-white hover:bg-gray-50 border hover:shadow-md border-gray-300 rounded-2xl shadow-sm text-left focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800 sm:text-sm transition duration-200"
+        class="p-2 pl-3 flex justify-between items-center bg-white hover:bg-gray-50 border hover:shadow-md border-gray-300 rounded-2xl shadow-sm text-left focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800 text-sm transition duration-200"
         :class="classButton"
         @click="switchShow(isShow)"
       >
