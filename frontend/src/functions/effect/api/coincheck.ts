@@ -2,7 +2,7 @@ import { coincheckPairsPath } from '/@/functions/pure/api'
 import {
   getOpenPrice,
   getYesterdayNowPrice,
-  getPrices,
+  get1HPrices,
 } from '/@/functions/effect/api/share'
 import { curriedRun, baseGetRateApi } from '/@/functions/pure/api'
 
@@ -13,7 +13,7 @@ const baseCoincheckGetYesterdayNowPrice = getYesterdayNowPrice(
 type ResponseGetRate = { rate: number }
 
 const getRate = curriedRun<ResponseGetRate, 'coincheck'>(baseGetRateApi)
-const get1HRates = getPrices(coincheckPairsPath)
+const get1HRates = get1HPrices(coincheckPairsPath)
 export {
   ResponseGetRate,
   getRate,

@@ -56,7 +56,7 @@
   import BaseTitle from '/@/components/base/BaseTitle.vue'
   import LineChart from '/@/components/chart/LineChart.vue'
   import { useFirestore } from '/@/plugins/firebase'
-  import { getPrices } from '/@/functions/effect/api/share'
+  import { get1HPrices } from '/@/functions/effect/api/share'
   import { coincheckPairsPath } from '/@/functions/pure/api'
   import { min } from '/@/utils/math'
 
@@ -79,7 +79,7 @@
       const labels = ref<string[]>([])
 
       onBeforeMount(() =>
-        getPrices(coincheckPairsPath)('btc_jpy', new Date(), $firestore).then(
+        get1HPrices(coincheckPairsPath)('btc_jpy', new Date(), $firestore).then(
           (e) => {
             data.value = e.map((a) => a.value)
             labels.value = e.map((a) => a.date.toLocaleTimeString())
