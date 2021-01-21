@@ -11,7 +11,7 @@
   <base-card class="my-4">
     <base-title class="p-4 flex justify-between"
       >history
-      <span class="flex gap-4">
+      <span class="flex gap-1 sm:gap-4">
         <span>
           <button
             v-for="{ text } in [{ text: '5m' }, { text: '1H' }]"
@@ -38,10 +38,46 @@
         height: 500,
         fullWidth: true,
         chartPadding: {
-          left: 50,
-          right: 70,
+          left: 40,
+          right: 40,
         },
+        axisY: {
+          labelInterpolationFnc: (value) => toComma(value),
+        },
+        axisX: {
+          ticks: [1],
+        },
+        ticks: [1],
+        showArea: true,
       }"
+      :responsive-options="[
+        [
+          'screen and (max-width: 640px)',
+          {
+            showPoint: false,
+            axisX: {
+              labelInterpolationFnc: function (value, index) {
+                return index % 4 === 0 ? value : null
+              },
+              showGrid: false,
+            },
+            axisY: {
+              className: 'text-sm',
+              labelInterpolationFnc: function (value, index) {
+                return index % 4 === 0
+                  ? value > 1000
+                    ? `${toComma(value / 1000)}k`
+                    : value
+                  : null
+              },
+            },
+            chartPadding: {
+              left: 20,
+              right: 10,
+            },
+          },
+        ],
+      ]"
     />
   </base-card>
 
@@ -77,7 +113,8 @@
   import { get1HRates, get5mRates } from '/@/functions/effect/api/zaif'
   import { useFirestore } from '/@/plugins/firebase'
   import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
-
+  import day from 'dayjs'
+  import { toComma } from '/@/utils/format'
   const { lastPrice } = useLastPrice()
   const data = ref<number[]>([])
   const labels = ref<string[]>([])
@@ -88,8 +125,8 @@
   const getPrice = (pair: ZaifOrderBookPairs) => {
     const g = intervalFactory(value.value)
     g(pair, new Date(), $firestore).then((e) => {
-      data.value = e.map((a) => a.value)
-      labels.value = e.map((a) => a.date.toLocaleTimeString())
+      data.value = e.map(({ value }) => value)
+      labels.value = e.map(({ date }) => day(date).format('H:mm'))
     })
   }
 
