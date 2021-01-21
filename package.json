@@ -22,7 +22,7 @@
   "workspaces": [
     "api",
     "frontend",
-    "backend/*",
+    "backend",
     "packages/**"
   ],
   "config": {
