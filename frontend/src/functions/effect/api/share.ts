@@ -35,11 +35,16 @@ const baseGet = (
   ...queryConstraints: QueryConstraint[]
 ) => curriedBaseFirestore<ResponseData>(path, firestore, ...queryConstraints)
 
-const curriedBaseGetP = (fn: (fromDate: Date) => Date) => (
-  f: typeof zaifPairsPath
-) => (pair: CoincheckPair, date: Date, firestore: FirebaseFirestore) =>
+const curriedBaseGetP = (
+  fn: (fromDate: Date) => Date,
+  interval: '1H' | '5m'
+) => (f: typeof zaifPairsPath) => (
+  pair: CoincheckPair,
+  date: Date,
+  firestore: FirebaseFirestore
+) =>
   baseGet(
-    f(pair)('1H'),
+    f(pair)(interval),
     firestore,
     orderBy('date', 'desc'),
     dateRatherThanWhere(fn(date)),
@@ -69,6 +74,12 @@ const curriedBaseGetPrice = (fn: (fromDate: Date) => Date) => (
 
 const getOpenPrice = curriedBaseGetPrice(getMidnightFromDate)
 const getYesterdayNowPrice = curriedBaseGetPrice(getBefore1DayFromDate)
-const getPrices = curriedBaseGetP(getBefore1DayFromDate)
-
-export { getOpenPrice, getYesterdayNowPrice, ResponseData, getPrices }
+const get1HPrices = curriedBaseGetP(getBefore1DayFromDate, '1H')
+const get5mPrices = curriedBaseGetP(getBefore1DayFromDate, '5m')
+export {
+  getOpenPrice,
+  getYesterdayNowPrice,
+  ResponseData,
+  get1HPrices,
+  get5mPrices,
+}
