@@ -9,9 +9,9 @@
     />
   </div>
 
-  <div class="sm:hidden">
+  <div class="sm:hidden overflow-x-scroll whitespace-nowrap">
     <button
-      class="p-1 shadow focus:outline-none"
+      class="p-1 focus:outline-none border hover:bg-gray-300"
       :class="{ 'bg-gray-200': ['chart', ''].includes(pathRef) }"
       @click="onClick('chart')"
     >
@@ -20,7 +20,7 @@
       >
     </button>
     <button
-      class="p-1 shadow focus:outline-none"
+      class="p-1 focus:outline-none border hover:bg-gray-300"
       :class="{ 'bg-gray-200': pathRef === 'order-book' }"
       @click="onClick('order-book')"
     >
@@ -28,7 +28,7 @@
       <span class="ml-1 capitalize align-middle">order book</span>
     </button>
     <button
-      class="p-1 shadow focus:outline-none"
+      class="p-1 focus:outline-none border hover:bg-gray-300"
       :class="{ 'bg-gray-200': pathRef === 'history' }"
       @click="onClick('history')"
     >
@@ -75,6 +75,7 @@
         chartPadding: {
           left: 40,
           right: 40,
+          bottom: 0,
         },
         axisY: {
           labelInterpolationFnc: (value) => toComma(value),
@@ -112,6 +113,23 @@
         ],
       ]"
     />
+
+    <div class="overflow-x-scroll flex px-2 sm:hidden gap-3 whitespace-nowrap">
+      <button
+        class="rounded-md text-sm hover:text-white transition duration-200 hover:bg-green-400 px-2 py-1 focus:outline-none"
+        :class="[value === '5m' ? 'bg-green-400 text-white' : 'text-green-400']"
+        @click="value = '5m'"
+      >
+        5min
+      </button>
+      <button
+        class="rounded-md text-sm hover:text-white transition duration-200 hover:bg-green-400 px-2 py-1 focus:outline-none"
+        :class="[value === '1H' ? 'bg-green-400 text-white' : 'text-green-400']"
+        @click="value = '1H'"
+      >
+        1Hour
+      </button>
+    </div>
   </div>
 
   <div class="grid grid-cols-6 gap-4">
@@ -132,7 +150,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, ref, onBeforeMount, inject, watch } from 'vue'
+  import { computed, ref, onBeforeMount, inject, watch, defineEmit } from 'vue'
   import type { Ref } from 'vue'
 
   import LatestPrice from '/@/components/last-price/LastPrice.vue'
@@ -154,6 +172,8 @@
   import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
   import day from 'dayjs'
   import { toComma } from '/@/utils/format'
+
+  defineEmit(['click'])
 
   const useResizeable = () => {
     sm.value = getWindowWidth(window.innerWidth)
