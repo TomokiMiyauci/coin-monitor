@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  @variants responsive {
+    .card {
+      @apply rounded-3xl bg-gray-50 shadow-md hover:shadow-xl transition-shadow duration-200;
+    }
+
+    .card-none {
+      @apply rounded-none bg-none shadow-none;
+    }
+  }
+}

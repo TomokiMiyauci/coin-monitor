@@ -9,3 +9,7 @@ html {
     @apply bg-white lg:bg-gray-800 opacity-75 fixed h-0.5 lg:h-1 w-full top-0 left-0;
   }
 }
+
+button {
+  @apply focus:outline-none;
+}
