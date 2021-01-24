@@ -1,15 +1,50 @@
 <template>
   <div class="2xl:grid grid-cols-2 grid-rows-2 gap-4">
     <latest-price
-      class="col-span-full mb-6 2xl:mb-0 row-span-1 2xl:col-span-1"
+      class="col-span-full 2xl:mb-0 row-span-1 2xl:col-span-1"
       :value="lastPrice"
     />
-
-    <zaif-ask-bid class="col-span-full row-span-2 2xl:col-span-1" />
+    <zaif-ask-bid
+      class="hidden my-4 sm:block col-span-full row-span-2 2xl:col-span-1"
+    />
   </div>
 
-  <base-card class="my-4">
-    <base-title class="p-4 flex justify-between"
+  <div class="sm:hidden">
+    <button
+      class="p-1 shadow focus:outline-none"
+      :class="{ 'bg-gray-200': ['chart', ''].includes(pathRef) }"
+      @click="onClick('chart')"
+    >
+      <MdiChartBellCurveCumulative /><span class="ml-1 capitalize align-middle"
+        >chart</span
+      >
+    </button>
+    <button
+      class="p-1 shadow focus:outline-none"
+      :class="{ 'bg-gray-200': pathRef === 'order-book' }"
+      @click="onClick('order-book')"
+    >
+      <mdi-book-open />
+      <span class="ml-1 capitalize align-middle">order book</span>
+    </button>
+    <button
+      class="p-1 shadow focus:outline-none"
+      :class="{ 'bg-gray-200': pathRef === 'history' }"
+      @click="onClick('history')"
+    >
+      <mdi-history />
+
+      <span class="ml-1 capitalize align-middle">trade history</span>
+    </button>
+  </div>
+
+  <div
+    v-if="
+      (sm === 'mobile' && ['chart', ''].includes(pathRef)) || sm !== 'mobile'
+    "
+    class="sm:col-span-1 card-none sm:card sm:my-4"
+  >
+    <base-title class="p-4 hidden col-span-1 sm:flex justify-between"
       >history
       <span class="flex gap-1 sm:gap-4">
         <span>
@@ -35,7 +70,7 @@
       }"
       :options="{
         low: lowValue,
-        height: 500,
+        height: 400,
         fullWidth: true,
         chartPadding: {
           left: 40,
@@ -44,10 +79,7 @@
         axisY: {
           labelInterpolationFnc: (value) => toComma(value),
         },
-        axisX: {
-          ticks: [1],
-        },
-        ticks: [1],
+
         showArea: true,
       }"
       :responsive-options="[
@@ -55,16 +87,17 @@
           'screen and (max-width: 640px)',
           {
             showPoint: false,
+            height: 300,
             axisX: {
               labelInterpolationFnc: function (value, index) {
-                return index % 4 === 0 ? value : null
+                return index % 2 === 0 ? value : null
               },
               showGrid: false,
             },
             axisY: {
               className: 'text-sm',
               labelInterpolationFnc: function (value, index) {
-                return index % 4 === 0
+                return index % 2 === 0
                   ? value > 1000
                     ? `${toComma(value / 1000)}k`
                     : value
@@ -72,24 +105,28 @@
               },
             },
             chartPadding: {
-              left: 20,
-              right: 10,
+              left: 10,
+              right: 4,
             },
           },
         ],
       ]"
     />
-  </base-card>
+  </div>
 
-  <div class="grid mt-6 grid-cols-6 gap-6">
-    <zaif-rates
-      class="col-span-full sm:col-span-3 md:col-span-3 2xl:col-span-2"
+  <div class="grid grid-cols-6 gap-4">
+    <zaif-order-book
+      v-if="(sm === 'mobile' && pathRef === 'order-book') || sm !== 'mobile'"
+      class="col-span-full sm:col-span-6 md:col-span-3 2xl:col-span-2"
     />
 
-    <zaif-order-book class="col-span-full sm:col-span-3 2xl:col-span-2" />
-
     <zaif-trade-history
-      class="col-span-full sm:col-span-6 xl:col-span-3 2xl:col-span-2"
+      v-if="(sm === 'mobile' && pathRef === 'history') || sm !== 'mobile'"
+      class="col-span-full sm:col-span-6 md:col-span-3 2xl:col-span-2"
+    />
+
+    <zaif-rates
+      class="col-span-full h-60 sm:h-auto sm:col-span-6 overflow-y-scroll overflow-x-hidden md:col-span-3 2xl:col-span-2"
     />
   </div>
 </template>
@@ -106,7 +143,9 @@
   import ZaifOrderBook from '/@/components/zaif/ZaifOrderBook.vue'
   import ZaifTradeHistory from '/@/components/zaif/ZaifTradeHistory.vue'
   import ZaifAskBid from '/@/components/zaif/ZaifAskBid.vue'
-  import BaseCard from '/@/components/base/BaseCard.vue'
+  import MdiChartBellCurveCumulative from '/@/components/base/icons/mdi/MdiChartBellCurveCumulative.vue'
+  import MdiHistory from '/@/components/base/icons/mdi/MdiHistory.vue'
+  import MdiBookOpen from '/@/components/base/icons/mdi/MdiBookOpen.vue'
   import BaseTitle from '/@/components/base/BaseTitle.vue'
   import LineChart from '/@/components/chart/LineChart.vue'
   import { min } from '/@/utils/math'
@@ -115,6 +154,28 @@
   import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
   import day from 'dayjs'
   import { toComma } from '/@/utils/format'
+
+  const useResizeable = () => {
+    sm.value = getWindowWidth(window.innerWidth)
+
+    window.addEventListener('resize', () => {
+      sm.value = getWindowWidth(window.innerWidth)
+    })
+  }
+
+  const sm = ref('')
+
+  const getWindowWidth = (width: number): string => {
+    if (width <= 640) {
+      return 'mobile'
+    } else if (width <= 1280) {
+      return 'sm'
+    } else {
+      return 'xl'
+    }
+  }
+
+  useResizeable()
   const { lastPrice } = useLastPrice()
   const data = ref<number[]>([])
   const labels = ref<string[]>([])
@@ -122,12 +183,18 @@
   const value = ref<'1H'>('1H')
   const { $firestore } = useFirestore()
 
+  const pathRef = ref<'chart' | '' | 'order-book' | 'history'>('')
+
   const getPrice = (pair: ZaifOrderBookPairs) => {
     const g = intervalFactory(value.value)
     g(pair, new Date(), $firestore).then((e) => {
       data.value = e.map(({ value }) => value)
       labels.value = e.map(({ date }) => day(date).format('H:mm'))
     })
+  }
+
+  const onClick = (payload: 'chart' | 'order-book' | 'history') => {
+    pathRef.value = payload
   }
 
   const intervalFactory = (payload: '1H' | '5m') => {
@@ -146,13 +213,10 @@
   }
 
   watch(pair, (now) => {
-    console.log(2)
-
     getPrice(now)
   })
 
   watch(value, () => {
-    console.log(1)
     getPrice(pair.value)
   })
 
