@@ -87,7 +87,7 @@
         ) {
           return props.asks[9][0] - props.bids[0][0]
         }
-        return
+        return undefined
       })
 
       return { tick }

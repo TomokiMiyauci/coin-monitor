@@ -27,7 +27,6 @@
     toRefs,
     isRef,
   } from 'vue'
-  import BaseCard from '/@/components/base/BaseCard.vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
   import TextLoader from '/@/components/base/loaders/TextLoader.vue'
   import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
@@ -50,7 +49,6 @@
 
   export default defineComponent({
     components: {
-      BaseCard,
       CommaFilter,
       TextLoader,
       TheTitleToolbar,

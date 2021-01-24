@@ -30,6 +30,7 @@
         } else if (props.value < 0) {
           return 'text-red-400'
         }
+        return ''
       })
 
       return { percentagedNumber, className }
