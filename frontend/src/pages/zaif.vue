@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between">
-    <h3 class="text-gray-700 text-3xl mb-8 font-medium capitalize">Zaif</h3>
+    <h3 class="text-gray-700 text-3xl sm:mb-8 font-medium capitalize">Zaif</h3>
     <select-box-zaif-pair :value="pair" @input="onInput" />
   </div>
   <current-board />

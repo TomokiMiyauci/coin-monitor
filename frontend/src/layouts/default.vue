@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col lg:flex-row h-screen bg-gray-200">
+  <div class="flex flex-col lg:flex-row h-screen bg-white sm:bg-gray-200">
     <the-navigation-drawer
       :min-variant="isMinVariant"
-      @click="isMinVariant = !isMinVariant"
       class="fixed z-10 inset-y-0 left-0 transform-gpu duration-300 transition-all overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 -translate-x-full ease-in"
       :class="[isMinVariant ? 'w-20' : 'w-64']"
+      @click="isMinVariant = !isMinVariant"
     />
 
     <the-header
@@ -14,13 +14,13 @@
 
     <div class="flex-1 flex flex-col overflow-hidden">
       <main class="flex-1 overflow-x-hidden overflow-y-auto">
-        <div class="container mx-auto px-4 sm:px-6 py-8">
+        <div class="container mx-auto sm:px-6 py-1">
           <slot />
         </div>
       </main>
     </div>
     <transition name="fade">
-      <hover-navigation class="max-w-9/12" @close="on(false)" v-show="state">
+      <hover-navigation v-show="state" class="max-w-9/12" @close="on(false)">
         <page-navs @close="on(false)" />
       </hover-navigation>
     </transition>
@@ -45,7 +45,7 @@
 <style scoped>
   .fade-enter-from,
   .fade-leave-to {
-    @apply transform-gpu  opacity-0 translate-x-full;
+    @apply transform-gpu opacity-0 translate-x-full;
   }
 
   .fade-enter-active,
