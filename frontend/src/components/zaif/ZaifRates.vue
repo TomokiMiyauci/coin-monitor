@@ -1,6 +1,6 @@
 <template>
-  <base-card>
-    <div class="flex p-4 justify-between items-center">
+  <div class="card-none sm:card">
+    <div class="sm:flex p-4 hidden justify-between items-center">
       <h3 class="ml-2 text-2xl text-gray-400">Coins</h3>
       <!-- <base-menu
         :value="baseSymbol"
@@ -28,13 +28,12 @@
         </base-svg-symbol>
       </template>
     </rate-table-ratio>
-  </base-card>
+  </div>
 </template>
 
 <script lang="ts">
   import { computed, defineComponent, ref } from 'vue'
   import BaseSvgSymbol from '/@/components/base/BaseSvgSymbol.vue'
-  import BaseCard from '/@/components/base/BaseCard.vue'
   // import BaseMenu from '/@/components/base/BaseMenu.vue'
   import RateTableRatio from '/@/components/rate/RateTableRatio.vue'
 
@@ -47,7 +46,6 @@
   export default defineComponent({
     components: {
       BaseSvgSymbol,
-      BaseCard,
       // BaseMenu,
       ZaifSymbol,
       RateTableRatio,

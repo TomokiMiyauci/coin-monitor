@@ -1,22 +1,20 @@
 <template>
-  <base-card class="flex flex-col">
-    <the-title-toolbar> last </the-title-toolbar>
-    <div
-      class="flex flex-grow flex-col gap-8 p-4 bg-gradient-to-b from-white to-gray-200"
-    >
+  <div class="card-none sm:card px-3 sm:p-0">
+    <the-title-toolbar class="hidden sm:block"> last </the-title-toolbar>
+    <div>
       <text-loader
-        skeltonClass="h-14 sm:h-24 md:h-32"
+        skelton-class="h-14 sm:h-24 md:h-32"
         class="flex items-center"
         :value="value"
       >
         <comma-filter
-          class="text-6xl sm:text-8xl md:text-9xl mr-3"
+          class="text-3xl sm:text-8xl font-bold sm:font-normal sm:px-4 md:text-9xl mr-3"
           :value="value"
         />
-        <icon-up-down-flat :status="status" />
+        <icon-up-down-flat class="hidden sm:block" :status="status" />
       </text-loader>
     </div>
-  </base-card>
+  </div>
 </template>
 
 <script lang="ts">

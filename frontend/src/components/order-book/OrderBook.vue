@@ -1,6 +1,6 @@
 <template>
-  <base-card class="flex flex-col pb-4 min-h-full">
-    <div class="flex p-2 justify-between items-center">
+  <div class="card-none sm:card flex flex-col pb-2 sm:pb-4 min-h-96">
+    <div class="sm:flex hidden p-2 justify-between items-center">
       <h3 class="ml-2 p-2 mt-1 text-2xl text-gray-400">Order Book</h3>
 
       <slot name="menu" />
@@ -9,16 +9,16 @@
     <transition tag="div" name="fade" mode="out-in" class="flex-grow">
       <div v-if="asks.length">
         <div
-          class="flex mt-4 py-1 bg-gradient-to-r from-white text-yellow-500 via-gray-200 to-white font-medium justify-between px-10 capitalize"
+          class="flex sm:mt-4 py-1 bg-gradient-to-r from-white text-yellow-500 via-gray-200 to-white font-medium justify-between px-10 capitalize"
         >
           <span>rate</span><span>amount</span>
         </div>
         <order-book-body
           class="to-red-400 from-gray-50 bg-gradient-to-b"
-          spanClass="bg-gradient-to-b from-gray-400 to-red-500"
-          valueClass="from-gray-800 to-red-800"
-          barClass="bg-red-500"
-          :priceAmount="sortedAsks"
+          span-class="bg-gradient-to-b from-gray-400 to-red-500"
+          value-class="from-gray-800 to-red-800"
+          bar-class="bg-red-500"
+          :price-amount="sortedAsks"
           text="ask"
           :sum="sumAmount"
         />
@@ -34,10 +34,10 @@
 
         <order-book-body
           class="bg-gradient-to-t to-green-400 from-gray-100"
-          spanClass="bg-gradient-to-t from-gray-400 to-green-400"
-          valueClass="from-gray-800 to-green-800"
-          barClass="bg-green-600"
-          :priceAmount="bids"
+          span-class="bg-gradient-to-t from-gray-400 to-green-400"
+          value-class="from-gray-800 to-green-800"
+          bar-class="bg-green-600"
+          :price-amount="bids"
           :sum="sumAmount"
           text="bid"
         />
@@ -46,14 +46,13 @@
         <spin-loader />
       </div>
     </transition>
-  </base-card>
+  </div>
 </template>
 
 <script lang="ts">
   import { computed, defineComponent } from 'vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
   import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
-  import BaseCard from '/@/components/base/BaseCard.vue'
   import type { PriceAmount } from '/@/components/order-book/share'
   import OrderBookBody from '/@/components/order-book/OrderBookBody.vue'
   import { sort, add } from 'rambda'
@@ -62,7 +61,6 @@
     components: {
       CommaFilter,
       SpinLoader,
-      BaseCard,
       OrderBookBody,
     },
 
@@ -107,14 +105,4 @@
   })
 </script>
 
-<style scoped>
-  .fade-enter-active,
-  .fade-leave-active {
-    @apply transition duration-200;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    @apply opacity-0 transform translate-x-2;
-  }
-</style>
+<style lang="scss" src="/@/assets/styles/transitions.scss"></style>

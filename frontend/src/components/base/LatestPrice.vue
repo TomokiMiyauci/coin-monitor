@@ -1,10 +1,10 @@
 <template>
-  <base-card>
+  <div class="card-none sm:card">
     <the-title-toolbar> last </the-title-toolbar>
     <div
       class="flex flex-col gap-8 p-4 bg-gradient-to-b from-white to-gray-200"
     >
-      <text-loader skeltonClass="h-14 sm:h-24 md:h-32" :value="value">
+      <text-loader skelton-class="h-14 sm:h-24 md:h-32" :value="value">
         <comma-filter class="text-6xl sm:text-8xl md:text-9xl" :value="value" />
       </text-loader>
 
@@ -15,12 +15,11 @@
         :data="data"
       />
     </div>
-  </base-card>
+  </div>
 </template>
 
 <script lang="ts">
   import { defineComponent, PropType } from 'vue'
-  import BaseCard from '/@/components/base/BaseCard.vue'
   import CommaFilter from '/@/components/base/CommaFilter.vue'
 
   import TextLoader from './loaders/TextLoader.vue'
@@ -29,7 +28,6 @@
 
   export default defineComponent({
     components: {
-      BaseCard,
       CommaFilter,
       TextLoader,
       ChartLine,
