@@ -175,7 +175,6 @@
     }
   }
 
-  useResizeable()
   const { lastPrice } = useLastPrice()
   const data = ref<number[]>([])
   const labels = ref<string[]>([])
@@ -220,7 +219,10 @@
     getPrice(pair.value)
   })
 
-  onBeforeMount(() => getPrice(pair.value))
+  onBeforeMount(() => {
+    useResizeable()
+    getPrice(pair.value)
+  })
   const lowValue = computed(() => min(data.value))
 </script>
 
