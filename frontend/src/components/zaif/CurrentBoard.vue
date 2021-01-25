@@ -64,10 +64,8 @@
       </span>
     </base-title>
     <line-chart
-      :data="{
-        labels,
-        series: [data],
-      }"
+      id="history"
+      :data="d"
       :options="{
         low: lowValue,
         height: 400,
@@ -243,6 +241,16 @@
     useResizeable()
     getPrice(pair.value)
   })
+
+  const d = computed(() => ({
+    labels: labels.value,
+    series: [
+      {
+        data: data.value,
+        className: 'fill-current text-red-500 stroke-current',
+      },
+    ],
+  }))
   const lowValue = computed(() => min(data.value))
 </script>
 
