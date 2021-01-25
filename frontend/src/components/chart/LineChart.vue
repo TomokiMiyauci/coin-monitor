@@ -1,5 +1,5 @@
 <template>
-  <div id="line-chart" />
+  <div :id="id" />
 </template>
 
 <script setup lang="ts">
@@ -13,17 +13,21 @@
     data: Data
     options?: Options
     responsiveOptions?: ResponsiveOptions
+    id: string
   }>()
 
   const lineChart = ref<IChartistLineChart>()
 
-  watch(props, () => {
-    lineChart.value?.update(props.data)
-  })
+  watch(
+    () => props.data,
+    (now) => {
+      lineChart.value?.update(now)
+    }
+  )
 
   onMounted(() => {
     lineChart.value = new Line(
-      '#line-chart',
+      `#${props.id}`,
       props.data,
       props.options,
       props.responsiveOptions
@@ -33,8 +37,7 @@
       if (data.type === 'line' || data.type === 'area') {
         data.element.animate({
           d: {
-            begin: 2000 * data.index,
-            dur: 2000,
+            dur: 1000,
             from: data.path
               .clone()
               .scale(1, 0)
