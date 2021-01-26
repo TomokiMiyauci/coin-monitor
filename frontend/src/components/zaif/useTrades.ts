@@ -20,16 +20,14 @@ export const useTrades = (pair: Ref<ZaifPairs>) => {
   const { get } = getTrades()
 
   const data = computed<TradeData[]>(() => {
-    return state.value
-      .slice(0, 20)
-      .map(({ price, tid, trade_type, ...rest }) => {
-        return {
-          id: tid,
-          rate: price,
-          type: trade_type === 'ask' ? 'SELL' : 'BUY',
-          ...rest,
-        }
-      })
+    return state.value.map(({ price, tid, trade_type, ...rest }) => {
+      return {
+        id: tid,
+        rate: price,
+        type: trade_type === 'ask' ? 'SELL' : 'BUY',
+        ...rest,
+      }
+    })
   })
 
   const setData = async () => {
