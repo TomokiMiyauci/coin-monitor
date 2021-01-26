@@ -22,6 +22,10 @@ service cloud.firestore {
         match /1H/{rate} {
           allow create, read;
         }
+
+        match /1D/{rate} {
+          allow create, read;
+        }
       }
     }
   }
