@@ -49,7 +49,7 @@
       <span class="flex gap-1 sm:gap-4">
         <span>
           <button
-            v-for="{ text } in [{ text: '5m' }, { text: '1H' }]"
+            v-for="{ text } in [{ text: '5m' }, { text: '1H' }, { text: '1D' }]"
             :key="text"
             class="p-2 shadow text-sm focus:outline-none focus:ring-inset border-t ring-gray-600 border-b focus:ring-2 hover:shadow-md btnn transition-all duration-200 bg-white hover:bg-gray-100"
             :class="{
@@ -79,6 +79,13 @@
           labelInterpolationFnc: (value) => toComma(value),
         },
 
+        axisX: {
+          labelInterpolationFnc: (date) =>
+            value === '1D'
+              ? day(date).format('M/DD')
+              : day(date).format('H:mm'),
+        },
+
         showArea: true,
       }"
       :responsive-options="[
@@ -88,8 +95,12 @@
             showPoint: false,
             height: 300,
             axisX: {
-              labelInterpolationFnc: function (value, index) {
-                return index % 2 === 0 ? value : null
+              labelInterpolationFnc: function (date, index) {
+                return index % 2 === 0
+                  ? value === '1D'
+                    ? day(date).format('M/DD')
+                    : day(date).format('H:mm')
+                  : null
               },
               showGrid: false,
             },
@@ -126,6 +137,13 @@
         @click="value = '1H'"
       >
         1Hour
+      </button>
+      <button
+        class="rounded-md text-sm hover:text-white transition duration-200 hover:bg-green-400 px-2 py-1 focus:outline-none"
+        :class="[value === '1D' ? 'bg-green-400 text-white' : 'text-green-400']"
+        @click="value = '1D'"
+      >
+        1Day
       </button>
     </div>
   </div>
@@ -165,7 +183,11 @@
   import BaseTitle from '/@/components/base/BaseTitle.vue'
   import LineChart from '/@/components/chart/LineChart.vue'
   import { min } from '/@/utils/math'
-  import { get1HRates, get5mRates } from '/@/functions/effect/api/zaif'
+  import {
+    get1DRates,
+    get1HRates,
+    get5mRates,
+  } from '/@/functions/effect/api/zaif'
   import { useFirestore } from '/@/plugins/firebase'
   import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
   import day from 'dayjs'
@@ -195,9 +217,9 @@
 
   const { lastPrice } = useLastPrice()
   const data = ref<number[]>([])
-  const labels = ref<string[]>([])
+  const labels = ref<Date[]>([])
   const pair = inject('tradeHistoryPair') as Ref<ZaifOrderBookPairs>
-  const value = ref<'1H'>('1H')
+  const value = ref<'1H' | '5m' | '1D'>('1H')
   const { $firestore } = useFirestore()
 
   const pathRef = ref<'chart' | '' | 'order-book' | 'history'>('')
@@ -206,7 +228,7 @@
     const g = intervalFactory(value.value)
     g(pair, new Date(), $firestore).then((e) => {
       data.value = e.map(({ value }) => value)
-      labels.value = e.map(({ date }) => day(date).format('H:mm'))
+      labels.value = e.map(({ date }) => date)
     })
   }
 
@@ -214,7 +236,7 @@
     pathRef.value = payload
   }
 
-  const intervalFactory = (payload: '1H' | '5m') => {
+  const intervalFactory = (payload: '1H' | '5m' | '1D') => {
     switch (payload) {
       case '1H': {
         return get1HRates
@@ -222,6 +244,10 @@
 
       case '5m': {
         return get5mRates
+      }
+
+      case '1D': {
+        return get1DRates
       }
     }
   }

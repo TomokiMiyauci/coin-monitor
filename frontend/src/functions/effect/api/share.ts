@@ -1,4 +1,9 @@
-import { dateRatherThanWhere, limit1, limit12 } from '/@/functions/pure/api'
+import {
+  dateRatherThanWhere,
+  dateLessThanWhere,
+  limit1,
+  limit12,
+} from '/@/functions/pure/api'
 import {
   collection,
   orderBy,
@@ -37,28 +42,24 @@ const baseGet = (
 
 const curriedBaseGetP = (
   fn: (fromDate: Date) => Date,
-  interval: '1H' | '5m'
+  interval: '1H' | '5m' | '1D'
 ) => (f: typeof zaifPairsPath) => (
   pair: CoincheckPair,
   date: Date,
   firestore: FirebaseFirestore
 ) =>
-  baseGet(
-    f(pair)(interval),
-    firestore,
-    orderBy('date', 'desc'),
-    dateRatherThanWhere(fn(date)),
-    limit12
-  ).then((e) =>
-    e.docs
-      .map((b) => {
-        const { date, value } = b.data()
-        return {
-          date: date.toDate(),
-          value,
-        }
-      })
-      .reverse()
+  baseGet(f(pair)(interval), firestore, orderBy('date', 'desc'), limit12).then(
+    (e) =>
+      e.docs
+        .map((b) => {
+          console.log(b.data())
+          const { date, value } = b.data()
+          return {
+            date: date.toDate(),
+            value,
+          }
+        })
+        .reverse()
   )
 
 const curriedBaseGetPrice = (fn: (fromDate: Date) => Date) => (
@@ -76,10 +77,12 @@ const getOpenPrice = curriedBaseGetPrice(getMidnightFromDate)
 const getYesterdayNowPrice = curriedBaseGetPrice(getBefore1DayFromDate)
 const get1HPrices = curriedBaseGetP(getBefore1DayFromDate, '1H')
 const get5mPrices = curriedBaseGetP(getBefore1DayFromDate, '5m')
+const get1DPrices = curriedBaseGetP(() => new Date(), '1D')
 export {
   getOpenPrice,
   getYesterdayNowPrice,
   ResponseData,
   get1HPrices,
   get5mPrices,
+  get1DPrices,
 }

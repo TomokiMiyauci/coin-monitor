@@ -62,7 +62,7 @@ const getCollectionPath = (
   second: 'coincheck' | 'zaif',
   third: 'pairs',
   forth: CoincheckPair,
-  fifth: 'rates' | '1H' | '5m'
+  fifth: 'rates' | '1H' | '5m' | '1D'
 ) => joinSlash(root, second, third, forth, fifth)
 
 const curriedGetCollectionPath = curry(getCollectionPath)
