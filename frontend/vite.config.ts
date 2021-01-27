@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import { name, description } from '../package.json'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
+import { VitePWA } from 'vite-plugin-pwa'
 const PROJECT_NAME = name
   .split('-')
   .map((str) => str.charAt(0).toUpperCase() + str.slice(1))
@@ -18,6 +19,13 @@ export default defineConfig({
       ssr: !!process.env.VITE_SSG,
     }),
     svgLoader(),
+    VitePWA({
+      manifest: {
+        name: PROJECT_NAME,
+        short_name: PROJECT_NAME,
+        theme_color: '#ffffff',
+      },
+    }),
   ],
 
   // terserOptions: {
