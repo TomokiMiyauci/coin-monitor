@@ -1,6 +1,6 @@
-import { VueComponent as Coincheck } from '/@/assets/svgs/markets/coincheck.svg'
-import { VueComponent as Zaif } from '/@/assets/svgs/markets/zaif.svg'
-import { VueComponent as Bitbank } from '/@/assets/svgs/markets/bitbank.svg'
+import Coincheck from '/@/assets/svgs/markets/coincheck.svg'
+import Zaif from '/@/assets/svgs/markets/zaif.svg'
+import Bitbank from '/@/assets/svgs/markets/bitbank.svg'
 import Bitpoint from '/@/components/base/icons/markets/Bitpoint.vue'
 import { Market } from '/@/utils/symbol'
 

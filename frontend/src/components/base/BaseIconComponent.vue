@@ -3,7 +3,7 @@
     :is="component"
     :width="width"
     :height="height"
-    class="inline-block"
+    class="inline-block w-6 h-6"
   />
 </template>
 

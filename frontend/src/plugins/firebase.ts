@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app'
+import { initializeApp, getApps, getApp } from 'firebase/app'
 import { initializeFirestore } from 'firebase/firestore/lite'
 import { Plugin, inject, InjectionKey } from 'vue'
 import { FirebaseOptions } from '@firebase/app-types'
@@ -13,16 +13,18 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 }
 
-const app = initializeApp(firebaseConfig)
-const firestore = initializeFirestore(app, {})
-
 const plugin: Plugin = {
   install: ({ provide }) => {
+    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
+
+    const firestore = initializeFirestore(app, {})
     provide(key, firestore)
   },
 }
 
-const key: InjectionKey<typeof firestore> = Symbol('$firestore')
+const key: InjectionKey<ReturnType<typeof initializeFirestore>> = Symbol(
+  '$firestore'
+)
 
 const useFirestore = () => {
   return { $firestore: inject(key)! }

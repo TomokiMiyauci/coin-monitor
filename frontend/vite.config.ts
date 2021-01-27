@@ -1,32 +1,30 @@
 import { resolve } from 'path'
-import { UserConfig } from 'vite'
-import svgPlugin from 'vite-plugin-svg'
+import { defineConfig } from 'vite'
 import { name, description } from '../package.json'
 import vue from '@vitejs/plugin-vue'
+import svgLoader from 'vite-svg-loader'
 const PROJECT_NAME = name
   .split('-')
   .map((str) => str.charAt(0).toUpperCase() + str.slice(1))
   .join(' ')
 
-const config: UserConfig = {
+export default defineConfig({
   alias: {
-    '/@/': resolve(__dirname, 'src'),
-    '@story': resolve(__dirname, 'stories'),
+    '/@': resolve(__dirname, 'src'),
   },
 
   plugins: [
     vue({
       ssr: !!process.env.VITE_SSG,
     }),
-    svgPlugin(),
+    svgLoader(),
   ],
-  terserOptions: {
-    compress: true,
-    mangle: true,
-    output: {
-      comments: false,
-    },
-  },
-}
 
-export default config
+  // terserOptions: {
+  //   compress: true,
+  //   mangle: true,
+  //   output: {
+  //     comments: false,
+  //   },
+  // },
+})

@@ -1,5 +1,10 @@
 <template>
-  <component :is="component" width="24" height="24" class="inline-block" />
+  <component
+    :is="component"
+    width="24"
+    height="24"
+    class="inline-block w-7 h-7"
+  />
 </template>
 
 <script lang="ts">

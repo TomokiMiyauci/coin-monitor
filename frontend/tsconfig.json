@@ -12,6 +12,7 @@
       "/@story/*": ["stories/*"]
     },
     "lib": ["esnext", "dom"],
+    "types": ["vite-svg-loader", "vite/client"],
     "plugins": [{ "name": "@vuedx/typescript-plugin-vue" }]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
