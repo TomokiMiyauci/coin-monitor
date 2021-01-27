@@ -1,7 +1,7 @@
 <template>
   <h3 class="text-gray-700 text-3xl mb-8 font-medium capitalize">dashboard</h3>
 
-  <base-card class="p-4 w-full md:w-3/5">
+  <div class="card p-4 w-full md:w-3/5">
     <table class="capitalize mx-auto">
       <tr>
         <th>market</th>
@@ -21,21 +21,28 @@
         <td class="p-3">{{ toComma(tick) }}</td>
       </tr>
     </table>
-  </base-card>
+  </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, computed, ref } from 'vue'
-
+<script setup lang="ts">
+  import { computed, ref } from 'vue'
   import { useTicker } from '/@/components/coincheck/useTicker'
   import { useTicker as useTickerZaif } from '/@/components/zaif/useTicker'
   import { useTicker as useTickerBitbank } from '/@/composites/bitbank/useTicker'
-
-  import BaseCard from '../components/base/BaseCard.vue'
   import { toComma } from '/@/utils/format'
-  import { useTicker as _t } from '/@/reactives/bitpoint/useTicker'
+  import { useTicker as useTickerBitpoint } from '/@/reactives/bitpoint/useTicker'
   import MarketIconText from '/@/components/base/icons/markets/MarketIconText.vue'
+  import { useHead } from '@vueuse/head'
 
+  useHead({
+    title: 'Dashboard | Coin Monitor',
+    meta: [
+      {
+        name: `description`,
+        content: `Currypto currency mornitoring`,
+      },
+    ],
+  })
   type NumberOrUndefined = number | undefined
 
   type AskBidTickTupple = [
@@ -48,58 +55,36 @@
     zaif: T
   }
 
-  export default defineComponent({
-    components: {
-      BaseCard,
-      MarketIconText,
-    },
+  const { ask, bid } = useTicker()
 
-    setup() {
-      const { ask, bid } = useTicker()
+  const { ask: askBitpoint, bid: bidBitpoint } = useTickerBitpoint()
 
-      const { ask: askBitpoint, bid: bidBitpoint } = _t()
-
-      const pair = ref<'btc_jpy'>('btc_jpy')
-      const zaif = useTickerZaif(pair)
-      const bitbank = useTickerBitbank(pair)
-      const culc = (
-        val1: number | undefined,
-        val2: number | undefined
-      ): number | undefined => {
-        if (typeof val1 === 'undefined' || typeof val2 === 'undefined') return
-        return val1 - val2
-      }
-      const tickers = computed<Tickers<AskBidTickTupple>>(() => ({
-        coincheck: [ask.value, bid.value, culc(ask.value, bid.value)],
-        zaif: [
-          zaif.ask.value,
-          zaif.bid.value,
-          culc(zaif.ask.value, zaif.bid.value),
-        ],
-        bitbank: [
-          bitbank.ask.value,
-          bitbank.bid.value,
-          culc(bitbank.ask.value, bitbank.bid.value),
-        ],
-        bitpoint: [
-          askBitpoint.value?.price,
-          bidBitpoint.value?.price,
-          culc(askBitpoint.value?.price, bidBitpoint.value?.price),
-        ],
-      }))
-
-      // const t = computed(() => {
-      //   console.log(Object.entries(tickers.value))
-      //   return Object.entries(tickers.value).reduce((acc, cur) => {
-      //     const _key = cur[0] as Market
-      //     acc[_key] = cur[1]
-      //   }, {} as { zaif: AskBidTupple; coincheck: AskBidTupple })
-      // })
-
-      return {
-        tickers,
-        toComma,
-      }
-    },
-  })
+  const pair = ref<'btc_jpy'>('btc_jpy')
+  const zaif = useTickerZaif(pair)
+  const bitbank = useTickerBitbank(pair)
+  const culc = (
+    val1: number | undefined,
+    val2: number | undefined
+  ): number | undefined => {
+    if (typeof val1 === 'undefined' || typeof val2 === 'undefined') return
+    return val1 - val2
+  }
+  const tickers = computed<Tickers<AskBidTickTupple>>(() => ({
+    coincheck: [ask.value, bid.value, culc(ask.value, bid.value)],
+    zaif: [
+      zaif.ask.value,
+      zaif.bid.value,
+      culc(zaif.ask.value, zaif.bid.value),
+    ],
+    bitbank: [
+      bitbank.ask.value,
+      bitbank.bid.value,
+      culc(bitbank.ask.value, bitbank.bid.value),
+    ],
+    bitpoint: [
+      askBitpoint.value?.price,
+      bidBitpoint.value?.price,
+      culc(askBitpoint.value?.price, bidBitpoint.value?.price),
+    ],
+  }))
 </script>

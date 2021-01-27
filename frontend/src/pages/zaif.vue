@@ -12,7 +12,11 @@
 
   import CurrentBoard from '/@/components/zaif/CurrentBoard.vue'
   import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
+  import { useHead } from '@vueuse/head'
 
+  useHead({
+    title: 'Zaif | Coin Monitor',
+  })
   const initPair = 'btc_jpy'
   const pair = ref<ZaifOrderBookPairs>(initPair)
   const historyPair = ref<ZaifOrderBookPairs>(initPair)
