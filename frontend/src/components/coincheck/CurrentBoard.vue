@@ -13,6 +13,7 @@
   <base-card class="my-4">
     <base-title class="p-4">history</base-title>
     <line-chart
+      id="chart"
       :data="{
         labels,
         series: [data],

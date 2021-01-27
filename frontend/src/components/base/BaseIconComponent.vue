@@ -21,7 +21,7 @@
         default: 24,
       },
       component: {
-        type: Object,
+        type: [Function, Object],
         requried: true,
       },
     },

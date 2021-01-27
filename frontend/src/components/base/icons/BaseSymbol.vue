@@ -13,7 +13,7 @@
   export default defineComponent({
     props: {
       component: {
-        type: Object,
+        type: [Function, Object],
         required: true,
       },
     },
