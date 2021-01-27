@@ -10864,10 +10864,10 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-ssg@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/vite-ssg/-/vite-ssg-0.5.1.tgz#7c9e59fad553747582e823389794163c38e4935a"
-  integrity sha512-LRokw1gRYrjfWwpviLl3L3ieKTFq1+3/LrtaPwfP8Loaerjq4v2bw38V6iVxQnB/T5Z4Eun8YqcaXC49+lw7JQ==
+vite-ssg@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/vite-ssg/-/vite-ssg-0.5.0.tgz#3499194aeda55048c24bf1b1a2aa370ffe86c782"
+  integrity sha512-ZMmlV9CDOplWb2mqU3xV+nOlZWnpZujyZfQa0997/Ka2Wx9xApp1EHC+C9VnfTi7ie3j1XAy992jHU82UHmlpw==
   dependencies:
     "@vueuse/head" "^0.2.3"
     chalk "^4.1.0"
