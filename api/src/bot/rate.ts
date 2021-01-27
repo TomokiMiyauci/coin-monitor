@@ -1,7 +1,6 @@
 import admin from 'firebase-admin'
 import type { ServiceAccount } from 'firebase-admin/lib/credential'
 import { NowRequest, NowResponse } from '@vercel/node'
-// import { factory } from '../../../packages/share/src/market'
 import { factory } from '../rate'
 const createApp = (
   cert: ServiceAccount = {
@@ -19,18 +18,17 @@ const createApp = (
   return admin.app()
 }
 
-// const hoge = <T extends string[]>(val: T): T is  ? true : false =>
-
-// const a = <T>(val: string | number): T is string => typeof val === 'number'
-// let ab = '' as number | string
-// if(a(ab)) {
-//   ab
-// }
-
 const postRate = async ({ query }: NowRequest, res: NowResponse) => {
-  const { pair, market } = query
+  const { pair, market, path } = query
 
-  if (Array.isArray(pair) || !pair || Array.isArray(market) || !market) {
+  if (
+    Array.isArray(pair) ||
+    !pair ||
+    Array.isArray(market) ||
+    !market ||
+    Array.isArray(path) ||
+    !path
+  ) {
     return res.status(400).send('Invalid Parameters')
   }
 
@@ -48,7 +46,7 @@ const postRate = async ({ query }: NowRequest, res: NowResponse) => {
   const rate = mapper(market, result)
   if (!rate) return
 
-  await saveRate({ date, pair, rate, market })
+  await saveRate({ date, pair, rate, market, collectionPath: path })
 
   return res.status(200).send('OK')
 }
@@ -77,12 +75,14 @@ const saveRate = ({
   rate,
   date,
   pair,
-  market
+  market,
+  collectionPath
 }: {
   rate: number
   date: Date
   pair: string
   market: string
+  collectionPath: string
 }) => {
   return createApp()
     .firestore()
@@ -90,7 +90,7 @@ const saveRate = ({
     .doc(market)
     .collection('pairs')
     .doc(pair)
-    .collection('rates')
+    .collection(collectionPath)
     .add({
       value: rate,
       date
