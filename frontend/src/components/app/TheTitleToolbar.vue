@@ -1,21 +1,11 @@
 <template>
   <the-toolbar class="p-4 pb-0 flex justify-between">
-    <base-title> <slot /></base-title>
+    <h2 class="title"><slot /></h2>
 
     <slot name="right" />
   </the-toolbar>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
+<script setup lang="ts">
 import TheToolbar from '/@/components/app/TheToolbar.vue'
-import BaseTitle from '/@/components/base/BaseTitle.vue'
-
-export default defineComponent({
-  components: {
-    TheToolbar,
-    BaseTitle,
-  },
-})
 </script>

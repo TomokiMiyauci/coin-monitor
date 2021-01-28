@@ -5,8 +5,8 @@
     <div class="p-4 flex-grow bg-gradient-to-b from-white to-gray-200">
       <div class="flex flex-col h-full">
         <div class="flex justify-between">
-          <base-title class="text-gray-700"> ask </base-title>
-          <base-title class="text-gray-700"> bid </base-title>
+          <h2 class="text-gray-700 title">ask</h2>
+          <h2 class="text-gray-700 title">bid</h2>
         </div>
 
         <div class="flex justify-between">
@@ -61,7 +61,6 @@ import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
 import CommaFilter from '/@/components/base/CommaFilter.vue'
 import { toComma } from '/@/utils/format'
 
-import BaseTitle from './BaseTitle.vue'
 import TextLoader from './loaders/TextLoader.vue'
 
 export default defineComponent({
@@ -69,7 +68,6 @@ export default defineComponent({
     CommaFilter,
     TextLoader,
     TheTitleToolbar,
-    BaseTitle,
   },
   props: {
     ask: {

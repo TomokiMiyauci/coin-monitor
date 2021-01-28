@@ -11,5 +11,9 @@
     .card-none {
       @apply rounded-none bg-none shadow-none;
     }
+
+    .title {
+      @apply text-gray-400 text-2xl capitalize;
+    }
   }
 }

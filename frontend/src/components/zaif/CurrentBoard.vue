@@ -44,8 +44,8 @@
     "
     class="sm:col-span-1 card-none sm:card sm:my-4"
   >
-    <base-title class="p-4 hidden col-span-1 sm:flex justify-between"
-      >history
+    <h2 class="p-4 title hidden col-span-1 sm:flex justify-between">
+      history
       <span class="flex gap-1 sm:gap-4">
         <span>
           <button
@@ -62,7 +62,7 @@
         </span>
         <select-box-zaif-pair :value="pair" @input="onInput" />
       </span>
-    </base-title>
+    </h2>
     <line-chart
       id="history"
       :data="d"
@@ -170,7 +170,6 @@ import day from 'dayjs'
 import type { Ref } from 'vue'
 import { computed, defineEmit, inject, onBeforeMount, ref, watch } from 'vue'
 
-import BaseTitle from '/@/components/base/BaseTitle.vue'
 import MdiBookOpen from '/@/components/base/icons/mdi/MdiBookOpen.vue'
 import MdiChartBellCurveCumulative from '/@/components/base/icons/mdi/MdiChartBellCurveCumulative.vue'
 import MdiHistory from '/@/components/base/icons/mdi/MdiHistory.vue'

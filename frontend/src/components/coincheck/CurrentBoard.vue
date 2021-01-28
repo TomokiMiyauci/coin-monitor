@@ -11,7 +11,7 @@
   </div>
 
   <div class="my-4 card">
-    <base-title class="p-4">history</base-title>
+    <h2 class="title p-4">history</h2>
     <line-chart
       id="chart"
       :data="{
@@ -49,7 +49,6 @@
 import { computed, defineComponent, onBeforeMount, ref } from 'vue'
 
 import AskBid from '/@/components/base/AskBid.vue'
-import BaseTitle from '/@/components/base/BaseTitle.vue'
 import LineChart from '/@/components/chart/LineChart.vue'
 import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
 import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
@@ -68,7 +67,6 @@ export default defineComponent({
     OrderBooks,
     TradeHistory,
     CoincheckRates,
-    BaseTitle,
     LineChart,
   },
 
