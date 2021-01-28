@@ -16,33 +16,33 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  export default defineComponent({
-    props: {
-      iconName: {
-        type: String,
-        default: 'icon',
-      },
-
-      width: {
-        type: [Number, String],
-        default: 24,
-      },
-
-      height: {
-        type: [Number, String],
-        default: 24,
-      },
-
-      iconColor: {
-        type: String,
-        default: 'currentColor',
-      },
-
-      d: {
-        type: String,
-        default: '',
-      },
+import { defineComponent } from 'vue'
+export default defineComponent({
+  props: {
+    iconName: {
+      type: String,
+      default: 'icon',
     },
-  })
+
+    width: {
+      type: [Number, String],
+      default: 24,
+    },
+
+    height: {
+      type: [Number, String],
+      default: 24,
+    },
+
+    iconColor: {
+      type: String,
+      default: 'currentColor',
+    },
+
+    d: {
+      type: String,
+      default: '',
+    },
+  },
+})
 </script>

@@ -1,7 +1,8 @@
+import { computed, ComputedRef } from 'vue'
+
 import { useInterval } from '/@/core/interval'
-import { price } from '/@/reactives/api/bitpoint'
-import { ComputedRef, computed } from 'vue'
 import { ResponsePrice } from '/@/functions/effect/api/bitpoint'
+import { price } from '/@/reactives/api/bitpoint'
 
 const computePrice = (state: ComputedRef<ResponsePrice | undefined>) => {
   const price = computed(() => state.value?.symbolPrice[0].price)

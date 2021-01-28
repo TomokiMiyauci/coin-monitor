@@ -107,109 +107,110 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    ref,
-    defineProps,
-    defineEmit,
-    useContext,
-    nextTick,
-    computed,
-  } from 'vue'
-  import MdiUnfoldMoreHorizontal from '/@/components/base/icons/mdi/MdiUnfoldMoreHorizontal.vue'
-  import MdiCheck from '/@/components/base/icons/mdi/MdiCheck.vue'
-  import ButtonKeyboardEnter from '/@/components/base/buttons/keyboards/ButtonKeyboardEnter.vue'
-  import ButtonKeyboardArrowDown from '/@/components/base/buttons/keyboards/ButtonKeyboardArrowDown.vue'
-  import ButtonKeyboardArrowUp from '/@/components/base/buttons/keyboards/ButtonKeyboardArrowUp.vue'
-  import ButtonKeyboardEsc from '/@/components/base/buttons/keyboards/ButtonKeyboardEsc.vue'
-  import ButtonKeyboardSpace from '/@/components/base/buttons/keyboards/ButtonKeyboardSpace.vue'
-  import ButtonCloseCircle from '/@/components/base/buttons/ButtonCloseCircle.vue'
-  import { add } from '/@/utils/math'
+import {
+  computed,
+  defineEmit,
+  defineProps,
+  nextTick,
+  ref,
+  useContext,
+} from 'vue'
 
-  const props = defineProps<{
-    value: string
-    candidates: Readonly<string[]>
-    minWidth?: string | number
-    maxHeight?: string | number
-    title?: string
-    placeholder?: string
-    classButton?: string
-  }>()
-  defineEmit(['input'])
-  const { emit } = useContext()
+import ButtonCloseCircle from '/@/components/base/buttons/ButtonCloseCircle.vue'
+import ButtonKeyboardArrowDown from '/@/components/base/buttons/keyboards/ButtonKeyboardArrowDown.vue'
+import ButtonKeyboardArrowUp from '/@/components/base/buttons/keyboards/ButtonKeyboardArrowUp.vue'
+import ButtonKeyboardEnter from '/@/components/base/buttons/keyboards/ButtonKeyboardEnter.vue'
+import ButtonKeyboardEsc from '/@/components/base/buttons/keyboards/ButtonKeyboardEsc.vue'
+import ButtonKeyboardSpace from '/@/components/base/buttons/keyboards/ButtonKeyboardSpace.vue'
+import MdiCheck from '/@/components/base/icons/mdi/MdiCheck.vue'
+import MdiUnfoldMoreHorizontal from '/@/components/base/icons/mdi/MdiUnfoldMoreHorizontal.vue'
+import { add } from '/@/utils/math'
 
-  const isShow = ref<boolean>(false)
-  const selected = ref<number>()
-  const ul = ref<HTMLUListElement>()
-  const button = ref<HTMLButtonElement>()
-  const arrowDown = ref<HTMLSpanElement>()
+const props = defineProps<{
+  value: string
+  candidates: Readonly<string[]>
+  minWidth?: string | number
+  maxHeight?: string | number
+  title?: string
+  placeholder?: string
+  classButton?: string
+}>()
+defineEmit(['input'])
+const { emit } = useContext()
 
-  const switchShow = (payload: boolean): void => {
-    payload ? hide() : show()
+const isShow = ref<boolean>(false)
+const selected = ref<number>()
+const ul = ref<HTMLUListElement>()
+const button = ref<HTMLButtonElement>()
+const arrowDown = ref<HTMLSpanElement>()
+
+const switchShow = (payload: boolean): void => {
+  payload ? hide() : show()
+}
+
+const onClick = async (payload: string) => {
+  emit('input', payload)
+  await nextTick()
+
+  hide()
+}
+
+const buttonTitle = computed(() => props.value || props.placeholder)
+
+const show = async () => {
+  const picked = props.candidates.findIndex((v) => v === props.value)
+  if (picked > -1) {
+    selected.value = picked
   }
+  isShow.value = true
+  await nextTick()
 
-  const onClick = async (payload: string) => {
-    emit('input', payload)
-    await nextTick()
+  ul.value?.focus()
+}
 
-    hide()
-  }
+const length = computed<number>(() => props.candidates.length)
 
-  const buttonTitle = computed(() => props.value || props.placeholder)
+const onArrowDown = () => {
+  ul.value?.scrollBy({
+    top: 37,
+    behavior: 'smooth',
+  })
+  const _selected = selected.value || 0
+  const result = add(_selected, 1)
+  if (result >= length.value) return
+  selected.value = result
+}
 
-  const show = async () => {
-    const picked = props.candidates.findIndex((v) => v === props.value)
-    if (picked > -1) {
-      selected.value = picked
-    }
-    isShow.value = true
-    await nextTick()
+const onArrowUp = () => {
+  ul.value?.scrollBy({
+    top: -37,
+    behavior: 'smooth',
+  })
+  const _selected = selected.value || 0
+  const result = add(_selected, -1)
+  if (result < 0) return
+  selected.value = result
+}
 
-    ul.value?.focus()
-  }
+const onSelect = async () => {
+  if (selected.value === undefined) return
+  const picked = props.candidates[selected.value]
+  emit('input', picked)
+  await nextTick()
 
-  const length = computed<number>(() => props.candidates.length)
+  hide()
+  button.value?.focus()
+}
 
-  const onArrowDown = () => {
-    ul.value?.scrollBy({
-      top: 37,
-      behavior: 'smooth',
-    })
-    const _selected = selected.value || 0
-    const result = add(_selected, 1)
-    if (result >= length.value) return
-    selected.value = result
-  }
+const onMouse = (index?: number): void => {
+  selected.value = index
+}
 
-  const onArrowUp = () => {
-    ul.value?.scrollBy({
-      top: -37,
-      behavior: 'smooth',
-    })
-    const _selected = selected.value || 0
-    const result = add(_selected, -1)
-    if (result < 0) return
-    selected.value = result
-  }
-
-  const onSelect = async () => {
-    if (selected.value === undefined) return
-    const picked = props.candidates[selected.value]
-    emit('input', picked)
-    await nextTick()
-
-    hide()
-    button.value?.focus()
-  }
-
-  const onMouse = (index?: number): void => {
-    selected.value = index
-  }
-
-  const hide = (): void => {
-    isShow.value = false
-  }
+const hide = (): void => {
+  isShow.value = false
+}
 </script>
 
 <style scoped lang="scss">
-  @import '../../assets/styles/transitions.scss';
+@import '../../assets/styles/transitions.scss';
 </style>

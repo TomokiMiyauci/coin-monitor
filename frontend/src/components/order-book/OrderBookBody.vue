@@ -30,62 +30,62 @@
 </template>
 
 <script lang="ts">
-  import type { PriceAmount } from '/@/components/order-book/share'
-  import CommaFilter from '/@/components/base/CommaFilter.vue'
+import { defineComponent } from 'vue'
 
-  import { defineComponent } from 'vue'
+import CommaFilter from '/@/components/base/CommaFilter.vue'
+import type { PriceAmount } from '/@/components/order-book/share'
 
-  export default defineComponent({
-    props: {
-      priceAmount: {
-        type: Array as () => PriceAmount,
-        default: () => [],
-      },
-
-      text: {
-        type: String,
-        default: '',
-      },
-
-      spanClass: {
-        type: String,
-        default: '',
-      },
-
-      barClass: {
-        type: String,
-        default: '',
-      },
-
-      sum: {
-        type: Number,
-        required: true,
-      },
-
-      valueClass: {
-        type: String,
-        default: '',
-      },
+export default defineComponent({
+  props: {
+    priceAmount: {
+      type: Array as () => PriceAmount,
+      default: () => [],
     },
 
-    components: {
-      CommaFilter,
+    text: {
+      type: String,
+      default: '',
     },
 
-    setup(props) {
-      const compute = (a: number): string => `width: ${(a / props.sum) * 100}%`
-
-      return {
-        compute,
-      }
+    spanClass: {
+      type: String,
+      default: '',
     },
-  })
+
+    barClass: {
+      type: String,
+      default: '',
+    },
+
+    sum: {
+      type: Number,
+      required: true,
+    },
+
+    valueClass: {
+      type: String,
+      default: '',
+    },
+  },
+
+  components: {
+    CommaFilter,
+  },
+
+  setup(props) {
+    const compute = (a: number): string => `width: ${(a / props.sum) * 100}%`
+
+    return {
+      compute,
+    }
+  },
+})
 </script>
 
 <style scoped>
-  .span {
-    @apply text-7xl capitalize top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute bg-clip-text text-transparent;
+.span {
+  @apply text-7xl capitalize top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute bg-clip-text text-transparent;
 
-    z-index: -1;
-  }
+  z-index: -1;
+}
 </style>

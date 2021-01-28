@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
-  import { mdiKeyboardReturn } from '@mdi/js'
-  import BaseMdiIcon from '/@/components/base/icons/BaseMdiIcon.vue'
+import { mdiKeyboardReturn } from '@mdi/js'
+
+import BaseMdiIcon from '/@/components/base/icons/BaseMdiIcon.vue'
 </script>

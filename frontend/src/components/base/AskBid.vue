@@ -11,11 +11,11 @@
           </div>
 
           <div class="flex justify-between">
-            <text-loader skeltonClass="h-8 sm:h-12 w-1/3" :value="ask">
+            <text-loader skelton-class="h-8 sm:h-12 w-1/3" :value="ask">
               <comma-filter class="text-3xl sm:text-5xl" :value="ask" />
             </text-loader>
 
-            <text-loader skeltonClass="h-8 sm:h-12 w-1/3" :value="bid">
+            <text-loader skelton-class="h-8 sm:h-12 w-1/3" :value="bid">
               <comma-filter class="text-3xl sm:text-5xl" :value="bid" />
             </text-loader>
           </div>
@@ -57,58 +57,60 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
-  import BaseCard from './BaseCard.vue'
-  import TextLoader from './loaders/TextLoader.vue'
-  import CommaFilter from '/@/components/base/CommaFilter.vue'
-  import { toComma } from '/@/utils/format'
-  import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
-  import BaseTitle from './BaseTitle.vue'
+import { computed, defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: {
-      CommaFilter,
-      BaseCard,
-      TextLoader,
-      TheTitleToolbar,
-      BaseTitle,
-    },
-    props: {
-      ask: {
-        type: Number,
-        required: false,
-      },
+import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
+import CommaFilter from '/@/components/base/CommaFilter.vue'
+import { toComma } from '/@/utils/format'
 
-      bid: {
-        type: Number,
-        required: false,
-      },
+import BaseCard from './BaseCard.vue'
+import BaseTitle from './BaseTitle.vue'
+import TextLoader from './loaders/TextLoader.vue'
 
-      high: {
-        type: Number,
-        required: false,
-      },
-
-      low: {
-        type: Number,
-        required: false,
-      },
-      volume: {
-        type: Number,
-        required: false,
-      },
+export default defineComponent({
+  components: {
+    CommaFilter,
+    BaseCard,
+    TextLoader,
+    TheTitleToolbar,
+    BaseTitle,
+  },
+  props: {
+    ask: {
+      type: Number,
+      required: false,
     },
 
-    setup(props) {
-      const highRef = computed(() => toComma(props.high))
-      const lowRef = computed(() => toComma(props.low))
-      const volumeRef = computed(() => toComma(props.volume))
-
-      return {
-        highRef,
-        lowRef,
-        volumeRef,
-      }
+    bid: {
+      type: Number,
+      required: false,
     },
-  })
+
+    high: {
+      type: Number,
+      required: false,
+    },
+
+    low: {
+      type: Number,
+      required: false,
+    },
+    volume: {
+      type: Number,
+      required: false,
+    },
+  },
+
+  setup(props) {
+    const highRef = computed(() => toComma(props.high))
+    const lowRef = computed(() => toComma(props.low))
+    const volumeRef = computed(() => toComma(props.volume))
+
+    return {
+      highRef,
+      lowRef,
+      volumeRef,
+    }
+  },
+})
 </script>

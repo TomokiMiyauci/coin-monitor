@@ -1,6 +1,6 @@
-import getTrades from '/@/api/zaif/trades'
+import getDepth from '/@/api/zaif/depth'
 import getLastPrice from '/@/api/zaif/last-price'
 import getTicker from '/@/api/zaif/ticker'
-import getDepth from '/@/api/zaif/depth'
+import getTrades from '/@/api/zaif/trades'
 
-export { getTrades, getLastPrice, getTicker, getDepth }
+export { getDepth, getLastPrice, getTicker, getTrades }

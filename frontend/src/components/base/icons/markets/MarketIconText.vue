@@ -3,25 +3,26 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import { getComponent } from '/@/components/market/symbol'
-  import SvgText from '/@/components/base/SvgText.vue'
+import { defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: {
-      SvgText,
-    },
+import SvgText from '/@/components/base/SvgText.vue'
+import { getComponent } from '/@/components/market/symbol'
 
-    props: {
-      value: {
-        type: String,
-        default: '',
-      },
+export default defineComponent({
+  components: {
+    SvgText,
+  },
+
+  props: {
+    value: {
+      type: String,
+      default: '',
     },
-    setup() {
-      return {
-        getComponent,
-      }
-    },
-  })
+  },
+  setup() {
+    return {
+      getComponent,
+    }
+  },
+})
 </script>

@@ -7,7 +7,7 @@
       <div class="flex items-center justify-center mt-4">
         <div class="flex items-center">
           <logo-letter v-show="!minVariant" />
-          <span class="text-white text-2xl" v-show="minVariant">C</span>
+          <span v-show="minVariant" class="text-white text-2xl">C</span>
         </div>
       </div>
 
@@ -27,11 +27,12 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineEmit } from 'vue'
-  import LogoLetter from '/@/components/app/LogoLetter.vue'
-  import BaseCircleButton from '/@/components/base/buttons/BaseCircleButton.vue'
-  import MdiChevronDoubleLeft from '/@/components/base/icons/mdi/MdiChevronDoubleLeft.vue'
-  import PageNavs from '/@/components/app/PageNavs.vue'
-  defineProps<{ minVariant: boolean }>()
-  defineEmit(['click'])
+import { defineEmit, defineProps } from 'vue'
+
+import LogoLetter from '/@/components/app/LogoLetter.vue'
+import PageNavs from '/@/components/app/PageNavs.vue'
+import BaseCircleButton from '/@/components/base/buttons/BaseCircleButton.vue'
+import MdiChevronDoubleLeft from '/@/components/base/icons/mdi/MdiChevronDoubleLeft.vue'
+defineProps<{ minVariant: boolean }>()
+defineEmit(['click'])
 </script>

@@ -17,57 +17,58 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue'
-  import ChipBuy from '/@/components/base/chips/ChipBuy.vue'
-  import ChipSell from '/@/components/base/chips/ChipSell.vue'
-  import CommaFilter from '/@/components/base/CommaFilter.vue'
+import { computed, defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: {
-      CommaFilter,
-      ChipBuy,
-      ChipSell,
+import ChipBuy from '/@/components/base/chips/ChipBuy.vue'
+import ChipSell from '/@/components/base/chips/ChipSell.vue'
+import CommaFilter from '/@/components/base/CommaFilter.vue'
+
+export default defineComponent({
+  components: {
+    CommaFilter,
+    ChipBuy,
+    ChipSell,
+  },
+
+  props: {
+    date: {
+      type: Date,
+      default: () => new Date(),
     },
 
-    props: {
-      date: {
-        type: Date,
-        default: () => new Date(),
-      },
-
-      type: {
-        type: String,
-        requreid: true,
-        default: '',
-        validate: (v: string) => {
-          return ['SELL', 'BUY'].includes(v.toUpperCase())
-        },
-      },
-
-      rate: {
-        type: Number,
-        default: 0,
-      },
-
-      amount: {
-        type: Number,
-        default: 0,
+    type: {
+      type: String,
+      requreid: true,
+      default: '',
+      validate: (v: string) => {
+        return ['SELL', 'BUY'].includes(v.toUpperCase())
       },
     },
 
-    setup(props) {
-      const formattedDate = computed(() => {
-        const _date = (props.date as any) as Date
-        return _date.toLocaleString('ja', {
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-        })
+    rate: {
+      type: Number,
+      default: 0,
+    },
+
+    amount: {
+      type: Number,
+      default: 0,
+    },
+  },
+
+  setup(props) {
+    const formattedDate = computed(() => {
+      const _date = (props.date as any) as Date
+      return _date.toLocaleString('ja', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
       })
+    })
 
-      return {
-        formattedDate,
-      }
-    },
-  })
+    return {
+      formattedDate,
+    }
+  },
+})
 </script>

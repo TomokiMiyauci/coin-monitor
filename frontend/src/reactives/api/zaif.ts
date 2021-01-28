@@ -1,6 +1,6 @@
 import { baseZaifGetOpenPrice } from '/@/functions/effect/api/zaif'
-import { ZaifPair } from '/@/types/pair'
 import { baseUsePrice } from '/@/reactives/api/share'
+import { ZaifPair } from '/@/types/pair'
 
 const useOpenPrice = baseUsePrice<ZaifPair>(baseZaifGetOpenPrice)
 // const useYesterdayNowPrice = baseUsePrice<ZaifPair>(

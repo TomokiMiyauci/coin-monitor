@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
-  import { mdiBookOpen } from '@mdi/js'
-  import BaseMdiIcon from '/@/components/base/icons/BaseMdiIcon.vue'
+import { mdiBookOpen } from '@mdi/js'
+
+import BaseMdiIcon from '/@/components/base/icons/BaseMdiIcon.vue'
 </script>

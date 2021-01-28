@@ -19,30 +19,31 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue'
-  import { getComponent } from '/@/components/zaif/symbol'
-  import { ZaifBaseSymbol } from '/@/components/base/coin'
+import { computed, defineComponent } from 'vue'
 
-  export default defineComponent({
-    props: {
-      symbol: {
-        type: String as () => ZaifBaseSymbol,
-        required: true,
-      },
+import { ZaifBaseSymbol } from '/@/components/base/coin'
+import { getComponent } from '/@/components/zaif/symbol'
 
-      baseSymbol: {
-        type: String as () => ZaifBaseSymbol,
-        required: true,
-      },
+export default defineComponent({
+  props: {
+    symbol: {
+      type: String as () => ZaifBaseSymbol,
+      required: true,
     },
 
-    setup(props) {
-      const component = computed(() => getComponent(props.symbol))
-      const baseSymbolComponent = computed(() => getComponent(props.baseSymbol))
-
-      const pair = computed(() => `${props.symbol}${props.baseSymbol}`)
-
-      return { component, pair, baseSymbolComponent }
+    baseSymbol: {
+      type: String as () => ZaifBaseSymbol,
+      required: true,
     },
-  })
+  },
+
+  setup(props) {
+    const component = computed(() => getComponent(props.symbol))
+    const baseSymbolComponent = computed(() => getComponent(props.baseSymbol))
+
+    const pair = computed(() => `${props.symbol}${props.baseSymbol}`)
+
+    return { component, pair, baseSymbolComponent }
+  },
+})
 </script>

@@ -91,57 +91,57 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, ref, computed } from 'vue'
-  export default defineComponent({
-    props: {
-      value: {
-        type: String,
-        default: '',
-      },
-
-      minWidth: {
-        type: String,
-        default: '',
-      },
-
-      maxHeight: {
-        type: String,
-        default: 'max-h-56',
-      },
-
-      symbols: {
-        type: Array as PropType<readonly string[]>,
-        default: () => [],
-      },
+import { computed, defineComponent, PropType, ref } from 'vue'
+export default defineComponent({
+  props: {
+    value: {
+      type: String,
+      default: '',
     },
 
-    emits: ['input'],
-    setup(props, { emit }) {
-      const hover = ref(false)
-
-      const onClick = (symbol: string): void => {
-        hover.value = false
-
-        emit('input', symbol)
-      }
-
-      const style = computed(() => {
-        return `min-width: ${props.minWidth}px`
-      })
-
-      return { hover, onClick, style }
+    minWidth: {
+      type: String,
+      default: '',
     },
-  })
+
+    maxHeight: {
+      type: String,
+      default: 'max-h-56',
+    },
+
+    symbols: {
+      type: Array as PropType<readonly string[]>,
+      default: () => [],
+    },
+  },
+
+  emits: ['input'],
+  setup(props, { emit }) {
+    const hover = ref(false)
+
+    const onClick = (symbol: string): void => {
+      hover.value = false
+
+      emit('input', symbol)
+    }
+
+    const style = computed(() => {
+      return `min-width: ${props.minWidth}px`
+    })
+
+    return { hover, onClick, style }
+  },
+})
 </script>
 
 <style scoped>
-  .slide-down-enter-active,
-  .slide-down-leave-active {
-    @apply transition duration-200;
-  }
+.slide-down-enter-active,
+.slide-down-leave-active {
+  @apply transition duration-200;
+}
 
-  .slide-down-enter-from,
-  .slide-down-leave-to {
-    @apply opacity-0 transform -translate-y-2;
-  }
+.slide-down-enter-from,
+.slide-down-leave-to {
+  @apply opacity-0 transform -translate-y-2;
+}
 </style>

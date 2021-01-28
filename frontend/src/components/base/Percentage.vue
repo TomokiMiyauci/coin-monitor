@@ -3,37 +3,37 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+import { computed, defineComponent } from 'vue'
 
-  export default defineComponent({
-    props: {
-      value: {
-        type: Number,
-        required: true,
-      },
-
-      fractionDigits: {
-        type: Number,
-        default: 2,
-      },
+export default defineComponent({
+  props: {
+    value: {
+      type: Number,
+      required: true,
     },
 
-    setup(props) {
-      const percentagedNumber = computed(() => {
-        // const percent = props.value / 100
-        return props.value.toFixed(props.fractionDigits)
-      })
-
-      const className = computed(() => {
-        if (props.value > 0) {
-          return 'text-green-400'
-        } else if (props.value < 0) {
-          return 'text-red-400'
-        }
-        return ''
-      })
-
-      return { percentagedNumber, className }
+    fractionDigits: {
+      type: Number,
+      default: 2,
     },
-  })
+  },
+
+  setup(props) {
+    const percentagedNumber = computed(() => {
+      // const percent = props.value / 100
+      return props.value.toFixed(props.fractionDigits)
+    })
+
+    const className = computed(() => {
+      if (props.value > 0) {
+        return 'text-green-400'
+      } else if (props.value < 0) {
+        return 'text-red-400'
+      }
+      return ''
+    })
+
+    return { percentagedNumber, className }
+  },
+})
 </script>

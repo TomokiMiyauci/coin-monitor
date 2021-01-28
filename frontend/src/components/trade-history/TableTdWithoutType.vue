@@ -13,44 +13,45 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue'
-  import CommaFilter from '/@/components/base/CommaFilter.vue'
+import { computed, defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: {
-      CommaFilter,
+import CommaFilter from '/@/components/base/CommaFilter.vue'
+
+export default defineComponent({
+  components: {
+    CommaFilter,
+  },
+
+  props: {
+    date: {
+      type: Date,
+      default: () => new Date(),
     },
 
-    props: {
-      date: {
-        type: Date,
-        default: () => new Date(),
-      },
-
-      rate: {
-        type: Number,
-        default: 0,
-      },
-
-      amount: {
-        type: Number,
-        default: 0,
-      },
+    rate: {
+      type: Number,
+      default: 0,
     },
 
-    setup(props) {
-      const formattedDate = computed(() => {
-        const _date = (props.date as any) as Date
-        return _date.toLocaleString('ja', {
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-        })
+    amount: {
+      type: Number,
+      default: 0,
+    },
+  },
+
+  setup(props) {
+    const formattedDate = computed(() => {
+      const _date = (props.date as any) as Date
+      return _date.toLocaleString('ja', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
       })
+    })
 
-      return {
-        formattedDate,
-      }
-    },
-  })
+    return {
+      formattedDate,
+    }
+  },
+})
 </script>

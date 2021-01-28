@@ -62,59 +62,60 @@
 </template>
 
 <script setup lang="ts">
-  import { inject, computed } from 'vue'
-  import type { Ref } from 'vue'
-  import LineChart from '/@/components/chart/LineChart.vue'
-  import { useDepth } from '/@/components/zaif/useDepth'
-  import SelectBoxZaifPair from '/@/components/zaif/SelectBoxZaifPair.vue'
-  import OrderBook from '/@/components/order-book/OrderBook.vue'
-  import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
-  import { toComma } from '/@/utils/format'
-  import { Interpolation } from 'chartist'
+import { Interpolation } from 'chartist'
+import type { Ref } from 'vue'
+import { computed, inject } from 'vue'
 
-  const pair = inject('orderBookPair') as Ref<ZaifOrderBookPairs>
+import LineChart from '/@/components/chart/LineChart.vue'
+import OrderBook from '/@/components/order-book/OrderBook.vue'
+import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
+import SelectBoxZaifPair from '/@/components/zaif/SelectBoxZaifPair.vue'
+import { useDepth } from '/@/components/zaif/useDepth'
+import { toComma } from '/@/utils/format'
 
-  const onInput = (payload: ZaifOrderBookPairs) => {
-    pair.value = payload
-  }
+const pair = inject('orderBookPair') as Ref<ZaifOrderBookPairs>
 
-  const { asks, bids } = useDepth(pair)
+const onInput = (payload: ZaifOrderBookPairs) => {
+  pair.value = payload
+}
 
-  const asksNumber = computed<number[]>(() =>
-    asks.value.map(([, askNumber]) => askNumber)
+const { asks, bids } = useDepth(pair)
+
+const asksNumber = computed<number[]>(() =>
+  asks.value.map(([, askNumber]) => askNumber)
+)
+
+const asksPrices = computed<number[]>(() =>
+  asks.value.map(([askPrice]) => askPrice)
+)
+
+const bidsPrices = computed<number[]>(() =>
+  bids.value.map(([bidPrice]) => bidPrice)
+)
+
+const prices = computed<number[]>(() => {
+  return [...asksPrices.value, ...bidsPrices.value]
+})
+
+const bidsNumber = computed<number[]>(() =>
+  bids.value.map(([, bidsNumber]) => bidsNumber)
+)
+const asksReduce = computed<number[]>(() =>
+  asksNumber.value.reduce(reducer, [] as number[]).reverse()
+)
+
+const bidsReduce = computed<number[]>(() =>
+  bidsNumber.value.reduce(reducer, [] as number[])
+)
+
+const bid = computed(() => {
+  const num = Array(asksReduce.value.length ? bidsReduce.value.length : 0).fill(
+    null
   )
+  return [...num, ...bidsReduce.value]
+})
 
-  const asksPrices = computed<number[]>(() =>
-    asks.value.map(([askPrice]) => askPrice)
-  )
-
-  const bidsPrices = computed<number[]>(() =>
-    bids.value.map(([bidPrice]) => bidPrice)
-  )
-
-  const prices = computed<number[]>(() => {
-    return [...asksPrices.value, ...bidsPrices.value]
-  })
-
-  const bidsNumber = computed<number[]>(() =>
-    bids.value.map(([, bidsNumber]) => bidsNumber)
-  )
-  const asksReduce = computed<number[]>(() =>
-    asksNumber.value.reduce(reducer, [] as number[]).reverse()
-  )
-
-  const bidsReduce = computed<number[]>(() =>
-    bidsNumber.value.reduce(reducer, [] as number[])
-  )
-
-  const bid = computed(() => {
-    const num = Array(
-      asksReduce.value.length ? bidsReduce.value.length : 0
-    ).fill(null)
-    return [...num, ...bidsReduce.value]
-  })
-
-  const reducer = (acc: number[], cur: number, index: number): number[] => {
-    return [...acc, cur + (acc[index - 1] || 0)]
-  }
+const reducer = (acc: number[], cur: number, index: number): number[] => {
+  return [...acc, cur + (acc[index - 1] || 0)]
+}
 </script>

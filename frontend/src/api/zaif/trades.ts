@@ -1,6 +1,7 @@
-import { useKy } from '/@/plugins/ky'
-import { TRADE } from '/@/api/zaif/entrypoint'
 import type { getTrades } from 'zaif-client'
+
+import { TRADE } from '/@/api/zaif/entrypoint'
+import { useKy } from '/@/plugins/ky'
 type Pair = Parameters<typeof getTrades>[number]
 
 export default () => {

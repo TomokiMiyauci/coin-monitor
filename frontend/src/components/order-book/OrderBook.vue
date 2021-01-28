@@ -50,59 +50,59 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue'
-  import CommaFilter from '/@/components/base/CommaFilter.vue'
-  import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
-  import type { PriceAmount } from '/@/components/order-book/share'
-  import OrderBookBody from '/@/components/order-book/OrderBookBody.vue'
-  import { sort, add } from 'rambda'
+import { add, sort } from 'rambda'
+import { computed, defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: {
-      CommaFilter,
-      SpinLoader,
-      OrderBookBody,
+import CommaFilter from '/@/components/base/CommaFilter.vue'
+import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
+import OrderBookBody from '/@/components/order-book/OrderBookBody.vue'
+import type { PriceAmount } from '/@/components/order-book/share'
+
+export default defineComponent({
+  components: {
+    CommaFilter,
+    SpinLoader,
+    OrderBookBody,
+  },
+
+  props: {
+    asks: {
+      type: Array as () => PriceAmount,
+      default: () => [],
     },
 
-    props: {
-      asks: {
-        type: Array as () => PriceAmount,
-        default: () => [],
-      },
-
-      bids: {
-        type: Array as () => PriceAmount,
-        default: () => [],
-      },
+    bids: {
+      type: Array as () => PriceAmount,
+      default: () => [],
     },
+  },
 
-    setup(props) {
-      const sortedAsks = computed(() =>
-        sort(([a], [b]) => (a < b ? 1 : -1), props.asks)
-      )
+  setup(props) {
+    const sortedAsks = computed(() =>
+      sort(([a], [b]) => (a < b ? 1 : -1), props.asks)
+    )
 
-      const sum = (acc: number, [_, amount]: PriceAmount[number]) =>
-        acc + amount
-      const sumAsksAmount = computed(() => props.asks.reduce(sum, 0))
-      const sumBidsAmount = computed(() => props.bids.reduce(sum, 0))
-      const sumAmount = computed(() =>
-        add(sumAsksAmount.value, sumBidsAmount.value)
-      )
-      const tick = computed(() => {
-        if (
-          !!props.asks.length &&
-          !!props.asks[0] &&
-          !!props.bids.length &&
-          !!props.bids[0]
-        ) {
-          return props.asks[0][0] - props.bids[0][0]
-        }
-        return undefined
-      })
+    const sum = (acc: number, [_, amount]: PriceAmount[number]) => acc + amount
+    const sumAsksAmount = computed(() => props.asks.reduce(sum, 0))
+    const sumBidsAmount = computed(() => props.bids.reduce(sum, 0))
+    const sumAmount = computed(() =>
+      add(sumAsksAmount.value, sumBidsAmount.value)
+    )
+    const tick = computed(() => {
+      if (
+        !!props.asks.length &&
+        !!props.asks[0] &&
+        !!props.bids.length &&
+        !!props.bids[0]
+      ) {
+        return props.asks[0][0] - props.bids[0][0]
+      }
+      return undefined
+    })
 
-      return { tick, sortedAsks, sumAmount }
-    },
-  })
+    return { tick, sortedAsks, sumAmount }
+  },
+})
 </script>
 
 <style lang="scss" src="/@/assets/styles/transitions.scss"></style>

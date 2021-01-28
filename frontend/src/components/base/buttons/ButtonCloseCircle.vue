@@ -5,6 +5,6 @@
 </template>
 
 <script setup lang="ts">
-  import BaseCircleButton from '/@/components/base/buttons/BaseCircleButton.vue'
-  import MdiClose from '/@/components/base/icons/mdi/MdiClose.vue'
+import BaseCircleButton from '/@/components/base/buttons/BaseCircleButton.vue'
+import MdiClose from '/@/components/base/icons/mdi/MdiClose.vue'
 </script>

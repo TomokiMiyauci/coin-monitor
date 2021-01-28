@@ -1,7 +1,8 @@
+import { FirebaseFirestore } from 'firebase/firestore/lite'
+
 import { useReactive } from '/@/core/reactive'
 import { baseCoincheckGetOpenPrice } from '/@/functions/effect/api/coincheck'
 import { ResponseData } from '/@/functions/effect/api/share'
-import { FirebaseFirestore } from 'firebase/firestore/lite'
 
 const baseUsePrice = <T>(fn: typeof baseCoincheckGetOpenPrice) => (
   pair: T,

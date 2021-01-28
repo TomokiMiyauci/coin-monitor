@@ -1,5 +1,5 @@
 import ky from 'ky-universal'
-import { Plugin, inject, InjectionKey } from 'vue'
+import { inject, InjectionKey, Plugin } from 'vue'
 const instance = ky.create({
   prefixUrl: import.meta.env.VITE_BASE_URL,
 })

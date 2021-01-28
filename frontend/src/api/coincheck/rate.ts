@@ -1,6 +1,7 @@
-import { useKy } from '/@/plugins/ky'
-import { RATE } from '/@/api/coincheck/constant'
 import { getRate } from 'coincheck-client'
+
+import { RATE } from '/@/api/coincheck/constant'
+import { useKy } from '/@/plugins/ky'
 
 export type Pair = Parameters<typeof getRate>[0]
 

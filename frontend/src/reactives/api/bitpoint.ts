@@ -1,10 +1,10 @@
 import { useReactive } from '/@/core/reactive'
 import {
   getDepth,
-  ResponseDepth,
   getPrice,
-  ResponsePrice,
   getTrades,
+  ResponseDepth,
+  ResponsePrice,
   ResponseTrades,
 } from '/@/functions/effect/api/bitpoint'
 

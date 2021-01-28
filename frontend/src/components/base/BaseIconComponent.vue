@@ -8,22 +8,22 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 
-  export default defineComponent({
-    props: {
-      width: {
-        type: [String, Number],
-        default: 24,
-      },
-      height: {
-        type: [String, Number],
-        default: 24,
-      },
-      component: {
-        type: [Function, Object],
-        requried: true,
-      },
+export default defineComponent({
+  props: {
+    width: {
+      type: [String, Number],
+      default: 24,
     },
-  })
+    height: {
+      type: [String, Number],
+      default: 24,
+    },
+    component: {
+      type: [Function, Object],
+      requried: true,
+    },
+  },
+})
 </script>

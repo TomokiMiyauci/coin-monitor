@@ -1,4 +1,5 @@
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
+
 import { getOrderBooks } from '/@/api/coincheck'
 import { useInterval } from '/@/core/interval'
 

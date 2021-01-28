@@ -16,49 +16,50 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
-  import SkeltonLoader from '/@/components/base/loaders/SkeltonLoader.vue'
+import { computed, defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: { SkeltonLoader },
+import SkeltonLoader from '/@/components/base/loaders/SkeltonLoader.vue'
 
-    props: {
-      value: {
-        type: [String, Number],
-        default: undefined,
-      },
+export default defineComponent({
+  components: { SkeltonLoader },
 
-      skeltonClass: {
-        type: String,
-        default: 'h-full',
-      },
-
-      skeltonStyle: {
-        type: String,
-        default: '',
-      },
+  props: {
+    value: {
+      type: [String, Number],
+      default: undefined,
     },
 
-    setup(props) {
-      const isShow = computed(
-        () =>
-          typeof props.value === 'undefined' ||
-          (typeof props.value === 'string' && !props.value)
-      )
-
-      return { isShow }
+    skeltonClass: {
+      type: String,
+      default: 'h-full',
     },
-  })
+
+    skeltonStyle: {
+      type: String,
+      default: '',
+    },
+  },
+
+  setup(props) {
+    const isShow = computed(
+      () =>
+        typeof props.value === 'undefined' ||
+        (typeof props.value === 'string' && !props.value)
+    )
+
+    return { isShow }
+  },
+})
 </script>
 
 <style scoped>
-  .fade-enter-active,
-  .fade-leave-active {
-    @apply transition duration-100;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition duration-100;
+}
 
-  .fade-enter-from,
-  .fade-leave-to {
-    @apply translate-x-6 transform opacity-0;
-  }
+.fade-enter-from,
+.fade-leave-to {
+  @apply translate-x-6 transform opacity-0;
+}
 </style>

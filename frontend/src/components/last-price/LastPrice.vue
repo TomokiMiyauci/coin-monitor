@@ -18,71 +18,64 @@
 </template>
 
 <script lang="ts">
-  import {
-    computed,
-    defineComponent,
-    ref,
-    watch,
-    Ref,
-    toRefs,
-    isRef,
-  } from 'vue'
-  import CommaFilter from '/@/components/base/CommaFilter.vue'
-  import TextLoader from '/@/components/base/loaders/TextLoader.vue'
-  import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
-  import IconUpDownFlat, {
-    Status,
-  } from '/@/components/base/icons/IconUpDownFlat.vue'
+import { computed, defineComponent, isRef, Ref, ref, toRefs, watch } from 'vue'
 
-  const useHistory = (v: Ref<number | undefined> | undefined) => {
-    const history = ref<number>()
-    const _v = isRef(v) ? v : ref(v)
-    watch(
-      () => _v.value,
-      (_, prev) => {
-        history.value = prev
-      }
-    )
+import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
+import CommaFilter from '/@/components/base/CommaFilter.vue'
+import IconUpDownFlat, {
+  Status,
+} from '/@/components/base/icons/IconUpDownFlat.vue'
+import TextLoader from '/@/components/base/loaders/TextLoader.vue'
 
-    return { history }
-  }
+const useHistory = (v: Ref<number | undefined> | undefined) => {
+  const history = ref<number>()
+  const _v = isRef(v) ? v : ref(v)
+  watch(
+    () => _v.value,
+    (_, prev) => {
+      history.value = prev
+    }
+  )
 
-  export default defineComponent({
-    components: {
-      CommaFilter,
-      TextLoader,
-      TheTitleToolbar,
-      IconUpDownFlat,
+  return { history }
+}
+
+export default defineComponent({
+  components: {
+    CommaFilter,
+    TextLoader,
+    TheTitleToolbar,
+    IconUpDownFlat,
+  },
+
+  props: {
+    title: {
+      type: String,
+      default: 'Last',
     },
 
-    props: {
-      title: {
-        type: String,
-        default: 'Last',
-      },
-
-      value: {
-        type: Number,
-      },
+    value: {
+      type: Number,
     },
+  },
 
-    setup(props) {
-      const { value } = toRefs(props)
-      const { history } = useHistory(value)
+  setup(props) {
+    const { value } = toRefs(props)
+    const { history } = useHistory(value)
 
-      const _status = (
-        now: number | undefined,
-        prev: number | undefined
-      ): Status => {
-        if (!now || !prev) return 'FLAT'
-        return now > prev ? 'UP' : 'DOWN'
-      }
+    const _status = (
+      now: number | undefined,
+      prev: number | undefined
+    ): Status => {
+      if (!now || !prev) return 'FLAT'
+      return now > prev ? 'UP' : 'DOWN'
+    }
 
-      const status = computed<Status>(() => _status(props.value, history.value))
+    const status = computed<Status>(() => _status(props.value, history.value))
 
-      return {
-        status,
-      }
-    },
-  })
+    return {
+      status,
+    }
+  },
+})
 </script>

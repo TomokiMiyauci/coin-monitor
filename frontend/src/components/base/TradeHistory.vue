@@ -15,30 +15,31 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
-  import TradeHistorys from '/@/components/trade-history/TradeHistory.vue'
-  type Data = {
-    id: number
-    date: Date
-    type: 'SELL' | 'BUY'
-    rate: number
-    amount: number
-  }
+import { defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: {
-      TradeHistorys,
-      SpinLoader,
-    },
+import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
+import TradeHistorys from '/@/components/trade-history/TradeHistory.vue'
+type Data = {
+  id: number
+  date: Date
+  type: 'SELL' | 'BUY'
+  rate: number
+  amount: number
+}
 
-    props: {
-      data: {
-        type: Array as () => Data[],
-        default: () => [],
-      },
+export default defineComponent({
+  components: {
+    TradeHistorys,
+    SpinLoader,
+  },
+
+  props: {
+    data: {
+      type: Array as () => Data[],
+      default: () => [],
     },
-  })
+  },
+})
 </script>
 
 <style lang="scss" src="/@/assets/styles/transitions.scss"></style>

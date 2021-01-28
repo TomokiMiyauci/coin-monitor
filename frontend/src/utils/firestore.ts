@@ -1,13 +1,14 @@
+import day from 'dayjs'
 import {
   collection,
-  query,
   getDocs,
-  where,
   limit,
   orderBy,
+  query,
+  where,
 } from 'firebase/firestore/lite'
+
 import { useFirestore } from '/@/plugins/firebase'
-import day from 'dayjs'
 export const useHistorycal = () => {
   const { $firestore } = useFirestore()
   const now = day()

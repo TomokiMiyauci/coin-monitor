@@ -29,33 +29,34 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import TableTd from '/@/components/trade-history/TableTd.vue'
-  import type { CommonData as _CommonData } from '/@/reactives/bitpoint/useTrades'
+import { defineComponent } from 'vue'
 
-  type CommonData = _CommonData & { type: 'SELL' | 'BUY' }
+import TableTd from '/@/components/trade-history/TableTd.vue'
+import type { CommonData as _CommonData } from '/@/reactives/bitpoint/useTrades'
 
-  export default defineComponent({
-    components: {
-      TableTd,
+type CommonData = _CommonData & { type: 'SELL' | 'BUY' }
+
+export default defineComponent({
+  components: {
+    TableTd,
+  },
+  props: {
+    data: {
+      type: Array as () => CommonData[],
+      default: () => [],
     },
-    props: {
-      data: {
-        type: Array as () => CommonData[],
-        default: () => [],
-      },
-    },
-  })
+  },
+})
 </script>
 
 <style scoped>
-  .fade-enter-active,
-  .fade-leave-active {
-    @apply transition duration-200;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition duration-200;
+}
 
-  .fade-enter-from,
-  .fade-leave-to {
-    @apply opacity-0 transform translate-x-5;
-  }
+.fade-enter-from,
+.fade-leave-to {
+  @apply opacity-0 transform translate-x-5;
+}
 </style>

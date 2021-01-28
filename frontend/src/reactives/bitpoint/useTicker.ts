@@ -1,7 +1,8 @@
+import { computed, ComputedRef } from 'vue'
+
 import { useInterval } from '/@/core/interval'
-import { depth } from '/@/reactives/api/bitpoint'
-import { ComputedRef, computed } from 'vue'
 import { ResponseDepth } from '/@/functions/effect/api/bitpoint'
+import { depth } from '/@/reactives/api/bitpoint'
 
 export const useTicker = () => {
   const { state: ticker, setData } = depth()

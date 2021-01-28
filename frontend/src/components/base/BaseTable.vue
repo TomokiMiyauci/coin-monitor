@@ -27,39 +27,39 @@
 </template>
 
 <script lang="ts">
-  type Headers = {
+type Headers = {
+  text?: string
+  class?: string
+  value: string | number
+}[]
+type Items = {
+  class?: string
+  [k: string]: string | number | undefined
+}[]
+
+export { Headers, Items }
+</script>
+
+<script setup lang="ts">
+import { defineProps, computed } from 'vue'
+
+const props = defineProps<{
+  headers?: {
     text?: string
     class?: string
     value: string | number
   }[]
-  type Items = {
+  items?: {
     class?: string
     [k: string]: string | number | undefined
   }[]
+  classTable?: string
+  classThead?: string
+  classTbody?: string
+  classTh?: string
+  classTr?: string
+}>()
 
-  export { Headers, Items }
-</script>
-
-<script setup lang="ts">
-  import { defineProps, computed } from 'vue'
-
-  const props = defineProps<{
-    headers?: {
-      text?: string
-      class?: string
-      value: string | number
-    }[]
-    items?: {
-      class?: string
-      [k: string]: string | number | undefined
-    }[]
-    classTable?: string
-    classThead?: string
-    classTbody?: string
-    classTh?: string
-    classTr?: string
-  }>()
-
-  const headersRef = computed(() => props.headers || [])
-  const itemsRef = computed(() => props.items || [])
+const headersRef = computed(() => props.headers || [])
+const itemsRef = computed(() => props.items || [])
 </script>

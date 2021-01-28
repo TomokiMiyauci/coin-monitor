@@ -1,4 +1,5 @@
-import { ref, computed, ComputedRef, watch, Ref, watchEffect } from 'vue'
+import { computed, ComputedRef, Ref, ref, watch, watchEffect } from 'vue'
+
 import { getRate, Pair } from '/@/api/coincheck'
 import { useInterval } from '/@/core/interval'
 import { useReactive } from '/@/core/reactive'

@@ -46,73 +46,74 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, onBeforeMount } from 'vue'
-  import AskBid from '/@/components/base/AskBid.vue'
-  import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
-  import TradeHistory from '/@/components/coincheck/TradeHistory.vue'
-  import { useTicker } from '/@/components/coincheck/useTicker'
-  import LatestPrice from '/@/components/last-price/LastPrice.vue'
-  import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
-  import BaseCard from '/@/components/base/BaseCard.vue'
-  import BaseTitle from '/@/components/base/BaseTitle.vue'
-  import LineChart from '/@/components/chart/LineChart.vue'
-  import { useFirestore } from '/@/plugins/firebase'
-  import { get1HPrices } from '/@/functions/effect/api/share'
-  import { coincheckPairsPath } from '/@/functions/pure/api'
-  import { min } from '/@/utils/math'
+import { computed, defineComponent, onBeforeMount, ref } from 'vue'
 
-  export default defineComponent({
-    components: {
-      BaseCard,
-      LatestPrice,
-      AskBid,
-      OrderBooks,
-      TradeHistory,
-      CoincheckRates,
-      BaseTitle,
-      LineChart,
-    },
+import AskBid from '/@/components/base/AskBid.vue'
+import BaseCard from '/@/components/base/BaseCard.vue'
+import BaseTitle from '/@/components/base/BaseTitle.vue'
+import LineChart from '/@/components/chart/LineChart.vue'
+import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
+import OrderBooks from '/@/components/coincheck/OrderBooks.vue'
+import TradeHistory from '/@/components/coincheck/TradeHistory.vue'
+import { useTicker } from '/@/components/coincheck/useTicker'
+import LatestPrice from '/@/components/last-price/LastPrice.vue'
+import { get1HPrices } from '/@/functions/effect/api/share'
+import { coincheckPairsPath } from '/@/functions/pure/api'
+import { useFirestore } from '/@/plugins/firebase'
+import { min } from '/@/utils/math'
 
-    setup() {
-      const { last, ask, bid, high, low, volume } = useTicker()
-      const { $firestore } = useFirestore()
-      const data = ref<number[]>([])
-      const labels = ref<string[]>([])
+export default defineComponent({
+  components: {
+    BaseCard,
+    LatestPrice,
+    AskBid,
+    OrderBooks,
+    TradeHistory,
+    CoincheckRates,
+    BaseTitle,
+    LineChart,
+  },
 
-      onBeforeMount(() =>
-        get1HPrices(coincheckPairsPath)('btc_jpy', new Date(), $firestore).then(
-          (e) => {
-            data.value = e.map((a) => a.value)
-            labels.value = e.map((a) => a.date.toLocaleTimeString())
-          }
-        )
+  setup() {
+    const { last, ask, bid, high, low, volume } = useTicker()
+    const { $firestore } = useFirestore()
+    const data = ref<number[]>([])
+    const labels = ref<string[]>([])
+
+    onBeforeMount(() =>
+      get1HPrices(coincheckPairsPath)('btc_jpy', new Date(), $firestore).then(
+        (e) => {
+          data.value = e.map((a) => a.value)
+          labels.value = e.map((a) => a.date.toLocaleTimeString())
+        }
       )
+    )
 
-      const lowValue = computed(() => min(data.value))
+    const lowValue = computed(() => min(data.value))
 
-      // const data = ref<number[]>([])
-      // const get = useHistorycal()
-      // onBeforeMount(() => {
-      //   get().then((e) => {
-      //     data.value = e.map(({ value }) => value)
-      //   })
-      // })
+    // const data = ref<number[]>([])
+    // const get = useHistorycal()
+    // onBeforeMount(() => {
+    //   get().then((e) => {
+    //     data.value = e.map(({ value }) => value)
+    //   })
+    // })
 
-      const askBidAttrs = computed(() => ({
-        ask: ask.value,
-        bid: bid.value,
-        high: high.value,
-        low: low.value,
-        volume: volume.value,
-      }))
+    const askBidAttrs = computed(() => ({
+      ask: ask.value,
+      bid: bid.value,
+      high: high.value,
+      low: low.value,
+      volume: volume.value,
+    }))
 
-      return {
-        data,
-        labels,
-        last,
-        lowValue,
-        askBidAttrs,
-      }
-    },
-  })
+    return {
+      data,
+      labels,
+      last,
+      lowValue,
+      askBidAttrs,
+    }
+  },
+})
 </script>

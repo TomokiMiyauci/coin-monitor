@@ -21,31 +21,32 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import TableTdWithoutType from '/@/components/trade-history/TableTdWithoutType.vue'
-  import { CommonData } from '/@/reactives/bitpoint/useTrades'
+import { defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: {
-      TableTdWithoutType,
+import TableTdWithoutType from '/@/components/trade-history/TableTdWithoutType.vue'
+import { CommonData } from '/@/reactives/bitpoint/useTrades'
+
+export default defineComponent({
+  components: {
+    TableTdWithoutType,
+  },
+  props: {
+    data: {
+      type: Array as () => CommonData[],
+      default: () => [],
     },
-    props: {
-      data: {
-        type: Array as () => CommonData[],
-        default: () => [],
-      },
-    },
-  })
+  },
+})
 </script>
 
 <style scoped>
-  .fade-enter-active,
-  .fade-leave-active {
-    @apply transition duration-200;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition duration-200;
+}
 
-  .fade-enter-from,
-  .fade-leave-to {
-    @apply opacity-0 transform translate-x-5;
-  }
+.fade-enter-from,
+.fade-leave-to {
+  @apply opacity-0 transform translate-x-5;
+}
 </style>

@@ -39,26 +39,26 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, computed } from 'vue'
+import { computed, defineProps } from 'vue'
 
-  import BaseRateTable from '/@/components/rate/BaseRateTable.vue'
-  import FlashBox from '/@/components/base/FlashBox.vue'
-  import TextLoader from '/@/components/base/loaders/TextLoader.vue'
-  import Percentage from '/@/components/base/Percentage.vue'
-  import TextIcon from '/@/components/base/icons/TextIcon.vue'
-  import MdiMdiHelpCircle from '/@/components/base/icons/mdi/MdiHelpCircle.vue'
-  import BaseTooltip from '/@/components/base/BaseTooltip.vue'
-  import { isNumber } from '/@/utils/assert'
+import BaseTooltip from '/@/components/base/BaseTooltip.vue'
+import FlashBox from '/@/components/base/FlashBox.vue'
+import MdiMdiHelpCircle from '/@/components/base/icons/mdi/MdiHelpCircle.vue'
+import TextIcon from '/@/components/base/icons/TextIcon.vue'
+import TextLoader from '/@/components/base/loaders/TextLoader.vue'
+import Percentage from '/@/components/base/Percentage.vue'
+import BaseRateTable from '/@/components/rate/BaseRateTable.vue'
+import { isNumber } from '/@/utils/assert'
 
-  const props = defineProps<{
-    headers: {
-      value: string | number
-      text?: string
-      tooltipText?: string
-      class?: string
-    }[]
-    items: { symbol: string; rate?: number; ratio?: number }[]
-  }>()
+const props = defineProps<{
+  headers: {
+    value: string | number
+    text?: string
+    tooltipText?: string
+    class?: string
+  }[]
+  items: { symbol: string; rate?: number; ratio?: number }[]
+}>()
 
-  const headerValues = computed(() => props.headers.map(({ value }) => value))
+const headerValues = computed(() => props.headers.map(({ value }) => value))
 </script>

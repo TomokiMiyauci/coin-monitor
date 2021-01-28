@@ -1,7 +1,7 @@
-import { initializeApp, getApps, getApp } from 'firebase/app'
-import { initializeFirestore } from 'firebase/firestore/lite'
-import { Plugin, inject, InjectionKey } from 'vue'
 import { FirebaseOptions } from '@firebase/app-types'
+import { getApp, getApps, initializeApp } from 'firebase/app'
+import { initializeFirestore } from 'firebase/firestore/lite'
+import { inject, InjectionKey, Plugin } from 'vue'
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: import.meta.env.VITE_API_KEY,

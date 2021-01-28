@@ -4,8 +4,8 @@ export type ResponseBody = ReturnType<typeof getTicker> extends Promise<
 >
   ? data
   : never
-import { useKy } from '/@/plugins/ky'
 import { zaif } from '/@/api/ticker'
+import { useKy } from '/@/plugins/ky'
 import { ZaifPair } from '/@/types/pair'
 
 export default () => {

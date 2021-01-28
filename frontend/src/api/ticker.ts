@@ -1,14 +1,15 @@
 import { curry } from '@kahirokunn/ts-curry'
-import {
-  Markets,
-  zaif as _zaif,
-  coincheck as _coincheck,
-  bitbank as _bitbank,
-} from '/@/types/market'
+
 import { baseGetApi, kyInstance, makeParameters } from '/@/api/base'
+import { ResponseBody as BitbankResponseBoby } from '/@/api/bitbank/ticker'
 import { ResponseBody } from '/@/api/coincheck/ticker'
 import { ResponseBody as ZaifResponseBoby } from '/@/api/zaif/ticker'
-import { ResponseBody as BitbankResponseBoby } from '/@/api/bitbank/ticker'
+import {
+  bitbank as _bitbank,
+  coincheck as _coincheck,
+  Markets,
+  zaif as _zaif,
+} from '/@/types/market'
 import { Pairs } from '/@/types/pair'
 
 // type Ticker = {
@@ -66,4 +67,4 @@ const bitbank = tickerFactory(_bitbank)
 
 type Factory = typeof coincheck | typeof zaif | typeof bitbank
 
-export { coincheck, zaif, Factory, bitbank }
+export { bitbank, coincheck, Factory, zaif }

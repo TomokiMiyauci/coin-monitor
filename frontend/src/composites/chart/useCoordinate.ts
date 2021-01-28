@@ -1,11 +1,12 @@
 import { computed, Ref } from 'vue'
-import { ViewBox, Padding } from '/@/core/chart/chart'
+
+import { Padding, ViewBox } from '/@/core/chart/chart'
 import {
-  minValue,
-  maxValue,
   add,
-  subtract,
   divide,
+  maxValue,
+  minValue,
+  subtract,
 } from '/@/core/chart/coordinate'
 type Chart = {
   viewBox: ViewBox

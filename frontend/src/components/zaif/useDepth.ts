@@ -1,8 +1,9 @@
 import { computed, Ref, watch } from 'vue'
+import type { getDepth as data } from 'zaif-client'
+
 import { getDepth } from '/@/api/zaif'
 import { useInterval } from '/@/core/interval'
 import { useReactive } from '/@/core/reactive'
-import type { getDepth as data } from 'zaif-client'
 
 type Data = ReturnType<typeof data> extends Promise<infer data> ? data : never
 type Pair = Parameters<typeof data>[number]

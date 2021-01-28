@@ -4,8 +4,8 @@ export type ResponseBody = ReturnType<typeof getAPITicker> extends Promise<
 >
   ? data
   : never
-import { useKy } from '/@/plugins/ky'
 import { coincheck } from '/@/api/ticker'
+import { useKy } from '/@/plugins/ky'
 import { coincheck as _coincheck } from '/@/types/market'
 import { Pairs } from '/@/types/pair'
 

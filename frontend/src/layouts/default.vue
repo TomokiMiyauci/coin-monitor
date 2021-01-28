@@ -28,28 +28,29 @@
 </template>
 
 <script setup lang="ts">
-  import TheNavigationDrawer from '/@/components/app/TheNavigationDrawer.vue'
-  import TheHeader from '/@/components/app/TheHeader.vue'
-  import HoverNavigation from '/@/components/app/HoverNavigation.vue'
-  import PageNavs from '/@/components/app/PageNavs.vue'
-  import { ref } from 'vue'
+import { ref } from 'vue'
 
-  const state = ref(false)
-  const isMinVariant = ref(false)
+import HoverNavigation from '/@/components/app/HoverNavigation.vue'
+import PageNavs from '/@/components/app/PageNavs.vue'
+import TheHeader from '/@/components/app/TheHeader.vue'
+import TheNavigationDrawer from '/@/components/app/TheNavigationDrawer.vue'
 
-  const on = (payload: boolean) => {
-    state.value = payload
-  }
+const state = ref(false)
+const isMinVariant = ref(false)
+
+const on = (payload: boolean) => {
+  state.value = payload
+}
 </script>
 
 <style scoped>
-  .fade-enter-from,
-  .fade-leave-to {
-    @apply transform-gpu opacity-0 translate-x-full;
-  }
+.fade-enter-from,
+.fade-leave-to {
+  @apply transform-gpu opacity-0 translate-x-full;
+}
 
-  .fade-enter-active,
-  .fade-leave-active {
-    @apply transition duration-500 ease-out;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition duration-500 ease-out;
+}
 </style>

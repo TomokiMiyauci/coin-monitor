@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-  import CurrentBoard from '/@/components/bitpoint/CurrentBoard.vue'
+import CurrentBoard from '/@/components/bitpoint/CurrentBoard.vue'
 </script>

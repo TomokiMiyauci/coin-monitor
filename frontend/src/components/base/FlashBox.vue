@@ -5,25 +5,25 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, watchEffect } from 'vue'
+import { defineComponent, ref, watchEffect } from 'vue'
 
-  export default defineComponent({
-    props: {
-      value: {
-        type: Number,
-        default: undefined,
-      },
+export default defineComponent({
+  props: {
+    value: {
+      type: Number,
+      default: undefined,
     },
-    setup() {
-      const span = ref<HTMLSpanElement>()
-      const flush = (): void => {
-        if (!span.value) return
-        span.value.animate({ opacity: [1, 0, 1] }, 200)
-      }
+  },
+  setup() {
+    const span = ref<HTMLSpanElement>()
+    const flush = (): void => {
+      if (!span.value) return
+      span.value.animate({ opacity: [1, 0, 1] }, 200)
+    }
 
-      watchEffect(flush)
+    watchEffect(flush)
 
-      return { span }
-    },
-  })
+    return { span }
+  },
+})
 </script>

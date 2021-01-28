@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps } from 'vue'
+import { defineProps } from 'vue'
 
-  defineProps<{ overflowHidden?: true }>()
+defineProps<{ overflowHidden?: true }>()
 </script>

@@ -33,37 +33,38 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, computed } from 'vue'
-  import TextLoader from '/@/components/base/loaders/TextLoader.vue'
-  import CommaFilter from '/@/components/base/CommaFilter.vue'
-  import BaseTable from '/@/components/base/BaseTable.vue'
-  import { isNumberOrUndefined, isString } from '/@/utils/assert'
+import { computed, defineProps } from 'vue'
 
-  type Header = {
+import BaseTable from '/@/components/base/BaseTable.vue'
+import CommaFilter from '/@/components/base/CommaFilter.vue'
+import TextLoader from '/@/components/base/loaders/TextLoader.vue'
+import { isNumberOrUndefined, isString } from '/@/utils/assert'
+
+type Header = {
+  text?: string
+  class?: string
+  value: string | number
+}
+
+const props = defineProps<{
+  items: {
+    symbol: string
+    rate?: number
+  } & { [k in string]?: number | string }[]
+  headers?: {
     text?: string
     class?: string
     value: string | number
-  }
+  }[]
 
-  const props = defineProps<{
-    items: {
-      symbol: string
-      rate?: number
-    } & { [k in string]?: number | string }[]
-    headers?: {
-      text?: string
-      class?: string
-      value: string | number
-    }[]
+  classHdSymbol?: string
+  classHdRate?: string
+  classTdSymbol?: string
+  classTdRate?: string
+  classBodyTd?: string
+}>()
 
-    classHdSymbol?: string
-    classHdRate?: string
-    classTdSymbol?: string
-    classTdRate?: string
-    classBodyTd?: string
-  }>()
-
-  const headersRef = computed<Header[]>(() =>
-    props.headers ? props.headers : [{ value: 'symbol' }, { value: 'rate' }]
-  )
+const headersRef = computed<Header[]>(() =>
+  props.headers ? props.headers : [{ value: 'symbol' }, { value: 'rate' }]
+)
 </script>

@@ -19,36 +19,37 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue'
-  import CommaFilter from '/@/components/base/CommaFilter.vue'
+import { defineComponent, PropType } from 'vue'
 
-  import TextLoader from './loaders/TextLoader.vue'
-  import ChartLine from '../chart/ChartLine.vue'
-  import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
+import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
+import CommaFilter from '/@/components/base/CommaFilter.vue'
 
-  export default defineComponent({
-    components: {
-      CommaFilter,
-      TextLoader,
-      ChartLine,
-      TheTitleToolbar,
+import ChartLine from '../chart/ChartLine.vue'
+import TextLoader from './loaders/TextLoader.vue'
+
+export default defineComponent({
+  components: {
+    CommaFilter,
+    TextLoader,
+    ChartLine,
+    TheTitleToolbar,
+  },
+
+  props: {
+    title: {
+      type: String,
+      default: 'Last',
     },
 
-    props: {
-      title: {
-        type: String,
-        default: 'Last',
-      },
-
-      data: {
-        type: Array as PropType<number[]>,
-        default: () => [],
-      },
-
-      value: {
-        type: Number,
-        default: undefined,
-      },
+    data: {
+      type: Array as PropType<number[]>,
+      default: () => [],
     },
-  })
+
+    value: {
+      type: Number,
+      default: undefined,
+    },
+  },
+})
 </script>

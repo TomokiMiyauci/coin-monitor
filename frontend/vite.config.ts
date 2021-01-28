@@ -1,9 +1,10 @@
+import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import { name, description } from '../package.json'
-import vue from '@vitejs/plugin-vue'
-import svgLoader from 'vite-svg-loader'
 import { VitePWA } from 'vite-plugin-pwa'
+import svgLoader from 'vite-svg-loader'
+
+import { description, name } from '../package.json'
 const PROJECT_NAME = name
   .split('-')
   .map((str) => str.charAt(0).toUpperCase() + str.slice(1))

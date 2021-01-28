@@ -166,128 +166,127 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, ref, onBeforeMount, inject, watch, defineEmit } from 'vue'
-  import type { Ref } from 'vue'
+import day from 'dayjs'
+import type { Ref } from 'vue'
+import { computed, defineEmit, inject, onBeforeMount, ref, watch } from 'vue'
 
-  import LatestPrice from '/@/components/last-price/LastPrice.vue'
-  import { useLastPrice } from '/@/components/zaif/useLastPrice'
-  import SelectBoxZaifPair from '/@/components/zaif/SelectBoxZaifPair.vue'
+import BaseTitle from '/@/components/base/BaseTitle.vue'
+import MdiBookOpen from '/@/components/base/icons/mdi/MdiBookOpen.vue'
+import MdiChartBellCurveCumulative from '/@/components/base/icons/mdi/MdiChartBellCurveCumulative.vue'
+import MdiHistory from '/@/components/base/icons/mdi/MdiHistory.vue'
+import LineChart from '/@/components/chart/LineChart.vue'
+import LatestPrice from '/@/components/last-price/LastPrice.vue'
+import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
+import SelectBoxZaifPair from '/@/components/zaif/SelectBoxZaifPair.vue'
+import { useLastPrice } from '/@/components/zaif/useLastPrice'
+import ZaifAskBid from '/@/components/zaif/ZaifAskBid.vue'
+import ZaifOrderBook from '/@/components/zaif/ZaifOrderBook.vue'
+import ZaifRates from '/@/components/zaif/ZaifRates.vue'
+import ZaifTradeHistory from '/@/components/zaif/ZaifTradeHistory.vue'
+import {
+  get1DRates,
+  get1HRates,
+  get5mRates,
+} from '/@/functions/effect/api/zaif'
+import { useFirestore } from '/@/plugins/firebase'
+import { toComma } from '/@/utils/format'
+import { min } from '/@/utils/math'
 
-  import ZaifRates from '/@/components/zaif/ZaifRates.vue'
-  import ZaifOrderBook from '/@/components/zaif/ZaifOrderBook.vue'
-  import ZaifTradeHistory from '/@/components/zaif/ZaifTradeHistory.vue'
-  import ZaifAskBid from '/@/components/zaif/ZaifAskBid.vue'
-  import MdiChartBellCurveCumulative from '/@/components/base/icons/mdi/MdiChartBellCurveCumulative.vue'
-  import MdiHistory from '/@/components/base/icons/mdi/MdiHistory.vue'
-  import MdiBookOpen from '/@/components/base/icons/mdi/MdiBookOpen.vue'
-  import BaseTitle from '/@/components/base/BaseTitle.vue'
-  import LineChart from '/@/components/chart/LineChart.vue'
-  import { min } from '/@/utils/math'
-  import {
-    get1DRates,
-    get1HRates,
-    get5mRates,
-  } from '/@/functions/effect/api/zaif'
-  import { useFirestore } from '/@/plugins/firebase'
-  import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
-  import day from 'dayjs'
-  import { toComma } from '/@/utils/format'
+defineEmit(['click'])
 
-  defineEmit(['click'])
+const useResizeable = () => {
+  sm.value = getWindowWidth(window.innerWidth)
 
-  const useResizeable = () => {
+  window.addEventListener('resize', () => {
     sm.value = getWindowWidth(window.innerWidth)
+  })
+}
 
-    window.addEventListener('resize', () => {
-      sm.value = getWindowWidth(window.innerWidth)
-    })
+const sm = ref('')
+
+const getWindowWidth = (width: number): string => {
+  if (width <= 640) {
+    return 'mobile'
+  } else if (width <= 1280) {
+    return 'sm'
+  } else {
+    return 'xl'
   }
+}
 
-  const sm = ref('')
+const { lastPrice } = useLastPrice()
+const data = ref<number[]>([])
+const labels = ref<Date[]>([])
+const pair = inject('tradeHistoryPair') as Ref<ZaifOrderBookPairs>
+const value = ref<'1H' | '5m' | '1D'>('1H')
+const { $firestore } = useFirestore()
 
-  const getWindowWidth = (width: number): string => {
-    if (width <= 640) {
-      return 'mobile'
-    } else if (width <= 1280) {
-      return 'sm'
-    } else {
-      return 'xl'
+const pathRef = ref<'chart' | '' | 'order-book' | 'history'>('')
+
+const getPrice = (pair: ZaifOrderBookPairs) => {
+  const g = intervalFactory(value.value)
+  g(pair, new Date(), $firestore).then((e) => {
+    data.value = e.map(({ value }) => value)
+    labels.value = e.map(({ date }) => date)
+  })
+}
+
+const onClick = (payload: 'chart' | 'order-book' | 'history') => {
+  pathRef.value = payload
+}
+
+const intervalFactory = (payload: '1H' | '5m' | '1D') => {
+  switch (payload) {
+    case '1H': {
+      return get1HRates
+    }
+
+    case '5m': {
+      return get5mRates
+    }
+
+    case '1D': {
+      return get1DRates
     }
   }
+}
+const onInput = (payload: ZaifOrderBookPairs) => {
+  pair.value = payload
+}
 
-  const { lastPrice } = useLastPrice()
-  const data = ref<number[]>([])
-  const labels = ref<Date[]>([])
-  const pair = inject('tradeHistoryPair') as Ref<ZaifOrderBookPairs>
-  const value = ref<'1H' | '5m' | '1D'>('1H')
-  const { $firestore } = useFirestore()
+watch(pair, (now) => {
+  getPrice(now)
+})
 
-  const pathRef = ref<'chart' | '' | 'order-book' | 'history'>('')
+watch(value, () => {
+  getPrice(pair.value)
+})
 
-  const getPrice = (pair: ZaifOrderBookPairs) => {
-    const g = intervalFactory(value.value)
-    g(pair, new Date(), $firestore).then((e) => {
-      data.value = e.map(({ value }) => value)
-      labels.value = e.map(({ date }) => date)
-    })
-  }
+onBeforeMount(() => {
+  useResizeable()
+  getPrice(pair.value)
+})
 
-  const onClick = (payload: 'chart' | 'order-book' | 'history') => {
-    pathRef.value = payload
-  }
-
-  const intervalFactory = (payload: '1H' | '5m' | '1D') => {
-    switch (payload) {
-      case '1H': {
-        return get1HRates
-      }
-
-      case '5m': {
-        return get5mRates
-      }
-
-      case '1D': {
-        return get1DRates
-      }
-    }
-  }
-  const onInput = (payload: ZaifOrderBookPairs) => {
-    pair.value = payload
-  }
-
-  watch(pair, (now) => {
-    getPrice(now)
-  })
-
-  watch(value, () => {
-    getPrice(pair.value)
-  })
-
-  onBeforeMount(() => {
-    useResizeable()
-    getPrice(pair.value)
-  })
-
-  const d = computed(() => ({
-    labels: labels.value,
-    series: [
-      {
-        data: data.value,
-        className: 'fill-current text-red-500 stroke-current',
-      },
-    ],
-  }))
-  const lowValue = computed(() => min(data.value))
+const d = computed(() => ({
+  labels: labels.value,
+  series: [
+    {
+      data: data.value,
+      className: 'fill-current text-red-500 stroke-current',
+    },
+  ],
+}))
+const lowValue = computed(() => min(data.value))
 </script>
 
 <style scoped lang="scss">
-  .btnn {
-    &:nth-child(1) {
-      @apply rounded-l-xl border-t border-b border-l;
-    }
-
-    &:nth-last-child(1) {
-      @apply rounded-r-xl border-t border-b border-r;
-    }
+.btnn {
+  &:nth-child(1) {
+    @apply rounded-l-xl border-t border-b border-l;
   }
+
+  &:nth-last-child(1) {
+    @apply rounded-r-xl border-t border-b border-r;
+  }
+}
 </style>

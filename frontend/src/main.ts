@@ -1,13 +1,15 @@
-import App from '/@/App.vue'
-import { ViteSSG } from 'vite-ssg'
 // import StoryBookApp from '../stories/StorybookApp.vue'
 import '/@/assets/styles/main.scss'
 import '/@/assets/styles/tailwind.scss'
-import ky from '/@/plugins/ky'
-import { routes } from '/@/router'
+
+import NProgress from 'nprogress'
+import { ViteSSG } from 'vite-ssg'
+
+import App from '/@/App.vue'
 // import { router as storybookRouter } from '../stories/router'
 import firestore from '/@/plugins/firebase'
-import NProgress from 'nprogress'
+import ky from '/@/plugins/ky'
+import { routes } from '/@/router'
 export const createApp = ViteSSG(
   // the root component
   App,

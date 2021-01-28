@@ -17,19 +17,19 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps } from 'vue'
+import { defineProps } from 'vue'
 
-  import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
-  import { zaifOrderBookPairs } from '/@/components/zaif/pair'
-  import BaseMenu from '/@/components/menu/BaseMenu.vue'
+import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
+import BaseMenu from '/@/components/menu/BaseMenu.vue'
+import { zaifOrderBookPairs } from '/@/components/zaif/pair'
 
-  defineProps<{ value: string }>()
+defineProps<{ value: string }>()
 
-  const format = (payload: string) => {
-    const [symbol, baseSymbol] = payload.split('_')
-    return {
-      symbol: symbol.toUpperCase(),
-      baseSymbol: baseSymbol.toUpperCase(),
-    }
+const format = (payload: string) => {
+  const [symbol, baseSymbol] = payload.split('_')
+  return {
+    symbol: symbol.toUpperCase(),
+    baseSymbol: baseSymbol.toUpperCase(),
   }
+}
 </script>

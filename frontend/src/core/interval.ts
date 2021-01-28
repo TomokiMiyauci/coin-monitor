@@ -1,5 +1,6 @@
-import { useReactive } from '/@/core/reactive'
 import { onBeforeMount, onBeforeUnmount } from 'vue'
+
+import { useReactive } from '/@/core/reactive'
 
 type Params = [TimerHandler, number]
 

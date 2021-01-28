@@ -1,6 +1,7 @@
-import { useKy } from '/@/plugins/ky'
-import { DEPTH } from '/@/api/zaif/entrypoint'
 import type { getDepth } from 'zaif-client'
+
+import { DEPTH } from '/@/api/zaif/entrypoint'
+import { useKy } from '/@/plugins/ky'
 
 type Pair = Parameters<typeof getDepth>[number]
 

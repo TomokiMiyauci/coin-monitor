@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-  import { useOrderBook } from '/@/components/coincheck/useOrderBooks'
-  import OrderBook from '/@/components/order-book/OrderBook.vue'
+import { useOrderBook } from '/@/components/coincheck/useOrderBooks'
+import OrderBook from '/@/components/order-book/OrderBook.vue'
 
-  const { asks, bids } = useOrderBook()
+const { asks, bids } = useOrderBook()
 </script>

@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
-  import { mdiMinusThick } from '@mdi/js'
-  import BaseMdiIcon from '/@/components/base/icons/BaseMdiIcon.vue'
+import { mdiMinusThick } from '@mdi/js'
+
+import BaseMdiIcon from '/@/components/base/icons/BaseMdiIcon.vue'
 </script>

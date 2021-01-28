@@ -5,8 +5,8 @@
   >
     <div class="text-right p-2">
       <button
-        @click="$emit('close')"
         class="p-2 rounded-md focus:outline-none focus:ring"
+        @click="$emit('close')"
       >
         <svg
           class="w-6 h-6 text-gray-600"
@@ -32,6 +32,6 @@
 </template>
 
 <script setup lang="ts">
-  import { defineEmit } from 'vue'
-  defineEmit(['close'])
+import { defineEmit } from 'vue'
+defineEmit(['close'])
 </script>

@@ -1,5 +1,6 @@
-import ky from 'ky-universal'
 import type { Options } from 'ky'
+import ky from 'ky-universal'
+
 import { curriedFirstBaseGetApi } from '/@/functions/pure/api'
 
 const kyInstance = ky.create({
@@ -100,9 +101,9 @@ const getTrades = (pair: 'BTCJPY' = 'BTCJPY') => {
 
 export {
   getDepth,
-  ResponseDepth,
   getPrice,
-  ResponsePrice,
   getTrades,
+  ResponseDepth,
+  ResponsePrice,
   ResponseTrades,
 }

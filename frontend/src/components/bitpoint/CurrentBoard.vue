@@ -14,49 +14,50 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
-  import LastPrice from '/@/components/last-price/LastPrice.vue'
-  import OrderBook from '/@/components/order-book/OrderBook.vue'
-  import TradeHistoryWithoutType from '/@/components/trade-history/TradeHistoryWithoutType.vue'
-  import { depth } from '/@/reactives/api/bitpoint'
-  import { usePrice } from '/@/reactives/bitpoint/usePrice'
-  import { useTrades } from '/@/reactives/bitpoint/useTrades'
-  import BaseCard from '/@/components/base/BaseCard.vue'
+import { computed, defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: {
-      OrderBook,
-      LastPrice,
-      TradeHistoryWithoutType,
-      BaseCard,
-    },
+import BaseCard from '/@/components/base/BaseCard.vue'
+import LastPrice from '/@/components/last-price/LastPrice.vue'
+import OrderBook from '/@/components/order-book/OrderBook.vue'
+import TradeHistoryWithoutType from '/@/components/trade-history/TradeHistoryWithoutType.vue'
+import { depth } from '/@/reactives/api/bitpoint'
+import { usePrice } from '/@/reactives/bitpoint/usePrice'
+import { useTrades } from '/@/reactives/bitpoint/useTrades'
 
-    setup() {
-      const { state, setData } = depth()
-      const { data } = useTrades()
+export default defineComponent({
+  components: {
+    OrderBook,
+    LastPrice,
+    TradeHistoryWithoutType,
+    BaseCard,
+  },
 
-      setData()
+  setup() {
+    const { state, setData } = depth()
+    const { data } = useTrades()
 
-      const asks = computed(() =>
-        state.value?.asks.map(
-          ({ price, qty }) => [price, qty] as [number, number]
-        )
+    setData()
+
+    const asks = computed(() =>
+      state.value?.asks.map(
+        ({ price, qty }) => [price, qty] as [number, number]
       )
+    )
 
-      const bids = computed(() =>
-        state.value?.bids.map(
-          ({ price, qty }) => [price, qty] as [number, number]
-        )
+    const bids = computed(() =>
+      state.value?.bids.map(
+        ({ price, qty }) => [price, qty] as [number, number]
       )
+    )
 
-      const { price } = usePrice()
+    const { price } = usePrice()
 
-      return {
-        asks,
-        bids,
-        price,
-        data,
-      }
-    },
-  })
+    return {
+      asks,
+      bids,
+      price,
+      data,
+    }
+  },
+})
 </script>

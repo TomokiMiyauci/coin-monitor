@@ -1,9 +1,10 @@
 import { Ref, watch } from 'vue'
-import { getTicker } from '/@/api/zaif'
-import { useReactive } from '/@/core/reactive'
-import { useInterval } from '/@/core/interval'
-import type { getTicker as data } from 'zaif-client'
 import { computed } from 'vue'
+import type { getTicker as data } from 'zaif-client'
+
+import { getTicker } from '/@/api/zaif'
+import { useInterval } from '/@/core/interval'
+import { useReactive } from '/@/core/reactive'
 import { ZaifPair } from '/@/types/pair'
 
 type Data = ReturnType<typeof data> extends Promise<infer data> ? data : never

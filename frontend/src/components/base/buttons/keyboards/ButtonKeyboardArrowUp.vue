@@ -5,6 +5,6 @@
 </template>
 
 <script setup lang="ts">
-  import BaseButtonKeyboard from '/@/components/base/buttons/keyboards/BaseButtonKeyboard.vue'
-  import MdiArrowUp from '/@/components/base/icons/mdi/MdiArrowUp.vue'
+import BaseButtonKeyboard from '/@/components/base/buttons/keyboards/BaseButtonKeyboard.vue'
+import MdiArrowUp from '/@/components/base/icons/mdi/MdiArrowUp.vue'
 </script>

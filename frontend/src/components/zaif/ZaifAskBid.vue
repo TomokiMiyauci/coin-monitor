@@ -15,53 +15,51 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, Ref, inject, computed } from 'vue'
-  import { useTicker } from '/@/components/zaif/useTicker'
-  import AskBid from '/@/components/base/AskBid.vue'
-  import {
-    zaifOrderBookPairs,
-    ZaifOrderBookPairs,
-  } from '/@/components/zaif/pair'
-  import BaseMenu from '/@/components/base/BaseMenu.vue'
-  import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
+import { computed, defineComponent, inject, Ref } from 'vue'
 
-  export default defineComponent({
-    components: {
-      AskBid,
-      BaseMenu,
-      BaseSvgPair,
-    },
-    setup() {
-      const pair = inject('askBidPair') as Ref<ZaifOrderBookPairs>
-      const { ask, bid, low, high, volume } = useTicker(pair)
+import AskBid from '/@/components/base/AskBid.vue'
+import BaseMenu from '/@/components/base/BaseMenu.vue'
+import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
+import { ZaifOrderBookPairs, zaifOrderBookPairs } from '/@/components/zaif/pair'
+import { useTicker } from '/@/components/zaif/useTicker'
 
-      const askBidAttrs = computed(() => ({
-        ask: ask.value,
-        bid: bid.value,
-        high: high.value,
-        low: low.value,
-        volume: volume.value,
-      }))
+export default defineComponent({
+  components: {
+    AskBid,
+    BaseMenu,
+    BaseSvgPair,
+  },
+  setup() {
+    const pair = inject('askBidPair') as Ref<ZaifOrderBookPairs>
+    const { ask, bid, low, high, volume } = useTicker(pair)
 
-      const onInput = (payload: ZaifOrderBookPairs) => {
-        pair.value = payload
-      }
+    const askBidAttrs = computed(() => ({
+      ask: ask.value,
+      bid: bid.value,
+      high: high.value,
+      low: low.value,
+      volume: volume.value,
+    }))
 
-      const format = (payload: ZaifOrderBookPairs) => {
-        const [symbol, baseSymbol] = payload.split('_')
-        return {
-          symbol: symbol.toUpperCase(),
-          baseSymbol: baseSymbol.toUpperCase(),
-        }
-      }
+    const onInput = (payload: ZaifOrderBookPairs) => {
+      pair.value = payload
+    }
 
+    const format = (payload: ZaifOrderBookPairs) => {
+      const [symbol, baseSymbol] = payload.split('_')
       return {
-        zaifOrderBookPairs,
-        format,
-        onInput,
-        pair,
-        askBidAttrs,
+        symbol: symbol.toUpperCase(),
+        baseSymbol: baseSymbol.toUpperCase(),
       }
-    },
-  })
+    }
+
+    return {
+      zaifOrderBookPairs,
+      format,
+      onInput,
+      pair,
+      askBidAttrs,
+    }
+  },
+})
 </script>

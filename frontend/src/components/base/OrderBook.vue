@@ -51,64 +51,65 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from 'vue'
-  import CommaFilter from '/@/components/base/CommaFilter.vue'
-  import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
-  import BaseCard from '/@/components/base/BaseCard.vue'
+import { computed, defineComponent } from 'vue'
 
-  type PriceAmount = [number, number][]
+import BaseCard from '/@/components/base/BaseCard.vue'
+import CommaFilter from '/@/components/base/CommaFilter.vue'
+import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
 
-  export default defineComponent({
-    components: {
-      CommaFilter,
-      SpinLoader,
-      BaseCard,
+type PriceAmount = [number, number][]
+
+export default defineComponent({
+  components: {
+    CommaFilter,
+    SpinLoader,
+    BaseCard,
+  },
+
+  props: {
+    asks: {
+      type: Array as () => PriceAmount,
+      default: () => [],
     },
 
-    props: {
-      asks: {
-        type: Array as () => PriceAmount,
-        default: () => [],
-      },
-
-      bids: {
-        type: Array as () => PriceAmount,
-        default: () => [],
-      },
+    bids: {
+      type: Array as () => PriceAmount,
+      default: () => [],
     },
+  },
 
-    setup(props) {
-      const tick = computed(() => {
-        if (
-          !!props.asks.length &&
-          !!props.asks[9] &&
-          !!props.bids.length &&
-          !!props.bids[0]
-        ) {
-          return props.asks[9][0] - props.bids[0][0]
-        }
-        return undefined
-      })
+  setup(props) {
+    const tick = computed(() => {
+      if (
+        !!props.asks.length &&
+        !!props.asks[9] &&
+        !!props.bids.length &&
+        !!props.bids[0]
+      ) {
+        return props.asks[9][0] - props.bids[0][0]
+      }
+      return undefined
+    })
 
-      return { tick }
-    },
-  })
+    return { tick }
+  },
+})
 </script>
 
 <style scoped>
-  .aaa::after {
-    content: 'Ask';
+.aaa::after {
+  content: 'Ask';
 
-    @apply text-7xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  absolute bg-clip-text text-transparent bg-gradient-to-b from-gray-400 to-red-500;
+  @apply text-7xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  absolute bg-clip-text text-transparent bg-gradient-to-b from-gray-400 to-red-500;
 
-    z-index: -1;
-  }
+  z-index: -1;
+}
 
-  .bbb::after {
-    content: 'bid';
+.bbb::after {
+  content: 'bid';
 
-    @apply text-7xl capitalize top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  absolute bg-clip-text text-transparent bg-gradient-to-b from-green-500 to-gray-400;
+  @apply text-7xl capitalize top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  absolute bg-clip-text text-transparent bg-gradient-to-b from-green-500 to-gray-400;
 
-    z-index: -1;
-  }
+  z-index: -1;
+}
 </style>

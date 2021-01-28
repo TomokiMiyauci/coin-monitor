@@ -1,7 +1,8 @@
+import { sort } from 'rambda'
+import { computed, ComputedRef } from 'vue'
+
 import { useInterval } from '/@/core/interval'
 import { trades } from '/@/reactives/api/bitpoint'
-import { ComputedRef, computed } from 'vue'
-import { sort } from 'rambda'
 
 export type OrUndefined<T> = T | undefined
 export type ComputedRefOrUndefined<T> = ComputedRef<OrUndefined<T>>

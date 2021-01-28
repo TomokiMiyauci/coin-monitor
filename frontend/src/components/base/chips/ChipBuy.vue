@@ -7,8 +7,8 @@
 </template>
 
 <script>
-  import BaseChip from '/@/components/base/chips/BaseChip.vue'
-  export default {
-    components: { BaseChip },
-  }
+import BaseChip from '/@/components/base/chips/BaseChip.vue'
+export default {
+  components: { BaseChip },
+}
 </script>

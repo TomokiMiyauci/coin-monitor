@@ -1,11 +1,12 @@
-import { computed, ComputedRef, watch, Ref, watchEffect, isRef } from 'vue'
-import { getLastPrice } from '/@/api/zaif'
-import { useInterval } from '/@/core/interval'
-import { useReactive } from '/@/core/reactive'
+import { computed, ComputedRef, isRef, Ref, watch, watchEffect } from 'vue'
 import { getLastPrice as g } from 'zaif-client'
-import { toLowerCase } from '/@/utils/format'
+
+import { getLastPrice } from '/@/api/zaif'
 import { ZaifSymbol } from '/@/components/base/coin'
 import { zaifPairs } from '/@/components/zaif/pair'
+import { useInterval } from '/@/core/interval'
+import { useReactive } from '/@/core/reactive'
+import { toLowerCase } from '/@/utils/format'
 
 type Pair = Parameters<typeof g>[number]
 

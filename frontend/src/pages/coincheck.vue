@@ -5,10 +5,11 @@
 </template>
 
 <script setup lang="ts">
-  import CurrentBoard from '/@/components/coincheck/CurrentBoard.vue'
-  import { useHead } from '@vueuse/head'
+import { useHead } from '@vueuse/head'
 
-  useHead({
-    title: 'Coincheck | Coin Monitor',
-  })
+import CurrentBoard from '/@/components/coincheck/CurrentBoard.vue'
+
+useHead({
+  title: 'Coincheck | Coin Monitor',
+})
 </script>

@@ -14,6 +14,6 @@
 </template>
 
 <script setup lang="ts">
-  import LogoLetter from '/@/components/app/LogoLetter.vue'
-  import MdiMenu from '/@/components/base/icons/mdi/MdiMenu.vue'
+import LogoLetter from '/@/components/app/LogoLetter.vue'
+import MdiMenu from '/@/components/base/icons/mdi/MdiMenu.vue'
 </script>

@@ -10,35 +10,36 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
-  import { useTrades } from '/@/components/coincheck/useTrades'
-  import TradeHistorys from '/@/components/trade-history/TradeHistory.vue'
-  import BaseCard from '/@/components/base/BaseCard.vue'
+import { defineComponent } from 'vue'
 
-  export default defineComponent({
-    components: {
-      TradeHistorys,
-      SpinLoader,
-      BaseCard,
-    },
+import BaseCard from '/@/components/base/BaseCard.vue'
+import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
+import { useTrades } from '/@/components/coincheck/useTrades'
+import TradeHistorys from '/@/components/trade-history/TradeHistory.vue'
 
-    setup() {
-      const { data } = useTrades()
+export default defineComponent({
+  components: {
+    TradeHistorys,
+    SpinLoader,
+    BaseCard,
+  },
 
-      return { data }
-    },
-  })
+  setup() {
+    const { data } = useTrades()
+
+    return { data }
+  },
+})
 </script>
 
 <style scoped>
-  .fade-enter-active,
-  .fade-leave-active {
-    @apply transition-opacity duration-100;
-  }
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition-opacity duration-100;
+}
 
-  .fade-enter-from,
-  .fade-leave-to {
-    @apply opacity-0;
-  }
+.fade-enter-from,
+.fade-leave-to {
+  @apply opacity-0;
+}
 </style>

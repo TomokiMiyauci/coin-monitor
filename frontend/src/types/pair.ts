@@ -1,8 +1,9 @@
-import { zaif, coincheck, bitbank, Markets } from '/@/types/market'
-import type { getTicker } from 'zaif-client'
+import { curry } from '@kahirokunn/ts-curry'
 import type { getTicker as BitbankPair } from 'bitbank-client'
 import type { getRate } from 'coincheck-client'
-import { curry } from '@kahirokunn/ts-curry'
+import type { getTicker } from 'zaif-client'
+
+import { bitbank, coincheck, Markets, zaif } from '/@/types/market'
 type Arg<T extends (pair: any) => Promise<any>> = Parameters<T>[number]
 
 export type ZaifPair = Arg<typeof getTicker>
@@ -29,4 +30,4 @@ const coincheckPair = curriedMarket2Pair(coincheck)
 const zaifPair = curriedMarket2Pair(zaif)
 const bitbankPair = curriedMarket2Pair(bitbank)
 
-export { coincheckPair, zaifPair, bitbankPair }
+export { bitbankPair, coincheckPair, zaifPair }

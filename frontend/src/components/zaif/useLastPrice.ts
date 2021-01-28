@@ -1,6 +1,6 @@
 import { getLastPrice } from '/@/api/zaif'
-import { useReactive } from '/@/core/reactive'
 import { useInterval } from '/@/core/interval'
+import { useReactive } from '/@/core/reactive'
 
 export const useLastPrice = () => {
   const { get } = getLastPrice()

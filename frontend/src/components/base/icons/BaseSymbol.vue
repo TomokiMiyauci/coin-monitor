@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 
-  export default defineComponent({
-    props: {
-      component: {
-        type: [Function, Object],
-        required: true,
-      },
+export default defineComponent({
+  props: {
+    component: {
+      type: [Function, Object],
+      required: true,
     },
-  })
+  },
+})
 </script>

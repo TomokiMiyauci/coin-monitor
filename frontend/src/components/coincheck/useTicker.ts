@@ -1,7 +1,8 @@
-import { ref, computed } from 'vue'
+import type { getAPITicker } from 'coincheck-client'
+import { computed, ref } from 'vue'
+
 import { getTicker } from '/@/api/coincheck'
 import { useInterval } from '/@/core/interval'
-import type { getAPITicker } from 'coincheck-client'
 
 type Data = ReturnType<typeof getAPITicker> extends Promise<infer data>
   ? data

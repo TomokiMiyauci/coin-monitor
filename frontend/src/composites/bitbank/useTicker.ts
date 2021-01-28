@@ -1,9 +1,10 @@
-import { Ref, watch } from 'vue'
-import { getTicker } from '/@/api/bitbank'
-import { useReactive } from '/@/core/reactive'
-import { useInterval } from '/@/core/interval'
 import type { getTicker as data, Pairs } from 'bitbank-client'
+import { Ref, watch } from 'vue'
 import { computed } from 'vue'
+
+import { getTicker } from '/@/api/bitbank'
+import { useInterval } from '/@/core/interval'
+import { useReactive } from '/@/core/reactive'
 
 type Data = ReturnType<typeof data> extends Promise<infer data> ? data : never
 
