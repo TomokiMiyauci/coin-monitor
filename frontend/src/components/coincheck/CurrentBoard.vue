@@ -10,7 +10,7 @@
     />
   </div>
 
-  <base-card class="my-4">
+  <div class="my-4 card">
     <base-title class="p-4">history</base-title>
     <line-chart
       id="chart"
@@ -28,7 +28,7 @@
         },
       }"
     />
-  </base-card>
+  </div>
 
   <div class="grid grid-rows-3 grid-cols-6 mt-4 gap-4">
     <coincheck-rates
@@ -49,7 +49,6 @@
 import { computed, defineComponent, onBeforeMount, ref } from 'vue'
 
 import AskBid from '/@/components/base/AskBid.vue'
-import BaseCard from '/@/components/base/BaseCard.vue'
 import BaseTitle from '/@/components/base/BaseTitle.vue'
 import LineChart from '/@/components/chart/LineChart.vue'
 import CoincheckRates from '/@/components/coincheck/CoincheckRates.vue'
@@ -64,7 +63,6 @@ import { min } from '/@/utils/math'
 
 export default defineComponent({
   components: {
-    BaseCard,
     LatestPrice,
     AskBid,
     OrderBooks,

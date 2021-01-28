@@ -7,16 +7,15 @@
       class="bg-white col-span-2 sm:col-span-1 rounded-mdhover:shadow-xl duration-200 transition"
     />
 
-    <base-card class="w-80 col-span-1 max-h-96 overflow-y-scroll">
+    <div class="w-80 card col-span-1 max-h-96 overflow-y-scroll">
       <trade-history-without-type :data="data" />
-    </base-card>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 
-import BaseCard from '/@/components/base/BaseCard.vue'
 import LastPrice from '/@/components/last-price/LastPrice.vue'
 import OrderBook from '/@/components/order-book/OrderBook.vue'
 import TradeHistoryWithoutType from '/@/components/trade-history/TradeHistoryWithoutType.vue'
@@ -29,7 +28,6 @@ export default defineComponent({
     OrderBook,
     LastPrice,
     TradeHistoryWithoutType,
-    BaseCard,
   },
 
   setup() {

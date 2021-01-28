@@ -7,9 +7,9 @@
     <slot />
 
     <transition name="fade">
-      <base-card v-show="hover" class="absolute z-10" :class="classContent">
+      <div v-show="hover" class="absolute card z-10" :class="classContent">
         <slot name="content" />
-      </base-card>
+      </div>
     </transition>
   </span>
 </template>
@@ -17,16 +17,12 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue'
 
-import BaseCard from '/@/components/base/BaseCard.vue'
-
 const hover = ref(false)
-const switchHover = (isHover: boolean) => {
+const switchHover = (isHover: boolean): void => {
   hover.value = isHover
 }
 
 defineProps<{ classContent?: string }>()
 </script>
 
-<style scoped lang="scss">
-@import '../../assets/styles/transitions.scss';
-</style>
+<style lang="scss" src="../../assets/styles/transitions.scss"></style>

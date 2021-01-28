@@ -1,5 +1,5 @@
 <template>
-  <base-card class="overflow-scroll">
+  <div class="card overflow-scroll">
     <div class="flex p-2 justify-between items-center">
       <h3 class="ml-2 text-lg text-gray-400">Coins</h3>
 
@@ -31,14 +31,13 @@
         </base-svg-symbol>
       </template>
     </rate-table-ratio>
-  </base-card>
+  </div>
 </template>
 
 <script setup lang="ts">
 import type { FirebaseFirestore } from 'firebase/firestore/lite'
 import { computed, ref } from 'vue'
 
-import BaseCard from '/@/components/base/BaseCard.vue'
 import BaseSvgSymbol from '/@/components/base/BaseSvgSymbol.vue'
 import CoincheckSymbol from '/@/components/coincheck/CoincheckSymbol.vue'
 import { getPairs } from '/@/components/coincheck/useRate'

@@ -1,5 +1,5 @@
 <template>
-  <base-card>
+  <div class="card">
     <div class="flex flex-col">
       <div class="flex p-2 justify-between items-center">
         <h3 class="ml-2 p-2 mt-1 text-lg text-gray-400">Order Book</h3>
@@ -47,13 +47,12 @@
         </div>
       </template>
     </div>
-  </base-card>
+  </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 
-import BaseCard from '/@/components/base/BaseCard.vue'
 import CommaFilter from '/@/components/base/CommaFilter.vue'
 import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
 
@@ -63,7 +62,6 @@ export default defineComponent({
   components: {
     CommaFilter,
     SpinLoader,
-    BaseCard,
   },
 
   props: {

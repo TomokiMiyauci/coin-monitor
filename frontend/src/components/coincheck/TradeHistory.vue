@@ -1,18 +1,17 @@
 <template>
-  <base-card>
+  <div class="card">
     <h3 class="py-3 px-3 text-lg text-gray-400">Trade History</h3>
 
     <transition name="fade">
       <trade-historys v-if="data" class="w-full mt-2" :data="data" />
       <spin-loader v-else class="h-full" />
     </transition>
-  </base-card>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import BaseCard from '/@/components/base/BaseCard.vue'
 import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
 import { useTrades } from '/@/components/coincheck/useTrades'
 import TradeHistorys from '/@/components/trade-history/TradeHistory.vue'
@@ -21,7 +20,6 @@ export default defineComponent({
   components: {
     TradeHistorys,
     SpinLoader,
-    BaseCard,
   },
 
   setup() {
