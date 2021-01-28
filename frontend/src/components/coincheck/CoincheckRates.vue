@@ -49,7 +49,7 @@ import { useRate } from '/@/reactives/api/coincheck'
 import { useOpenPrice, useYesterdayNowPrice } from '/@/reactives/api/coincheck'
 import { getLowercasePair } from '/@/utils/format'
 const { $http } = useKy()
-const { $firestore } = useFirestore()
+const { firestore } = useFirestore()
 const now = new Date()
 
 const base = ref<'JPY'>('JPY')
@@ -120,10 +120,10 @@ const activator = (
 }
 
 const b = lowerPairs.value.map((pair) =>
-  activator(pair, useOpenPrice, now, $firestore)
+  activator(pair, useOpenPrice, now, firestore)
 )
 const c = lowerPairs.value.map((pair) =>
-  activator(pair, useYesterdayNowPrice, now, $firestore)
+  activator(pair, useYesterdayNowPrice, now, firestore)
 )
 
 const reducer = (acc: any, cur: ReturnType<typeof activator>) => {

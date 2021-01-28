@@ -218,13 +218,13 @@ const data = ref<number[]>([])
 const labels = ref<Date[]>([])
 const pair = inject('tradeHistoryPair') as Ref<ZaifOrderBookPairs>
 const value = ref<'1H' | '5m' | '1D'>('1H')
-const { $firestore } = useFirestore()
+const { firestore } = useFirestore()
 
 const pathRef = ref<'chart' | '' | 'order-book' | 'history'>('')
 
 const getPrice = (pair: ZaifOrderBookPairs) => {
   const g = intervalFactory(value.value)
-  g(pair, new Date(), $firestore).then((e) => {
+  g(pair, new Date(), firestore).then((e) => {
     data.value = e.map(({ value }) => value)
     labels.value = e.map(({ date }) => date)
   })

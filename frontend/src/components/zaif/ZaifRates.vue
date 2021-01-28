@@ -55,7 +55,7 @@ export default defineComponent({
   setup() {
     const baseSymbol = ref<ZaifBaseSymbol>('JPY')
     const now = new Date()
-    const { $firestore } = useFirestore()
+    const { firestore } = useFirestore()
     const openPrice = [
       'btc_jpy',
       'xem_jpy',
@@ -70,7 +70,7 @@ export default defineComponent({
       'erc20.cms_jpy',
       'mosaic.cms_jpy',
     ].map((pair) => {
-      const { state, setData } = useOpenPrice(pair, now, $firestore)
+      const { state, setData } = useOpenPrice(pair, now, firestore)
       setData()
 
       return {

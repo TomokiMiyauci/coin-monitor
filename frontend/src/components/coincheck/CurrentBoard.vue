@@ -72,12 +72,12 @@ export default defineComponent({
 
   setup() {
     const { last, ask, bid, high, low, volume } = useTicker()
-    const { $firestore } = useFirestore()
+    const { firestore } = useFirestore()
     const data = ref<number[]>([])
     const labels = ref<string[]>([])
 
     onBeforeMount(() =>
-      get1HPrices(coincheckPairsPath)('btc_jpy', new Date(), $firestore).then(
+      get1HPrices(coincheckPairsPath)('btc_jpy', new Date(), firestore).then(
         (e) => {
           data.value = e.map((a) => a.value)
           labels.value = e.map((a) => a.date.toLocaleTimeString())

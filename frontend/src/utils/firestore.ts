@@ -10,14 +10,14 @@ import {
 
 import { useFirestore } from '/@/plugins/firebase'
 export const useHistorycal = () => {
-  const { $firestore } = useFirestore()
+  const { firestore } = useFirestore()
   const now = day()
   const before1H = now.subtract(1, 'hour')
 
   const get = () =>
     getDocs<{ value: number; date: Date }>(
       query(
-        collection($firestore, 'markets/coincheck/pairs/btc_jpy/rates'),
+        collection(firestore, 'markets/coincheck/pairs/btc_jpy/rates'),
         orderBy('date', 'asc'),
         where('date', '>', before1H.toDate()),
         limit(60)
