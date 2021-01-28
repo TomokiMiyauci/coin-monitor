@@ -3,10 +3,10 @@
     :version="version"
     :width="width"
     :height="height"
-    :viewBox="viewBox"
+    :view-box="viewBox"
     :xmlns="xmlns"
     :xmlns:xlink="xmlnsXlink"
-    :className="className"
+    :class-name="className"
   >
     <!-- <g>
       <text text-anchor="end" font-size="24" :x="padding.left" :y="padding.top">
@@ -15,11 +15,11 @@
     </g> -->
     <grid-y
       class="text-gray-400"
-      :strokeDasharray="8"
+      :stroke-dasharray="8"
       v-bind="chartViewBox"
       :grids="5"
     />
-    <frame class="text-gray-400" :strokeDasharray="0" v-bind="chartViewBox" />
+    <frame class="text-gray-400" :stroke-dasharray="0" v-bind="chartViewBox" />
 
     <g fill="none" class="text-blue-500">
       <polyline stroke="currentColor" :points="points"></polyline>
