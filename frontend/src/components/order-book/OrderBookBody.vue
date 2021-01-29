@@ -5,11 +5,14 @@
       :key="price"
       class="grid grid-cols-2 px-10 hover:bg-gray-50 duration-100 hover:bg-opacity-60"
     >
-      <comma-filter
+      <span
+        v-flash
         class="bg-clip-text text-transparent bg-gradient-to-l"
         :class="valueClass"
-        :value="price"
-      />
+      >
+        {{ toComma(price) }}
+      </span>
+
       <div class="text-right relative -z-10">
         <div
           v-show="sum"
@@ -17,11 +20,13 @@
           :class="barClass"
           :style="compute(amount)"
         ></div>
-        <comma-filter
+        <span
+          v-flash
           class="bg-clip-text text-transparent bg-gradient-to-l"
           :class="valueClass"
-          :value="amount"
-        />
+        >
+          {{ toComma(amount) }}
+        </span>
       </div>
     </div>
 
@@ -32,8 +37,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import CommaFilter from '/@/components/base/CommaFilter.vue'
 import type { PriceAmount } from '/@/components/order-book/share'
+import { toComma } from '/@/utils/format'
 
 export default defineComponent({
   props: {
@@ -68,15 +73,12 @@ export default defineComponent({
     },
   },
 
-  components: {
-    CommaFilter,
-  },
-
   setup(props) {
     const compute = (a: number): string => `width: ${(a / props.sum) * 100}%`
 
     return {
       compute,
+      toComma,
     }
   },
 })

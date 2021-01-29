@@ -10,13 +10,17 @@
         </div>
 
         <div class="flex justify-between">
-          <text-loader skelton-class="h-8 sm:h-12 w-1/3" :value="ask">
-            <comma-filter class="text-3xl sm:text-5xl" :value="ask" />
-          </text-loader>
+          <text-loader
+            v-flash
+            skelton-class="h-8 sm:h-12 w-1/3 text-3xl sm:text-5xl"
+            :value="toComma(ask)"
+          />
 
-          <text-loader skelton-class="h-8 sm:h-12 w-1/3" :value="bid">
-            <comma-filter class="text-3xl sm:text-5xl" :value="bid" />
-          </text-loader>
+          <text-loader
+            v-flash
+            skelton-class="h-8 sm:h-12 w-1/3 text-3xl sm:text-5xl"
+            :value="toComma(bid)"
+          />
         </div>
 
         <div
@@ -58,7 +62,6 @@
 import { computed, defineProps } from 'vue'
 
 import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
-import CommaFilter from '/@/components/base/CommaFilter.vue'
 import TextLoader from '/@/components/base/loaders/TextLoader.vue'
 import { toComma } from '/@/utils/format'
 

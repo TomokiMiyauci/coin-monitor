@@ -26,10 +26,12 @@
         <div
           class="p-5 text-center text-lg bg-gradient-to-b from-red-400 to-green-400"
         >
-          <comma-filter
+          <span
+            v-flash
             class="text-xl bg-clip-text text-transparent bg-gradient-to-r font-medium from-purple-500 to-blue-500"
-            :value="tick"
-          />
+          >
+            {{ tick }}
+          </span>
         </div>
 
         <order-book-body
@@ -53,14 +55,13 @@
 import { add, sort } from 'rambda'
 import { computed, defineComponent } from 'vue'
 
-import CommaFilter from '/@/components/base/CommaFilter.vue'
 import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
 import OrderBookBody from '/@/components/order-book/OrderBookBody.vue'
 import type { PriceAmount } from '/@/components/order-book/share'
+import { toComma } from '/@/utils/format'
 
 export default defineComponent({
   components: {
-    CommaFilter,
     SpinLoader,
     OrderBookBody,
   },
@@ -100,7 +101,7 @@ export default defineComponent({
       return undefined
     })
 
-    return { tick, sortedAsks, sumAmount }
+    return { tick, sortedAsks, sumAmount, toComma }
   },
 })
 </script>

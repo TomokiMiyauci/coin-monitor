@@ -29,9 +29,9 @@
     <template #expand-td="{ item }">
       <td v-for="value in headerValues" :key="value" class="text-right pr-3">
         <text-loader :value="item[value]" skelton-style="min-width: 3rem">
-          <flash-box :value="isNumber(item[value])">
+          <span v-flash>
             <percentage :value="isNumber(item[value])" />
-          </flash-box>
+          </span>
         </text-loader>
       </td>
     </template>
@@ -42,7 +42,6 @@
 import { computed, defineProps } from 'vue'
 
 import BaseTooltip from '/@/components/base/BaseTooltip.vue'
-import FlashBox from '/@/components/base/FlashBox.vue'
 import MdiMdiHelpCircle from '/@/components/base/icons/mdi/MdiHelpCircle.vue'
 import TextIcon from '/@/components/base/icons/TextIcon.vue'
 import TextLoader from '/@/components/base/loaders/TextLoader.vue'

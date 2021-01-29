@@ -3,16 +3,11 @@
     <the-title-toolbar class="hidden sm:block"> last </the-title-toolbar>
     <div>
       <text-loader
-        skelton-class="h-14 sm:h-24 md:h-32"
-        class="flex items-center"
-        :value="value"
-      >
-        <comma-filter
-          class="text-3xl sm:text-8xl font-bold sm:font-normal sm:px-4 md:text-9xl mr-3"
-          :value="value"
-        />
-        <icon-up-down-flat class="hidden sm:block" :status="status" />
-      </text-loader>
+        v-flash
+        skelton-class="inline-block w-full h-14 sm:h-24 md:h-32 text-3xl sm:text-8xl font-bold sm:font-normal sm:px-4 md:text-9xl mr-3"
+        :value="val"
+      />
+      <!-- <icon-up-down-flat class="hidden sm:inline-block" :status="status" /> -->
     </div>
   </div>
 </template>
@@ -21,11 +16,11 @@
 import { computed, defineComponent, isRef, Ref, ref, toRefs, watch } from 'vue'
 
 import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
-import CommaFilter from '/@/components/base/CommaFilter.vue'
 import IconUpDownFlat, {
   Status,
 } from '/@/components/base/icons/IconUpDownFlat.vue'
 import TextLoader from '/@/components/base/loaders/TextLoader.vue'
+import { toComma } from '/@/utils/format'
 
 const useHistory = (v: Ref<number | undefined> | undefined) => {
   const history = ref<number>()
@@ -42,7 +37,6 @@ const useHistory = (v: Ref<number | undefined> | undefined) => {
 
 export default defineComponent({
   components: {
-    CommaFilter,
     TextLoader,
     TheTitleToolbar,
     IconUpDownFlat,
@@ -56,6 +50,7 @@ export default defineComponent({
 
     value: {
       type: Number,
+      default: undefined,
     },
   },
 
@@ -72,9 +67,11 @@ export default defineComponent({
     }
 
     const status = computed<Status>(() => _status(props.value, history.value))
+    const val = computed(() => toComma(props.value))
 
     return {
       status,
+      val,
     }
   },
 })

@@ -7,24 +7,22 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { defineProps } from 'vue'
 
-export default defineComponent({
-  props: {
-    width: {
-      type: [String, Number],
-      default: 24,
-    },
-    height: {
-      type: [String, Number],
-      default: 24,
-    },
-    component: {
-      type: [Function, Object],
-      default: undefined,
-      requried: true,
-    },
+defineProps({
+  width: {
+    type: [String, Number],
+    default: 24,
+  },
+  height: {
+    type: [String, Number],
+    default: 24,
+  },
+  component: {
+    type: [Function, Object],
+    default: undefined,
+    requried: true,
   },
 })
 </script>

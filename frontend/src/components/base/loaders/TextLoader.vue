@@ -9,7 +9,7 @@
       <skelton-loader />
     </div>
 
-    <div v-else>
+    <div v-else :class="skeltonClass">
       <slot>{{ value }}</slot>
     </div>
   </transition>

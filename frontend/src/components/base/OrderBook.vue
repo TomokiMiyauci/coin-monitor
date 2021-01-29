@@ -18,15 +18,15 @@
             :key="ask"
             class="flex px-10 py-0.5 justify-between items-center"
           >
-            <comma-filter :value="ask[0]" />
-            <comma-filter :value="ask[1]" />
+            <span v-flash>{{ toComma(ask[0]) }}</span>
+            <span v-flash>{{ toComma(ask[1]) }}</span>
           </div>
         </div>
 
         <div
           class="p-5 text-center text-lg bg-gradient-to-b from-red-400 to-green-400"
         >
-          <comma-filter :value="tick" />
+          <span v-flash>{{ toComma(tick) }}</span>
         </div>
 
         <div class="bg-gradient-to-t to-green-400 bbb relative z-0 from-white">
@@ -35,9 +35,8 @@
             :key="bid"
             class="flex flex-row py-0.5 px-10 justify-between hover:bg-gray-200 hover:opacity-70"
           >
-            <comma-filter :value="bid[0]" />
-
-            <comma-filter :value="bid[1]" />
+            <span v-flash>{{ toComma(bid[0]) }}</span>
+            <span v-flash>{{ toComma(bid[1]) }}</span>
           </div>
         </div>
       </template>
@@ -50,47 +49,34 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue'
+<script setup lang="ts">
+import { computed, defineProps, PropType } from 'vue'
 
-import CommaFilter from '/@/components/base/CommaFilter.vue'
 import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
+import { toComma } from '/@/utils/format'
 
-type PriceAmount = [number, number][]
-
-export default defineComponent({
-  components: {
-    CommaFilter,
-    SpinLoader,
+const props = defineProps({
+  asks: {
+    type: Array as PropType<[number, number][]>,
+    default: () => [],
   },
 
-  props: {
-    asks: {
-      type: Array as () => PriceAmount,
-      default: () => [],
-    },
-
-    bids: {
-      type: Array as () => PriceAmount,
-      default: () => [],
-    },
+  bids: {
+    type: Array as () => [number, number][],
+    default: () => [],
   },
+})
 
-  setup(props) {
-    const tick = computed(() => {
-      if (
-        !!props.asks.length &&
-        !!props.asks[9] &&
-        !!props.bids.length &&
-        !!props.bids[0]
-      ) {
-        return props.asks[9][0] - props.bids[0][0]
-      }
-      return undefined
-    })
-
-    return { tick }
-  },
+const tick = computed(() => {
+  if (
+    !!props.asks.length &&
+    !!props.asks[9] &&
+    !!props.bids.length &&
+    !!props.bids[0]
+  ) {
+    return props.asks[9][0] - props.bids[0][0]
+  }
+  return undefined
 })
 </script>
 

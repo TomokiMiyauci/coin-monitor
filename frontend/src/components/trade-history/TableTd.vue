@@ -8,7 +8,7 @@
   </td>
 
   <td class="px-3 py-1 text-center">
-    <comma-filter :value="rate" />
+    <span v-flash>{{ toComma(rate) }}</span>
   </td>
 
   <td class="px-3 sm:px-5 py-1 text-right">
@@ -21,11 +21,10 @@ import { computed, defineComponent } from 'vue'
 
 import ChipBuy from '/@/components/base/chips/ChipBuy.vue'
 import ChipSell from '/@/components/base/chips/ChipSell.vue'
-import CommaFilter from '/@/components/base/CommaFilter.vue'
+import { toComma } from '/@/utils/format'
 
 export default defineComponent({
   components: {
-    CommaFilter,
     ChipBuy,
     ChipSell,
   },
@@ -68,6 +67,7 @@ export default defineComponent({
 
     return {
       formattedDate,
+      toComma,
     }
   },
 })

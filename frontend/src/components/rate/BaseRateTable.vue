@@ -20,9 +20,11 @@
 
         <slot name="td-rate" :rate="isNumberOrUndefined(item.rate)">
           <td class="text-right p-2">
-            <text-loader skelton-style="min-width: 6rem;" :value="item.rate">
-              <comma-filter :value="isNumberOrUndefined(item.rate)" />
-            </text-loader>
+            <text-loader
+              v-flash
+              skelton-style="min-width: 6rem;"
+              :value="toComma(isNumberOrUndefined(item.rate))"
+            />
           </td>
         </slot>
 
@@ -36,9 +38,9 @@
 import { computed, defineProps } from 'vue'
 
 import BaseTable from '/@/components/base/BaseTable.vue'
-import CommaFilter from '/@/components/base/CommaFilter.vue'
 import TextLoader from '/@/components/base/loaders/TextLoader.vue'
 import { isNumberOrUndefined, isString } from '/@/utils/assert'
+import { toComma } from '/@/utils/format'
 
 type Header = {
   text?: string

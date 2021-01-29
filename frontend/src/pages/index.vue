@@ -10,6 +10,9 @@
         <th>tick</th>
       </tr>
 
+      <!-- <span v-flash>{{ ask }}</span> -->
+      <!-- <span v-flash>{{ bid }}</span> -->
+
       <tr v-for="[key, [ask, bid, tick]] of Object.entries(tickers)" :key="key">
         <td class="p-3">
           <market-icon-text :value="key" />
