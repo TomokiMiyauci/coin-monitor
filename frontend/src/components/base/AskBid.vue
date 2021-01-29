@@ -62,23 +62,13 @@ import CommaFilter from '/@/components/base/CommaFilter.vue'
 import TextLoader from '/@/components/base/loaders/TextLoader.vue'
 import { toComma } from '/@/utils/format'
 
-const props = defineProps({
-  ask: {
-    type: Number,
-  },
-  bid: {
-    type: Number,
-  },
-  high: {
-    type: Number,
-  },
-  low: {
-    type: Number,
-  },
-  volume: {
-    type: Number,
-  },
-})
+const props = defineProps<{
+  ask: number
+  bid: number
+  high: number
+  low: number
+  volume: number
+}>()
 
 const highRef = computed(() => toComma(props.high))
 const lowRef = computed(() => toComma(props.low))
