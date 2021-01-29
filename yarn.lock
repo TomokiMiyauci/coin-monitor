@@ -11777,9 +11777,9 @@ vite-ssg@^0.5.0:
     yargs "^16.2.0"
 
 vite-svg-loader@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/vite-svg-loader/-/vite-svg-loader-1.3.0.tgz#9cc7087fdac6a85269292185e10d2d55b4f15b7e"
-  integrity sha512-QBiiX5Eu/Szflic0vLHVMOIQYCxfyXrHoipuEI+wG+0x7t0hni1Eowc9Is48ohyrID+Tbns8u46Iil3pNUpSCQ==
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/vite-svg-loader/-/vite-svg-loader-1.4.2.tgz#54e66edbc439a729224617fc00442639502c0d29"
+  integrity sha512-YHgKBITwHAO3NfCiLKutM7EkbiEF4QfcxApmZKCQbHVYTQVIRNUKRSpcwqk3CJQtykZrGc0OL4QfpQRqH/mU7A==
   dependencies:
     "@vue/compiler-sfc" "^3.0.5"
 
