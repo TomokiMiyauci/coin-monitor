@@ -22,6 +22,7 @@ export default defineComponent({
     },
     component: {
       type: [Function, Object],
+      default: undefined,
       requried: true,
     },
   },
