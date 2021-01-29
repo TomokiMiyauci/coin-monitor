@@ -8,8 +8,20 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "**/index.html"
+        "source": "/",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/zaif",
+        "destination": "zaif/index.html"
+      },
+      {
+        "source": "/coincheck",
+        "destination": "coincheck/index.html"
+      },
+      {
+        "source": "/bitbank",
+        "destination": "bitbank/index.html"
       }
     ],
     "headers": [
