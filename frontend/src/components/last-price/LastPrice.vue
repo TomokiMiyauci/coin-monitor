@@ -7,7 +7,6 @@
         skelton-class="inline-block w-full h-14 sm:h-24 md:h-32 text-3xl sm:text-8xl font-bold sm:font-normal sm:px-4 md:text-9xl mr-3"
         :value="val"
       />
-      <!-- <icon-up-down-flat class="hidden sm:inline-block" :status="status" /> -->
     </div>
   </div>
 </template>
@@ -16,9 +15,7 @@
 import { computed, defineComponent, isRef, Ref, ref, toRefs, watch } from 'vue'
 
 import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
-import IconUpDownFlat, {
-  Status,
-} from '/@/components/base/icons/IconUpDownFlat.vue'
+import { Status } from '/@/components/base/icons/IconUpDownFlat.vue'
 import TextLoader from '/@/components/base/loaders/TextLoader.vue'
 import { toComma } from '/@/utils/format'
 
@@ -39,7 +36,6 @@ export default defineComponent({
   components: {
     TextLoader,
     TheTitleToolbar,
-    IconUpDownFlat,
   },
 
   props: {
