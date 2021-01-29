@@ -36,7 +36,6 @@ import { computed, defineComponent, ref } from 'vue'
 
 import BaseSvgSymbol from '/@/components/base/BaseSvgSymbol.vue'
 import { ZaifBaseSymbol } from '/@/components/base/coin'
-// import BaseMenu from '/@/components/base/BaseMenu.vue'
 import RateTableRatio from '/@/components/rate/RateTableRatio.vue'
 import { usePair, useRates } from '/@/components/zaif/useRate'
 import { useFirestore } from '/@/plugins/firebase'

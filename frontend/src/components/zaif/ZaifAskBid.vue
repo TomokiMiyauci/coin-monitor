@@ -18,8 +18,8 @@
 import { computed, defineComponent, inject, Ref } from 'vue'
 
 import AskBid from '/@/components/base/AskBid.vue'
-import BaseMenu from '/@/components/base/BaseMenu.vue'
 import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
+import BaseMenu from '/@/components/menu/BaseMenu.vue'
 import { ZaifOrderBookPairs, zaifOrderBookPairs } from '/@/components/zaif/pair'
 import { useTicker } from '/@/components/zaif/useTicker'
 
