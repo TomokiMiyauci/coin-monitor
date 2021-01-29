@@ -28,8 +28,12 @@
 
     <template #expand-td="{ item }">
       <td v-for="value in headerValues" :key="value" class="text-right pr-3">
-        <text-loader :value="item[value]" skelton-style="min-width: 3rem">
-          <span v-flash>
+        <text-loader
+          v-flash
+          :value="item[value]"
+          skelton-style="min-width: 3rem"
+        >
+          <span>
             <percentage :value="isNumber(item[value])" />
           </span>
         </text-loader>

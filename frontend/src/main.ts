@@ -14,9 +14,10 @@ export const createApp = ViteSSG(
   App,
   { routes },
   ({ app, isClient, router }) => {
-    app.use(ky).use(firestore).use(flash)
+    app.use(ky).use(firestore)
 
     if (isClient) {
+      app.use(flash)
       router.beforeEach(() => {
         NProgress.start()
       })

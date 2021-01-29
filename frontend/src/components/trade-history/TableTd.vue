@@ -8,7 +8,7 @@
   </td>
 
   <td class="px-3 py-1 text-center">
-    <span v-flash>{{ toComma(rate) }}</span>
+    <span>{{ toComma(rate) }}</span>
   </td>
 
   <td class="px-3 sm:px-5 py-1 text-right">

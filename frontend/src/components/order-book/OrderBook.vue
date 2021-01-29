@@ -27,7 +27,6 @@
           class="p-5 text-center text-lg bg-gradient-to-b from-red-400 to-green-400"
         >
           <span
-            v-flash
             class="text-xl bg-clip-text text-transparent bg-gradient-to-r font-medium from-purple-500 to-blue-500"
           >
             {{ tick }}

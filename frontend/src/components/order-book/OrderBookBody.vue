@@ -6,7 +6,6 @@
       class="grid grid-cols-2 px-10 hover:bg-gray-50 duration-100 hover:bg-opacity-60"
     >
       <span
-        v-flash
         class="bg-clip-text text-transparent bg-gradient-to-l"
         :class="valueClass"
       >
@@ -21,7 +20,6 @@
           :style="compute(amount)"
         ></div>
         <span
-          v-flash
           class="bg-clip-text text-transparent bg-gradient-to-l"
           :class="valueClass"
         >
