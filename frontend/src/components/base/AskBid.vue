@@ -54,66 +54,33 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue'
+<script setup lang="ts">
+import { computed, defineProps } from 'vue'
 
 import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
 import CommaFilter from '/@/components/base/CommaFilter.vue'
+import TextLoader from '/@/components/base/loaders/TextLoader.vue'
 import { toComma } from '/@/utils/format'
 
-import TextLoader from './loaders/TextLoader.vue'
-
-export default defineComponent({
-  components: {
-    CommaFilter,
-    TextLoader,
-    TheTitleToolbar,
+const props = defineProps({
+  ask: {
+    type: Number,
   },
-  props: {
-    ask: {
-      type: Number,
-      default: undefined,
-      required: false,
-    },
-
-    bid: {
-      type: Number,
-      default: undefined,
-
-      required: false,
-    },
-
-    high: {
-      type: Number,
-      default: undefined,
-
-      required: false,
-    },
-
-    low: {
-      type: Number,
-      default: undefined,
-
-      required: false,
-    },
-    volume: {
-      type: Number,
-      default: undefined,
-
-      required: false,
-    },
+  bid: {
+    type: Number,
   },
-
-  setup(props) {
-    const highRef = computed(() => toComma(props.high))
-    const lowRef = computed(() => toComma(props.low))
-    const volumeRef = computed(() => toComma(props.volume))
-
-    return {
-      highRef,
-      lowRef,
-      volumeRef,
-    }
+  high: {
+    type: Number,
+  },
+  low: {
+    type: Number,
+  },
+  volume: {
+    type: Number,
   },
 })
+
+const highRef = computed(() => toComma(props.high))
+const lowRef = computed(() => toComma(props.low))
+const volumeRef = computed(() => toComma(props.volume))
 </script>
