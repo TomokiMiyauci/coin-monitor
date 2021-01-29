@@ -12,16 +12,8 @@
         "destination": "/index.html"
       },
       {
-        "source": "/zaif",
-        "destination": "/zaif.html"
-      },
-      {
-        "source": "/coincheck",
-        "destination": "/coincheck.html"
-      },
-      {
-        "source": "/bitbank",
-        "destination": "/bitbank.html"
+        "source": "**",
+        "destination": "**.html"
       }
     ],
     "headers": [
