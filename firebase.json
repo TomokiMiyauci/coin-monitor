@@ -13,15 +13,15 @@
       },
       {
         "source": "/zaif",
-        "destination": "zaif/index.html"
+        "destination": "/zaif.html"
       },
       {
         "source": "/coincheck",
-        "destination": "coincheck/index.html"
+        "destination": "/coincheck.html"
       },
       {
         "source": "/bitbank",
-        "destination": "bitbank/index.html"
+        "destination": "/bitbank.html"
       }
     ],
     "headers": [
