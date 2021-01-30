@@ -24,10 +24,9 @@
 import { defineProps, PropType } from 'vue'
 
 import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
+import TextLoader from '/@/components/base/loaders/TextLoader.vue'
+import ChartLine from '/@/components/chart/ChartLine.vue'
 import { toComma } from '/@/utils/format'
-
-import ChartLine from '../chart/ChartLine.vue'
-import TextLoader from './loaders/TextLoader.vue'
 
 defineProps({
   title: {

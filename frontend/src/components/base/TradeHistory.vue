@@ -14,30 +14,22 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { defineProps } from 'vue'
 
 import SpinLoader from '/@/components/base/loaders/SpinLoader.vue'
 import TradeHistorys from '/@/components/trade-history/TradeHistory.vue'
-type Data = {
-  id: number
-  date: Date
-  type: 'SELL' | 'BUY'
-  rate: number
-  amount: number
-}
 
-export default defineComponent({
-  components: {
-    TradeHistorys,
-    SpinLoader,
-  },
-
-  props: {
-    data: {
-      type: Array as () => Data[],
-      default: () => [],
-    },
+defineProps({
+  data: {
+    type: Array as () => {
+      id: number
+      date: Date
+      type: 'SELL' | 'BUY'
+      rate: number
+      amount: number
+    }[],
+    default: () => [],
   },
 })
 </script>

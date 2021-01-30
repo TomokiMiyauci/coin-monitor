@@ -1,5 +1,5 @@
 <template>
-  <transition tag="div" class="relative" name="fade" mode="out-in">
+  <transition tag="div" class="relative" name="slide-right" mode="out-in">
     <div
       v-if="isShow"
       :class="skeltonClass"
@@ -52,14 +52,4 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  @apply transition duration-100;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  @apply translate-x-6 transform opacity-0;
-}
-</style>
+<style lang="scss" src="/@/assets/styles/transitions.scss"></style>

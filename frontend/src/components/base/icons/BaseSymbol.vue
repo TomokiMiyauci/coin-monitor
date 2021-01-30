@@ -7,15 +7,13 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { defineProps } from 'vue'
 
-export default defineComponent({
-  props: {
-    component: {
-      type: [Function, Object],
-      required: true,
-    },
+defineProps({
+  component: {
+    type: [Function, Object],
+    required: true,
   },
 })
 </script>

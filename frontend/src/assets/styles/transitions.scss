@@ -17,3 +17,13 @@
 .slide-down-leave-to {
   @apply opacity-0 -translate-y-2;
 }
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+  @apply transition duration-100;
+}
+
+.slide-right-enter-from,
+.slide-right-leave-to {
+  @apply translate-x-6 transform opacity-0;
+}

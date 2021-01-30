@@ -7,50 +7,35 @@
   />
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue'
+<script setup lang="ts">
+import { computed, defineProps } from 'vue'
 
 import MdiArrowTopRight from '/@/components/base/icons/mdi/MdiArrowTopRight.vue'
 import MdiMinusThick from '/@/components/base/icons/mdi/MdiMinusThick.vue'
 
-export type Status = 'UP' | 'DOWN' | 'FLAT'
-
-export default defineComponent({
-  components: {
-    MdiArrowTopRight,
-    MdiMinusThick,
+type Status = 'UP' | 'DOWN' | 'FLAT'
+const props = defineProps({
+  status: {
+    type: String as () => 'UP' | 'DOWN' | 'FLAT',
+    default: '',
   },
+})
 
-  props: {
-    status: {
-      type: String as () => Status,
-      default: '',
-    },
-  },
-
-  setup(props) {
-    const _isFlat = (status: Status): boolean => status === 'FLAT'
-    const isFlat = computed(() => _isFlat(props.status))
-    const className = computed(() => {
-      switch (props.status) {
-        case 'UP': {
-          return 'text-red-500'
-        }
-
-        case 'DOWN': {
-          return 'text-green-500 rotate-90'
-        }
-
-        default: {
-          return ''
-        }
-      }
-    })
-
-    return {
-      className,
-      isFlat,
+const _isFlat = (status: Status): boolean => status === 'FLAT'
+const isFlat = computed(() => _isFlat(props.status))
+const className = computed(() => {
+  switch (props.status) {
+    case 'UP': {
+      return 'text-red-500'
     }
-  },
+
+    case 'DOWN': {
+      return 'text-green-500 rotate-90'
+    }
+
+    default: {
+      return ''
+    }
+  }
 })
 </script>

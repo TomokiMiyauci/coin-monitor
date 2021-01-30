@@ -21,7 +21,6 @@ defineProps({
   },
   component: {
     type: [Function, Object],
-    default: undefined,
     requried: true,
   },
 })

@@ -66,11 +66,11 @@ import TextLoader from '/@/components/base/loaders/TextLoader.vue'
 import { toComma } from '/@/utils/format'
 
 const props = defineProps<{
-  ask: number
-  bid: number
-  high: number
-  low: number
-  volume: number
+  ask?: number
+  bid?: number
+  high?: number
+  low?: number
+  volume?: number
 }>()
 
 const highRef = computed(() => toComma(props.high))

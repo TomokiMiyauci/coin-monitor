@@ -25,4 +25,4 @@ const switchHover = (isHover: boolean): void => {
 defineProps<{ classContent?: string }>()
 </script>
 
-<style lang="scss" src="../../assets/styles/transitions.scss"></style>
+<style lang="scss" src="/@/assets/styles/transitions.scss"></style>

@@ -6,9 +6,6 @@
   </base-chip>
 </template>
 
-<script>
+<script setup lang="ts">
 import BaseChip from '/@/components/base/chips/BaseChip.vue'
-export default {
-  components: { BaseChip },
-}
 </script>

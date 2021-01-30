@@ -1,17 +1,9 @@
 <template>
-  <base-svg :d="mdiViewDashboard" />
+  <base-mdi-icon :d="mdiViewDashboard" />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { mdiViewDashboard } from '@mdi/js'
-import { defineComponent } from 'vue'
 
-import BaseSvg from '/@/components/base/BaseSvg.vue'
-
-export default defineComponent({
-  components: { BaseSvg },
-  setup() {
-    return { mdiViewDashboard }
-  },
-})
+import BaseMdiIcon from '/@/components/base/icons/BaseMdiIcon.vue'
 </script>

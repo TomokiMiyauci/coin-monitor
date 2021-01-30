@@ -2,38 +2,32 @@
   <span :class="className">{{ percentagedNumber }}%</span>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue'
+<script setup lang="ts">
+import { computed, defineProps } from 'vue'
 
-export default defineComponent({
-  props: {
-    value: {
-      type: Number,
-      required: true,
-    },
-
-    fractionDigits: {
-      type: Number,
-      default: 2,
-    },
+const props = defineProps({
+  value: {
+    type: Number,
+    required: true,
   },
 
-  setup(props) {
-    const percentagedNumber = computed(() => {
-      // const percent = props.value / 100
-      return props.value.toFixed(props.fractionDigits)
-    })
-
-    const className = computed(() => {
-      if (props.value > 0) {
-        return 'text-green-400'
-      } else if (props.value < 0) {
-        return 'text-red-400'
-      }
-      return ''
-    })
-
-    return { percentagedNumber, className }
+  fractionDigits: {
+    type: Number,
+    default: 2,
   },
+})
+
+const percentagedNumber = computed(() => {
+  // const percent = props.value / 100
+  return props.value.toFixed(props.fractionDigits)
+})
+
+const className = computed(() => {
+  if (props.value > 0) {
+    return 'text-green-400'
+  } else if (props.value < 0) {
+    return 'text-red-400'
+  }
+  return ''
 })
 </script>

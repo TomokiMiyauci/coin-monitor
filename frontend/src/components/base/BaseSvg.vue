@@ -15,34 +15,33 @@
   </svg>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-  props: {
-    iconName: {
-      type: String,
-      default: 'icon',
-    },
+<script setup lang="ts">
+import { defineProps } from 'vue'
 
-    width: {
-      type: [Number, String],
-      default: 24,
-    },
+defineProps({
+  iconName: {
+    type: String,
+    default: 'icon',
+  },
 
-    height: {
-      type: [Number, String],
-      default: 24,
-    },
+  width: {
+    type: [Number, String],
+    default: 24,
+  },
 
-    iconColor: {
-      type: String,
-      default: 'currentColor',
-    },
+  height: {
+    type: [Number, String],
+    default: 24,
+  },
 
-    d: {
-      type: String,
-      default: '',
-    },
+  iconColor: {
+    type: String,
+    default: 'currentColor',
+  },
+
+  d: {
+    type: String,
+    default: '',
   },
 })
 </script>

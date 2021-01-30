@@ -18,32 +18,25 @@
   </span>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue'
+<script setup lang="ts">
+import { computed, defineProps } from 'vue'
 
-import { ZaifBaseSymbol } from '/@/components/base/coin'
+import type { ZaifBaseSymbol } from '/@/components/base/coin'
 import { getComponent } from '/@/components/zaif/symbol'
 
-export default defineComponent({
-  props: {
-    symbol: {
-      type: String as () => ZaifBaseSymbol,
-      required: true,
-    },
-
-    baseSymbol: {
-      type: String as () => ZaifBaseSymbol,
-      required: true,
-    },
+const props = defineProps({
+  symbol: {
+    type: String as () => ZaifBaseSymbol,
+    required: true,
   },
 
-  setup(props) {
-    const component = computed(() => getComponent(props.symbol))
-    const baseSymbolComponent = computed(() => getComponent(props.baseSymbol))
-
-    const pair = computed(() => `${props.symbol}${props.baseSymbol}`)
-
-    return { component, pair, baseSymbolComponent }
+  baseSymbol: {
+    type: String as () => ZaifBaseSymbol,
+    required: true,
   },
 })
+
+const component = computed(() => getComponent(props.symbol))
+const baseSymbolComponent = computed(() => getComponent(props.baseSymbol))
+const pair = computed(() => `${props.symbol}${props.baseSymbol}`)
 </script>
