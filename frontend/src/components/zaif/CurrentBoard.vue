@@ -31,10 +31,14 @@
     />
   </div>
 
-  <div class="sm:hidden overflow-x-scroll whitespace-nowrap">
+  <div class="sm:hidden flex gap-2 overflow-x-scroll whitespace-nowrap">
     <button
-      class="p-1 focus:outline-none border hover:bg-gray-300"
-      :class="{ 'bg-gray-200': ['chart', ''].includes(pathRef) }"
+      class="p-1 focus:outline-none rounded-t border-t border-l border-r shadow"
+      :class="
+        ['chart', ''].includes(pathRef)
+          ? 'bg-white text-green-400'
+          : 'bg-gray-200 '
+      "
       @click="onClick('chart')"
     >
       <MdiChartBellCurveCumulative /><span class="ml-1 capitalize align-middle"
@@ -42,16 +46,24 @@
       >
     </button>
     <button
-      class="p-1 focus:outline-none border hover:bg-gray-300"
-      :class="{ 'bg-gray-200': pathRef === 'order-book' }"
+      class="p-1 focus:outline-none shadow rounded-t border-t border-l border-r"
+      :class="
+        ['order-book'].includes(pathRef)
+          ? 'bg-white text-green-400'
+          : 'bg-gray-200'
+      "
       @click="onClick('order-book')"
     >
       <mdi-book-open />
       <span class="ml-1 capitalize align-middle">order book</span>
     </button>
     <button
-      class="p-1 focus:outline-none border hover:bg-gray-300"
-      :class="{ 'bg-gray-200': pathRef === 'history' }"
+      class="p-1 focus:outline-none shadow rounded-t border-t border-l border-r"
+      :class="
+        ['history'].includes(pathRef)
+          ? 'bg-white text-green-400'
+          : 'bg-gray-200 '
+      "
       @click="onClick('history')"
     >
       <mdi-history />
@@ -61,19 +73,17 @@
   </div>
 
   <zaif-history-chart
-    v-if="
-      (sm === 'mobile' && ['chart', ''].includes(pathRef)) || sm !== 'mobile'
-    "
+    v-if="(isMobile && ['chart', ''].includes(pathRef)) || !isMobile"
   />
 
   <div class="grid grid-cols-6 gap-4">
     <zaif-order-book
-      v-if="(sm === 'mobile' && pathRef === 'order-book') || sm !== 'mobile'"
+      v-if="(isMobile && pathRef === 'order-book') || !isMobile"
       class="col-span-full sm:col-span-6 md:col-span-3 2xl:col-span-2"
     />
 
     <zaif-trade-history
-      v-if="(sm === 'mobile' && pathRef === 'history') || sm !== 'mobile'"
+      v-if="(isMobile && pathRef === 'history') || !isMobile"
       class="col-span-full sm:col-span-6 md:col-span-3 2xl:col-span-2"
     />
 
@@ -84,7 +94,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, onBeforeMount, ref, watch } from 'vue'
+import { defineProps, inject, ref, watch } from 'vue'
 
 import MdiBookOpen from '/@/components/base/icons/mdi/MdiBookOpen.vue'
 import MdiChartBellCurveCumulative from '/@/components/base/icons/mdi/MdiChartBellCurveCumulative.vue'
@@ -101,25 +111,9 @@ import { resetInterval } from '/@/functions/effect/interval'
 import { multiplie1000 } from '/@/functions/pure/math'
 import { depthKey, lastPriceKey } from '/@/provider'
 
-const useResizeable = () => {
-  sm.value = getWindowWidth(window.innerWidth)
-
-  window.addEventListener('resize', () => {
-    sm.value = getWindowWidth(window.innerWidth)
-  })
-}
-
-const sm = ref('')
-
-const getWindowWidth = (width: number): string => {
-  if (width <= 640) {
-    return 'mobile'
-  } else if (width <= 1280) {
-    return 'sm'
-  } else {
-    return 'xl'
-  }
-}
+defineProps<{
+  isMobile: boolean
+}>()
 
 const {
   intervalId: intervalIdDepth,
@@ -165,8 +159,4 @@ const pathRef = ref<'chart' | '' | 'order-book' | 'history'>('')
 const onClick = (payload: 'chart' | 'order-book' | 'history') => {
   pathRef.value = payload
 }
-
-onBeforeMount(() => {
-  useResizeable()
-})
 </script>

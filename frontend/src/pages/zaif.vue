@@ -37,13 +37,13 @@
     </div>
   </div>
   <div class="px-1">
-    <current-board />
+    <current-board :is-mobile="isMobile" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
-import { provide, ref, watch } from 'vue'
+import { computed, onBeforeMount, provide, ref, watch } from 'vue'
 
 import CurrentBoard from '/@/components/zaif/CurrentBoard.vue'
 import type { ZaifOrderBookPairs } from '/@/components/zaif/pair'
@@ -148,4 +148,27 @@ watch(pair, (now) => {
     v.value = now
   })
 })
+
+const useResizeable = () => {
+  breakpoint.value = getWindowWidth(window.innerWidth)
+
+  window.addEventListener('resize', () => {
+    breakpoint.value = getWindowWidth(window.innerWidth)
+  })
+}
+
+type Breakpoints = 'mobile' | 'sm' | 'xl'
+const breakpoint = ref<'' | Breakpoints>('')
+const isMobile = computed(() => ['', 'mobile'].includes(breakpoint.value))
+const getWindowWidth = (width: number): Breakpoints => {
+  if (width <= 640) {
+    return 'mobile'
+  } else if (width <= 1280) {
+    return 'sm'
+  } else {
+    return 'xl'
+  }
+}
+
+onBeforeMount(useResizeable)
 </script>
