@@ -117,7 +117,7 @@ const lineChart = computed(() => ({
         },
         axisY: {
           className: 'text-sm',
-          labelInterpolationFnc: (value: number, index: index) => {
+          labelInterpolationFnc: (value: number, index: number) => {
             return index % 2 === 0
               ? value > 1000
                 ? `${toComma(value / 1000)}k`

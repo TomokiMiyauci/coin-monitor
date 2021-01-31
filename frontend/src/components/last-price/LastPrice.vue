@@ -21,7 +21,6 @@
 <script lang="ts">
 import { computed, defineComponent, isRef, Ref, ref, toRefs, watch } from 'vue'
 
-import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
 import { Status } from '/@/components/base/icons/IconUpDownFlat.vue'
 import TextLoader from '/@/components/base/loaders/TextLoader.vue'
 import { toComma } from '/@/utils/format'
@@ -42,7 +41,6 @@ const useHistory = (v: Ref<number | undefined> | undefined) => {
 export default defineComponent({
   components: {
     TextLoader,
-    TheTitleToolbar,
   },
 
   props: {
