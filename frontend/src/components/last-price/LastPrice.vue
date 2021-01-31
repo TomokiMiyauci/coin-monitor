@@ -1,13 +1,20 @@
 <template>
-  <div class="card-none sm:card px-3 sm:p-0">
-    <the-title-toolbar class="hidden sm:block"> last </the-title-toolbar>
-    <div>
-      <text-loader
-        v-flash
-        skelton-class="inline-block w-full h-14 sm:h-24 md:h-32 text-3xl sm:text-8xl font-bold sm:font-normal sm:px-4 md:text-9xl mr-3"
-        :value="val"
-      />
-    </div>
+  <div class="card-none sm:card">
+    <h2>
+      <header
+        class="p-4 hidden items-center capitalize sm:flex justify-between"
+      >
+        <span class="text-2xl">last</span>
+
+        <slot name="header" />
+      </header>
+    </h2>
+
+    <text-loader
+      v-flash
+      skelton-class="inline-block w-full h-8 sm:h-24 md:h-32  text-3xl sm:text-7xl md:text-8xl font-bold sm:font-normal sm:p-4"
+      :value="val"
+    />
   </div>
 </template>
 

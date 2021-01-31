@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <order-book class="hidden sm:block" :asks="asks" :bids="bids">
       <template #menu>
-        <select-box-zaif-pair :value="pair" @input="onInput" />
+        <select-box-zaif-pair v-model="pair" />
       </template>
     </order-book>
 
@@ -74,10 +74,6 @@ import { useDepth } from '/@/components/zaif/useDepth'
 import { toComma } from '/@/utils/format'
 
 const pair = inject('orderBookPair') as Ref<ZaifOrderBookPairs>
-
-const onInput = (payload: ZaifOrderBookPairs) => {
-  pair.value = payload
-}
 
 const { asks, bids } = useDepth(pair)
 

@@ -1,10 +1,10 @@
 <template>
   <base-menu
-    :value="value"
+    :value="modelValue"
     title="Symbol Pair"
     class-button="w-48 sm:w-40 lg:w-52"
     :candidates="zaifOrderBookPairs"
-    @input="$emit('input', $event)"
+    @input="$emit('update:modelValue', $event)"
   >
     <template #buttonContent="{ value }">
       <base-svg-pair v-bind="format(value)" />
@@ -23,7 +23,7 @@ import BaseSvgPair from '/@/components/base/BaseSvgPair.vue'
 import BaseMenu from '/@/components/menu/BaseMenu.vue'
 import { zaifOrderBookPairs } from '/@/components/zaif/pair'
 
-defineProps<{ value: string }>()
+defineProps<{ modelValue: string }>()
 
 const format = (payload: string) => {
   const [symbol, baseSymbol] = payload.split('_')

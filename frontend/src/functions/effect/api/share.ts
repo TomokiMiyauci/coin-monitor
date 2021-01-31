@@ -8,6 +8,8 @@ import {
   QueryConstraint,
   Timestamp,
 } from 'firebase/firestore/lite'
+import type { Options } from 'ky'
+import ky from 'ky-universal'
 
 import {
   dateLessThanWhere,
@@ -16,9 +18,10 @@ import {
   limit12,
 } from '/@/functions/pure/api'
 import { zaifPairsPath } from '/@/functions/pure/api'
+import { depth, rate, ticker } from '/@/functions/pure/path'
+import { kyInstance } from '/@/plugins/ky'
 import { CoincheckPair } from '/@/types/pair'
 import { getBefore1DayFromDate, getMidnightFromDate } from '/@/utils/format'
-
 type ResponseData = {
   value: number
   date: Timestamp
@@ -79,7 +82,22 @@ const getYesterdayNowPrice = curriedBaseGetPrice(getBefore1DayFromDate)
 const get1HPrices = curriedBaseGetP(getBefore1DayFromDate, '1H')
 const get5mPrices = curriedBaseGetP(getBefore1DayFromDate, '5m')
 const get1DPrices = curriedBaseGetP(() => new Date(), '1D')
+
+type Ky = typeof ky
+
+const baseGetApi = (ky: Ky) => (path: string) => <T>(
+  options: Options
+): Promise<T> => ky.get(path, options).json<T>()
+const baseGetV2 = baseGetApi(kyInstance)
+
+const baseGetTicker = baseGetV2(ticker)
+const baseGetRate = baseGetV2(rate)
+const baseGetDepth = baseGetV2(depth)
+
 export {
+  baseGetDepth,
+  baseGetRate,
+  baseGetTicker,
   get1DPrices,
   get1HPrices,
   get5mPrices,

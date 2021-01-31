@@ -1,12 +1,12 @@
 import ky from 'ky-universal'
 import { inject, InjectionKey, Plugin } from 'vue'
-const instance = ky.create({
-  prefixUrl: import.meta.env.VITE_BASE_URL,
+const kyInstance = ky.create({
+  prefixUrl: import.meta.env.VITE_BASE_URL as string,
 })
 
 const plugin: Plugin = {
   install: (app) => {
-    app.provide(key, instance)
+    app.provide(key, kyInstance)
   },
 }
 
@@ -18,4 +18,4 @@ const useKy = (): { $http: typeof ky } => {
 
 export default plugin
 
-export { useKy }
+export { kyInstance, useKy }

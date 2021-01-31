@@ -2,7 +2,7 @@
   <div class="flex flex-col">
     <trade-history class="hidden mb-4 sm:block" :data="data20">
       <template #menu>
-        <select-box-zaif-pair :value="pair" @input="onInput" />
+        <select-box-zaif-pair v-model="pair" />
       </template>
     </trade-history>
 
@@ -60,8 +60,4 @@ const options = computed<IPieChartOptions>(() => ({
 }))
 
 const data20 = computed(() => data.value.slice(0, 20))
-
-const onInput = (payload: ZaifOrderBookPairs) => {
-  pair.value = payload
-}
 </script>

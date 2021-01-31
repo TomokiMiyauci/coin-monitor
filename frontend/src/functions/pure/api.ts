@@ -10,22 +10,16 @@ import { coincheckPair, Pairs } from '/@/types/pair'
 import { CoincheckPair } from '/@/types/pair'
 import { joinSlash } from '/@/utils/format'
 
-export type kyInstance = typeof ky
+export type Ky = typeof ky
 
-export const baseGetApi = (
+export const baseGetApi = <T extends unknown>(
   path: string,
   options: Options,
-  kyInstance: kyInstance
-) => {
-  return kyInstance.get(path, options).json()
-}
+  ky: Ky
+): Promise<T> => ky.get(path, options).json<T>()
 
-export const firstBaseGetApi = (
-  kyInstance: kyInstance,
-  path: string,
-  options: Options
-) => {
-  return kyInstance.get(path, options).json()
+export const firstBaseGetApi = (Ky: Ky, path: string, options: Options) => {
+  return Ky.get(path, options).json()
 }
 
 export const curriedBaseGetApi = curry(baseGetApi)
@@ -38,15 +32,14 @@ const coincheckOption = m('coincheck')
 export const run = <T, U extends Markets>(
   base: typeof baseGetRateApi,
   pair: Pairs<U>,
-  kyInstance: kyInstance
+  Ky: Ky
 ): Promise<T> => {
-  return base({ searchParams: coincheckPair(pair) })(kyInstance) as Promise<T>
+  return base({ searchParams: coincheckPair(pair) })(Ky) as Promise<T>
 }
 
 export const curriedRun = <T, U extends Markets>(
   base: typeof baseGetRateApi
-) => (pair: Pairs<U>, kyInstance: kyInstance) =>
-  run(base, pair, kyInstance) as Promise<T>
+) => (pair: Pairs<U>, Ky: Ky) => run(base, pair, Ky) as Promise<T>
 export const curriedFirstBaseGetApi = curry(firstBaseGetApi)
 
 // export const makeParameters = <T extends Markets>(market: T) => {

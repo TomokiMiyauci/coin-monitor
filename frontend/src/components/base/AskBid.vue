@@ -1,8 +1,8 @@
 <template>
   <div class="card flex flex-col">
-    <the-title-toolbar> last </the-title-toolbar>
+    <slot name="header" />
 
-    <div class="p-4 flex-grow bg-gradient-to-b from-white to-gray-200">
+    <div class="p-4">
       <div class="flex flex-col h-full">
         <div class="flex justify-between">
           <h2 class="text-gray-700 title">ask</h2>
@@ -18,7 +18,7 @@
 
           <text-loader
             v-flash
-            skelton-class="h-8 sm:h-12 w-1/3 text-3xl sm:text-5xl"
+            skelton-class="h-8 sm:h-12 w-1/3 text-3xl text-right sm:text-5xl"
             :value="toComma(bid)"
           />
         </div>
@@ -61,7 +61,6 @@
 <script setup lang="ts">
 import { computed, defineProps } from 'vue'
 
-import TheTitleToolbar from '/@/components/app/TheTitleToolbar.vue'
 import TextLoader from '/@/components/base/loaders/TextLoader.vue'
 import { toComma } from '/@/utils/format'
 
